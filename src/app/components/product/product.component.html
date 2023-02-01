@@ -1,0 +1,77 @@
+<app-category [categories]="categories"></app-category>
+
+<section>
+  <h2>Productos nuevos</h2>
+  <form (ngSubmit)="submit($event)" [formGroup]="formProduct">
+    <div class="content__input">
+      <label for="productCategory">Tipo de Vehículo</label>
+      <select id="productCategory" formControlName="product_category_id">
+        <option value="" selected="true">SELECCIONE</option>
+        <option *ngFor="let category of categories" value={{category.id}}>
+          {{category.categories | uppercase}}
+        </option>
+      </select>
+    </div>
+    <div class="content__input">
+      <label for="productId">Código del producto</label>
+      <input type="text" id="productId" formControlName="product_code">
+    </div>
+    <div class="content__input">
+      <label for="productsDescription">Descripción del producto</label>
+      <input type="text" id="productsDescription" formControlName="product_description">
+    </div>
+    <div class="content__input">
+      <label for="totalStock">Inventario total</label>
+      <input type="number" id="totalStock" formControlName="totals_stock">
+    </div>
+    <button type="submit">
+        Ingresar
+    </button>
+    <button (click)="updateProduct()">
+        Modificar
+    </button>
+  </form>
+
+  <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="productCode">
+      <th mat-header-cell *matHeaderCellDef>Código de producto</th>
+      <td mat-cell *matCellDef="let item">{{item.product_code}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productCategory">
+      <th mat-header-cell *matHeaderCellDef>Tipo de vehículo</th>
+      <td mat-cell *matCellDef="let item">{{item.product_category_id.vehicle_type}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let item">{{item.product_description}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef>Inventario</th>
+      <td mat-cell *matCellDef="let item">{{item.totals_stock}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="toggleUpdate">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <button (click)="toggleUpdate(item)">Modificar</button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="toggleDelete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <button (click)="toggleDelete(item)">Borrar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</section>
+

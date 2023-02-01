@@ -1,0 +1,10 @@
+{
+  "/category": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "pathRewrite": {
+      "^/category": ""
+    },
+    "logLevel": "debug"
+  }
+}
