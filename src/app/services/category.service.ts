@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Category } from '../models/category.models';
-import { CreateCategoryDTO,UpdateaCategoryDTO } from '../models/category.models';
+import { Category } from '../models/category.model';
+import { CreateCategoryDTO,UpdateaCategoryDTO } from '../models/category.model';
 import {environment} from '../../enviroments/environment'
 
 
@@ -11,7 +11,7 @@ import {environment} from '../../enviroments/environment'
 })
 export class CategoryService {
 
-  private apiUrl = `${environment.API_URL}/category/add_category/`
+  private apiUrl = `${environment.API_URL}/categories/add_category/`
 
   constructor(
     private http: HttpClient,

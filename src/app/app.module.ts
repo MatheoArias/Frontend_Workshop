@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CategoryComponent } from './components/category/category.component';
+import { BuysProductsComponent } from './components/buys-products/buys-products.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CategoryComponent } from './components/category/category.component';
     AppComponent,
     ProductComponent,
     CategoryComponent,
+    BuysProductsComponent,
   ],
   imports: [
     BrowserModule,

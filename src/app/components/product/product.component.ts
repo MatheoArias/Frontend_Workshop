@@ -1,7 +1,7 @@
 import { Component,OnInit, Output } from '@angular/core';
 import { Product} from 'src/app/models/product.model';
 import { CreateProductsDTO,UpdateProductsDTO } from 'src/app/models/product.model';
-import { Category } from 'src/app/models/category.models';
+import { Category } from 'src/app/models/category.model';
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
@@ -12,33 +12,37 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-
   products: Product[] = [];
   categories: Category[] = [];
   selectedProductId:number=0;
+  messagges:string='';
 
   ///****Table values
-  displayedColumns: string[] = ['productCode', 'productCategory', 'description', 'stock','toggleUpdate','toggleDelete'];
+  displayedColumns: string[] = ['code', 'category', 'description','unitValue', 'totalStock','toggleUpdate','toggleDelete'];
   dataSource = this.products
 
   formProduct!: FormGroup;
-  get product_category_id() {
-    return this.formProduct.get('product_category_id');
+  get category_id() {
+    return this.formProduct.get('category_id');
   }
-  get product_code() {
-    return this.formProduct.get('product_code');
+  get code() {
+    return this.formProduct.get('code');
   }
-  get product_description() {
-    return this.formProduct.get('product_description');
+  get description() {
+    return this.formProduct.get('description');
+  }
+  get unit_value(){
+    return this.formProduct.get('unit_value');
   }
   get totals_stock() {
     return this.formProduct.get('totals_stock');
   }
   private formAddProduct() {
     this.formProduct = this.formBuilder.group({
-      product_category_id: ['', [Validators.required]],
-      product_code: ['', [Validators.required]],
-      product_description: ['', [Validators.required]],
+      category_id: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      unit_value: ['', [Validators.required]],
       totals_stock: ['', [Validators.required]],
     });
   }
@@ -52,6 +56,11 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllCategories();
+    this.getAllProducts();
+  }
+
+  getAllCategories(){
     this.categoryService.getAllCategories().subscribe(
       data=>{
         this.categories = data;
@@ -59,22 +68,34 @@ export class ProductComponent implements OnInit {
     )
   }
 
+  getAllProducts(){
+    this.ProductService.getAllProducts().subscribe(
+      data=>{
+        this.products = data;
+      }
+    );
+  }
+
   updateProduct(){
     const addProduct:UpdateProductsDTO=this.formProduct.value
     if (this.formProduct.valid) {
-      this.ProductService.updateProduct(this.selectedProductId,addProduct).subscribe()
+      this.ProductService.updateProduct(this.selectedProductId,addProduct).subscribe(
+        data=>{
+          this.getAllProducts();
+          this.messagges=`La Categoría ${data.description} con código ${data.code} fue modificado con éxito `;
+        }
+      )
       this.formProduct.reset();
     } else {
       this.formProduct.markAllAsTouched();
     }
-
   }
 
   toggleUpdate(item: Product){
     this.ProductService.getProduct(item.id).subscribe(
       data=>{
         this.formProduct.patchValue(data);
-        this.product_category_id?.setValue(data.product_destination_id.id);
+        this.category_id?.setValue(data.category_id.id);
         this.selectedProductId = data.id
       }
     )
@@ -88,7 +109,13 @@ export class ProductComponent implements OnInit {
     event.preventDefault();
     const addProduct:CreateProductsDTO=this.formProduct.value
     if (this.formProduct.valid) {
-      this.ProductService.createProduct(addProduct).subscribe();
+      console.log(addProduct)
+      this.ProductService.createProduct(addProduct).subscribe(data=>{
+        this.getAllProducts();
+        this.messagges=`La Categoría ${data.description} con código ${data.code} fue agregado con éxito `;
+      }
+
+      );
       this.formProduct.reset();
     } else {
       this.formProduct.markAllAsTouched();

@@ -1,24 +1,19 @@
-import { Category } from "./category.models";
+import { Category } from './category.model';
 
 export interface Product {
-  id:                     number;
-  product_code:           string;
-  product_description:    string;
-  total_stock:            number;
-  product_destination_id: Category;
+  id: number;
+  category_id: Category;
+  code: string;
+  description: string;
+  buys_stock:number;
+  unit_value:number;
+  totals_stock: number;
 }
 
-export interface CreateProductsDTO extends Omit<Product,'id'| 'product_destination_id'>{
-  product_destination_id: number;
-  product_code:           string;
-  product_description:    string;
-  total_stock:            number;
+export interface CreateProductsDTO extends Omit<Product, 'id' | 'category_id'> {
+  category_id: number;
 }
 
-export interface UpdateProductsDTO extends Partial<CreateProductsDTO>{
-  id:number;
+export interface UpdateProductsDTO extends Partial<CreateProductsDTO> {
+  id: number;
 }
-
-
-
-

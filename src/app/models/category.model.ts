@@ -1,6 +1,6 @@
 export interface Category{
   id:           number;
-  categories: string;
+  category: string;
 }
 
 export interface CreateCategoryDTO extends Omit <Category,'id'>{
