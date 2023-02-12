@@ -7,7 +7,6 @@ export interface BuyProducts {
   buys_bill: string;
   buys_stock:number;
   buys_unit_value:number;
-  total_buys_vaue:number;
 
 }
 
@@ -15,6 +14,6 @@ export interface createBuysProductDTO extends Omit<BuyProducts, 'id'| 'product_i
   product_id:number;
 }
 
-export interface UpdateBuysProductDTO extends BuyProducts {
+export interface UpdateBuysProductDTO extends Partial<BuyProducts> {
 
 }

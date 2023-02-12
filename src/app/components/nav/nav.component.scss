@@ -1,0 +1,33 @@
+nav {
+  padding: 1rem 0;
+  background-color: #ffffff;
+  width: 90%;
+  height: 5rem;
+  border-bottom:0.5rem solid var(--color--red);
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
+
+    li {
+      padding-right: 2rem;
+
+      a {
+        font-size: 1.4rem;
+        color: #000000;
+        text-decoration: none;
+
+        &.activate {
+          border: 1px solid var(--color--red);
+          border-radius:5rem;
+          color: var(--color--red);
+          font-size: 1.6rem;
+          padding: 0.8rem;
+        }
+      }
+    }
+  }
+}
+

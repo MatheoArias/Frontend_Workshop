@@ -5,6 +5,8 @@ import { Category } from 'src/app/models/category.model';
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
+import {switchMap} from 'rxjs/operators'
+import {zip} from 'rxjs'
 
 @Component({
   selector: 'app-product',
@@ -109,13 +111,10 @@ export class ProductComponent implements OnInit {
     event.preventDefault();
     const addProduct:CreateProductsDTO=this.formProduct.value
     if (this.formProduct.valid) {
-      console.log(addProduct)
       this.ProductService.createProduct(addProduct).subscribe(data=>{
         this.getAllProducts();
         this.messagges=`La Categoría ${data.description} con código ${data.code} fue agregado con éxito `;
-      }
-
-      );
+      });
       this.formProduct.reset();
     } else {
       this.formProduct.markAllAsTouched();

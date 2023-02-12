@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpErrorResponse,HttpStatusCode,HttpResponse} from '@angular/common/http';
 import {environment} from '../../enviroments/environment'
 import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
+import {retry,catchError} from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,24 @@ export class BuyProductsService {
 
   getAllBuyProducts(){
     return this.http.get<BuyProducts[]>(this.apiUrl)
+    .pipe(
+      retry(3),
+      catchError((error:HttpErrorResponse) => {
+        if(error.status===HttpStatusCode.Conflict){
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status===HttpStatusCode.BadRequest){
+          return throwError('Está realizando una amala petición')
+        }
+        if(error.status===HttpStatusCode.NotFound){
+          return throwError('La página no ha sido encontada')
+        }
+        if(error.status===HttpStatusCode.Unauthorized){
+          return throwError('No estás autorizado')
+        }
+        return throwError('Algo está saliendo mal')
+      })
+      );
   }
 
   getBuyProduct(id:number){

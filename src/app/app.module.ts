@@ -15,6 +15,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CategoryComponent } from './components/category/category.component';
 import { BuysProductsComponent } from './components/buys-products/buys-products.component';
+import { SellProductsComponent } from './components/sell-products/sell-products.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { VehiclesComponent } from './pages/vehicles/vehicles.component';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { BillsComponent } from './pages/bills/bills.component';
+import { SellsComponent } from './pages/sells/sells.component';
+import { Notfound404Component } from './pages/notfound404/notfound404.component';
+import { NavComponent } from './components/nav/nav.component';
+import { UsersComponent } from './pages/users/users.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -23,6 +35,18 @@ import { BuysProductsComponent } from './components/buys-products/buys-products.
     ProductComponent,
     CategoryComponent,
     BuysProductsComponent,
+    SellProductsComponent,
+    HomeComponent,
+    LoginComponent,
+    ProductsComponent,
+    VehiclesComponent,
+    CustomersComponent,
+    BillsComponent,
+    SellsComponent,
+    Notfound404Component,
+    NavComponent,
+    UsersComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
