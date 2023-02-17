@@ -77,6 +77,12 @@
           {{buysProduct.buys_unit_value | currency:'$ '}}
         </p>
       </div>
+      <div id="totalStockText">
+        Inventario
+        <p>
+          {{buysProduct.product_id.totals_stock}}
+        </p>
+      </div>
       <div id="totalValueText">
         Total:
         <p>

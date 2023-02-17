@@ -7,9 +7,6 @@
   font-size: 62.5%;
   font-family: 'Raleway', sans-serif;
   box-sizing: border-box;
-}
-
-html {
   padding: 0;
   margin: 0;
 }
@@ -88,18 +85,4 @@ form {
   }
 }
 
-button {
-  margin: 1.5rem !important;
-  width: 8rem;
-  height: 4rem;
-  background-color: #ff4081;
-  color: aliceblue;
-  font-size: 1.6rem;
-  border: none;
-}
 
-button:hover {
-  background-color: #ffffff;
-  color: #ff4081;
-  border: #ff4081 solid 0.1rem;
-}

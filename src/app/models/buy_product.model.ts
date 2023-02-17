@@ -14,6 +14,6 @@ export interface createBuysProductDTO extends Omit<BuyProducts, 'id'| 'product_i
   product_id:number;
 }
 
-export interface UpdateBuysProductDTO extends Partial<BuyProducts> {
+export interface UpdateBuysProductDTO extends BuyProducts {
 
 }

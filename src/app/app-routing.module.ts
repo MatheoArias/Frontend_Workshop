@@ -4,6 +4,7 @@ import { BillsComponent } from './pages/bills/bills.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { Notfound404Component } from './pages/notfound404/notfound404.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { SellsComponent } from './pages/sells/sells.component';
 import { UsersComponent } from './pages/users/users.component';
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path:'users',
     component:UsersComponent
+  },
+  {
+    path:'**',
+    component:Notfound404Component
   },
 ];
 

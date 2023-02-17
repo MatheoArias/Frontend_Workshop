@@ -1,12 +1,11 @@
 import { Component,Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Product, UpdateProductsDTO } from 'src/app/models/product.model';
+import { Product, UpdateProductsDTO,UpdateTotalStockProductDTO } from 'src/app/models/product.model';
 import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from 'src/app/models/buy_product.model';
 import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { ProductService } from 'src/app/services/product.service';
-import {switchMap} from 'rxjs/operators'
+import {switchMap,mergeMap} from 'rxjs/operators'
 import {zip} from 'rxjs'
-import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-buys-products',
@@ -21,27 +20,21 @@ export class BuysProductsComponent {
   @Input() buysProducts:BuyProducts[]=[];
   @Input() products:Product[] = [];
 
-  product:UpdateProductsDTO = {
-    id: 0,
-    category_id: 0,
-    code: '',
-    description: '',
-    buys_stock:0,
-    unit_value:0,
-    totals_stock: 0,
-  };
+  selectedBuyProduct!:BuyProducts;
+  messagges:string='';
+  statusCode: number=0;
+  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
   buysProduct:BuyProducts={
     id:0,
     product_id:{
       id: 0,
       category_id: {
-        id:0,
+        id:1,
         category: '',
       },
       code: '',
       description: '',
-      buys_stock:0,
       unit_value:0,
       totals_stock: 0,
     },
@@ -50,15 +43,6 @@ export class BuysProductsComponent {
     buys_stock:0,
     buys_unit_value:0,
   }
-
-
-  selectedBuyProduct!:BuyProducts;
-  messagges:string='';
-  statusCode: number=0;
-  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
-
-  displayedColumns: string[] = ['productId', 'buysDate', 'buysBill','buysStock','totalsStock','buysUnitValue','totalBuysValue','toggleUpdate','toggleDelete'];
-  dataSource = this.buysProducts;
 
   get productId() {
     return this.formBuysProduct.get('product_id');
@@ -105,75 +89,72 @@ export class BuysProductsComponent {
   }
 
   submit(event: Event) {
+    this.statusDeatil='Loading';
     const addBuyProduct:createBuysProductDTO = this.formBuysProduct.value;
     if (this.formBuysProduct.valid) {
       zip(
-        this.productService.getProduct(addBuyProduct.product_id),
-        this.buyProductsService.createBuyProduct(addBuyProduct)
+        this.buyProductsService.createBuyProduct(addBuyProduct),
+        this.productService.getProduct(addBuyProduct.product_id)
+      ).pipe(
+        switchMap(item=>
+          this.productService.updateTotalStockProduct(item[1].id,
+            {totals_stock:item[1].totals_stock + addBuyProduct.buys_stock})
+        )
       )
-      .subscribe(response=>{
-          const product=response[0]
-          this.product.id = product.id
-          this.product.category_id = product.category_id.id
-          this.product.code = product.code
-          this.product.description = product.description
-          this.product.unit_value=product.unit_value
-          this.product.buys_stock=product.buys_stock
-          this.product.totals_stock=product.totals_stock + addBuyProduct.buys_stock
-          this.productService.updateProduct(product.id,this.product).subscribe()
-          this.getAllBuyProducts()
+      .subscribe(data=>{
+        this.getAllBuyProducts();
         }
       )
-      this.getAllBuyProducts();
+      this.statusDeatil='Success';
       this.formBuysProduct.reset();
     } else {
+      this.statusDeatil='Error';
       this.formBuysProduct.markAllAsTouched();
     }
   }
 
   toggleDelete(item:BuyProducts) {
-    this.productService.getProduct(item.product_id.id).subscribe(
-      data=>{
-        this.product.id = data.id
-        this.product.category_id = data.category_id.id
-        this.product.code = data.code
-        this.product.description = data.description
-        this.product.unit_value=data.unit_value
-        this.product.buys_stock=data.buys_stock
-        this.product.totals_stock=data.totals_stock - item.buys_stock
-        this.productService.updateProduct(data.id,this.product).subscribe()
-      }
-    )
-    this.buyProductsService.deleteBuyProduct(item.id).subscribe(
-      data=>{
-        this.getAllBuyProducts()
-      }
-    );
+    const deleteProduct= item
+    this.statusDeatil='Loading';
+    if( item.id){
+      zip(
+        this.productService.getProduct(item.product_id.id),
+        this.buyProductsService.deleteBuyProduct(item.id)
+      )
+      .pipe(
+        switchMap(item =>this.productService.updateTotalStockProduct(item[0].id,
+          {
+            totals_stock:item[0].totals_stock-deleteProduct.buys_stock
+          }
+        ))
+      )
+      .subscribe(
+        data=>{
+          this.getAllBuyProducts();
+        }
+      )
+      this.statusDeatil='Success';
+    }else{
+      this.statusDeatil='Error';
+    }
   }
+
 
   updateBuyProducts(){
     const addBuyProduct:UpdateBuysProductDTO=this.formBuysProduct.value
-    if (this.formBuysProduct.valid) {
-      this.buyProductsService.getBuyProduct(this.selectedBuyProduct.id).subscribe(
-        data=>{
-        this.productService.getProduct(data.product_id.id).subscribe(
-          data=>{
-            this.product.id = data.id
-            this.product.category_id = data.category_id.id
-            this.product.code = data.code
-            this.product.description = data.description
-            this.product.unit_value=data.unit_value
-            this.product.buys_stock=addBuyProduct.buys_stock
-            this.product.totals_stock=(data.totals_stock)-this.selectedBuyProduct.buys_stock
-            this.productService.updateProduct(data.id,this.product).subscribe()
-            this.getAllBuyProducts()
-          }
-        )
-      }
-      )
-      this.buyProductsService.updateBuyProduct(this.selectedBuyProduct.id,addBuyProduct).subscribe()
+    if (this.formBuysProduct.valid){
+      this.productService.getProduct(this.selectedBuyProduct.product_id.id)
+      .pipe(
+        switchMap(item=>this.productService.updateTotalStockProduct(item.id,
+          {totals_stock:(item.totals_stock-this.selectedBuyProduct.buys_stock) + addBuyProduct.buys_stock}
+        )),
+        switchMap(()=>this.buyProductsService.updateBuyProduct(this.selectedBuyProduct.id,addBuyProduct))
+      ).subscribe(data=>{
+        this.getAllBuyProducts()
+        }
+    )
       this.formBuysProduct.reset();
-    } else {
+    }else {
       this.formBuysProduct.markAllAsTouched();
     }
   }
@@ -192,9 +173,4 @@ export class BuysProductsComponent {
       }
     )
   }
-
-  test(buysProduct:BuyProducts){
-    console.log(buysProduct)
-  }
-
 }

@@ -4,16 +4,21 @@ import {environment} from '../../enviroments/environment'
 import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
 import {retry,catchError} from 'rxjs/operators'
 import {throwError} from 'rxjs'
+import { UpdateProductsDTO} from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuyProductsService {
+  BuyProductsService(id: any, product: UpdateProductsDTO): any {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = `${environment.API_URL}/products/add_buy_product/`
   constructor(
     private http: HttpClient
   ) { }
+
 
   getAllBuyProducts(){
     return this.http.get<BuyProducts[]>(this.apiUrl)
@@ -39,6 +44,7 @@ export class BuyProductsService {
 
   getBuyProduct(id:number){
     return this.http.get<BuyProducts>(`${this.apiUrl}${id}/`)
+
   }
 
   createBuyProduct(data:createBuysProductDTO){
