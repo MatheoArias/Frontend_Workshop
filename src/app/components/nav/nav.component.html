@@ -1,18 +1,19 @@
-<nav class="nav--show" [class.nav--show]="navState">
+<button
+class="button--active"
+[class.button--active]="navState"
+(click)="toggleShowNav()">
+</button>
 
-  <button
-    class="button--active"
-    [class.button--active]="buttonState"
-    (click)="toggleShowNav()">
-  </button>
+<nav class="nav--show"
+ [class.nav--show]="navState">
 
   <ul>
     <!-- This are products' movements -->
-    <li>
-      <a routerLinkActive="activate" [routerLink]="['/products']" (click)="toggleShowNav()">Inventario</a>
-      <ul>
+    <li >
+      <a class="content__text--after after--activate" [class.after--activate]="listState" (click)="toggleActivateList()">Inventario</a>
+      <ul class="list--activate" [class.list--activate]="listState">
         <li>
-          <a>
+          <a  routerLinkActive="activate" [routerLink]="['/products']" (click)="toggleActivateList()">
             Compra de productos
           </a>
         </li>
@@ -30,23 +31,28 @@
     </li>
 
     <li>
-      <a routerLinkActive="activate" [routerLink]="['/sells']" (click)="toggleShowNav()">Ventas</a>
+      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/sells']">Ventas</a>
     </li>
 
     <li>
-      <a routerLinkActive="activate" [routerLink]="['/customer']">Clientes</a>
+      <a class="content__text--after"  routerLinkActive="activate" [routerLink]="['/customer']">Clientes</a>
     </li>
 
     <li>
-      <a routerLinkActive="activate" [routerLink]="['/vehicle']">Vehiculos</a>
+      <a class="content__text--after"  routerLinkActive="activate" [routerLink]="['/vehicle']">Vehiculos</a>
     </li>
 
     <li>
-      <a routerLinkActive="activate" [routerLink]="['/users']">Usuarios</a>
+      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/users']">Usuarios</a>
     </li>
 
     <li>
-      <a routerLinkActive="activate" [routerLink]="['/bill']">Facturas</a>
+      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/bill']">Facturas</a>
+    </li>
+
+    <li>
+      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/bill']">Empleados</a>
     </li>
   </ul>
+
 </nav>
