@@ -1,8 +1,9 @@
 :root {
   --color--red: #d82b36;
   --color--white: #ffffff;
-  --color--black: #000000;
+  --color--black: #481b1b;
   --color--gray--background:#faf8f7;
+  --color--gray:#636363;
 }
 
 * {
@@ -19,72 +20,210 @@ body {
 }
 
 main {
-  max-height: 100%;
+  height: 100%;
   max-width: 100%;
+  background-color: var(--color--gray--background);
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.2rem;
   color: var(--color--red);
+  font-family: 'Raleway', sans-serif !important;
+  margin:0.5rem 1rem !important;
 }
 
-h3 {
-  font-size: 1.8rem;
-  font-weight: 500;
-  line-height: 2rem;
-  color: black;
-
+#firstChoice{
+  text-align: center;
 }
 
 form {
+  max-width: 100%;
   .content__input {
     display: flex;
     flex-direction: column;
+    padding-bottom: 0.25rem;
+    margin:0.5rem;
 
     label {
-      font-weight: 500;
+      font-weight: 400;
       font-style: normal;
-      line-height: 1.8rem;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+      line-height: 1.6rem;
       color: black;
+      padding: 0.5rem 0;
     }
 
     input,
     select {
       height: 3.5rem;
       margin-top: 1rem;
-      padding: 0.5rem 1.6rem;
       font-weight: 400;
       font-style: normal;
-      font-size: 1.5rem;
-      line-height: 1.8rem;
+      font-size: 1.3rem;
+      line-height: 1.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: 0.1rem solid var(--color--gray);
+      width: 100%;
 
       option {
         font-weight: 500;
         font-style: normal;
-        font-size: 1.5rem;
-        line-height: 1.8rem;
+        font-size: 1.3rem;
+        line-height: 1.5rem;
       }
     }
   }
+}
 
-  button {
-    margin: 1.5rem !important;
-    width: 8rem;
-    height: 4rem;
-    background-color: var(--color--red);
-    color: aliceblue;
-    font-size: 1.6rem;
-    border: none;
+button {
+  width: 7rem;
+  height: 3.5rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  background-color: var(--color--red);
+  color: var(--color--white);
+  border-radius: 5px;
+  border: none;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: var(--color--red);
+  border: var(--color--red) solid 0.1rem;
+}
+
+.content__list--products{
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0.5rem 1rem;
+  list-style: none;
+  overflow-y: scroll;
+  max-height: 70vh;
+
+  li{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    max-width: 100%;
+    display: grid;
+    grid-template-areas:
+      "product product product product"
+      "date  date bill  bill"
+      "value value stock stock "
+      "totalStock total total toogleUpdateText"
+      "totalStock total total toggleDeleteText";
+    margin: 0.8rem;
+    padding: 0.5rem;
+    border: 0.1rem solid var(--color--red);
+    border-radius: 5px;
+    -webkit-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    -moz-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    background-color: var(--color--gray--background);
   }
 
-  button:hover {
-    background-color: #ffffff;
+  h3 {
+    grid-area: product;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
     color: var(--color--red);
-    border: var(--color--red) solid 0.1rem;
+    padding: 0.5rem;
+    margin: 0;
+    min-height: 2rem;
   }
+
+  div {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    min-height: 2rem;
+    font-size: 1.4rem;
+    color: var(--color--red);
+    padding: 0.5rem;
+    p {
+      font-size: 1.4rem;
+      color: #000000;
+      max-width: 100%;
+      vertical-align: middle;
+      margin: 0;
+    }
+  }
+
+  #buysDateText {
+    grid-area: date;
+  }
+
+  #buysBillText {
+    grid-area: bill;
+  }
+
+  #buysStockText {
+    grid-area: stock;
+  }
+
+  #unitValueText {
+    grid-area: value;
+  }
+  #totalStockText{
+    grid-area: totalStock;
+  }
+  #totalValueText {
+    grid-area: total;
+
+  }
+  #totalValueText,
+  #totalStockText{
+    flex-direction: column;
+    text-align: center;
+    background-color: var(--color--white);
+    -webkit-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    -moz-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
+    border:5px;
+    font-weight: 500;
+    align-self: center;
+  }
+
+  #toogleUpdateText {
+    grid-area: toogleUpdateText;
+  }
+
+  #toggeDeleteText {
+    grid-area: toggleDeleteText;
+  }
+  button{
+    justify-self: center;
+    align-self: end;
+    margin: 0.5rem  0;
+  }
+}
+
+ul::-webkit-scrollbar{
+  width: 1rem;
+}
+ul::-webkit-scrollbar:vertical {
+  width:8px;
+}
+ul::-webkit-scrollbar-thumb {
+  background-color: var(--color--red);
+  border-radius: 20px;
+  border: 2px solid var(--color--white);
+}
+
+body::-webkit-scrollbar{
+  width: 1rem;
+}
+body::-webkit-scrollbar:vertical {
+  width:5px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color--red);
+  border-radius: 20px;
+  border: 2px solid transparent;
 }
 
 

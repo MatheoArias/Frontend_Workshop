@@ -10,10 +10,12 @@ class="button--active"
   <ul>
     <!-- This are products' movements -->
     <li >
-      <a class="content__text--after after--activate" [class.after--activate]="listState" (click)="toggleActivateList()">Inventario</a>
+      <a class="content__text--after after--activate" [class.after--activate]="listState" (click)="toggleActivateList()">
+        Inventario
+      </a>
       <ul class="list--activate" [class.list--activate]="listState">
         <li>
-          <a  routerLinkActive="activate" [routerLink]="['/products']" (click)="toggleActivateList()">
+          <a  routerLinkActive="activate__link" [routerLink]="['/products']" (click)="toggleChooseList()">
             Compra de productos
           </a>
         </li>
@@ -35,7 +37,7 @@ class="button--active"
     </li>
 
     <li>
-      <a class="content__text--after"  routerLinkActive="activate" [routerLink]="['/customer']">Clientes</a>
+      <a class="content__text--after"  routerLinkActive="activate__link" [routerLink]="['/customer']">Clientes</a>
     </li>
 
     <li>

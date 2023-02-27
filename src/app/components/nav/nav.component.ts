@@ -8,16 +8,23 @@ import { Component } from '@angular/core';
 export class NavComponent {
 
   navState=false;
-  buttonState=false;
   listState=false;
 
   toggleShowNav(){
-    this.buttonState=!this.buttonState;
     this.navState=!this.navState;
   }
 
   toggleActivateList(){
     this.listState=!this.listState;
+  }
+
+  toggleChooseList(){
+    if(this.navState==false){
+      this.listState=!this.listState;
+    }else{
+      this.listState=!this.listState;
+      this.navState=!this.navState;
+    }
   }
 
 }

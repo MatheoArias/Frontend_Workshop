@@ -1,41 +1,68 @@
-<h2>Agregar nuevo producto</h2>
-<div class="content__buysproducts">
+<div class="content__buysproducts content__app">
   <form (ngSubmit)="submit($event)" [formGroup]="formBuysProduct">
 
-    <div class="content__input"  id="contentChooseProduct">
+    <div class="content__input"  id="contentChoiceProduct">
       <label for="productId">Seleccione el producto</label>
       <select id="productId" formControlName="product_id">
-        <option value="" selected="true">Seleccione</option>
+        <option value="" selected="true" id="firstChoice">Seleccione</option>
         <option *ngFor="let product of products" value="{{product.id}}">
           {{product.description}}
         </option>
       </select>
     </div>
 
-    <div class="content__input" id="contentBuysDate">
-      <label for="buysDate">Fecha de compra</label>
-      <input type="date" id="buysDate" formControlName="buys_date">
+    <div class="content__input" id="contentBuysBill">
+      <label
+        for="buysBill">
+        Factura
+      </label>
+      <input
+        type="text"
+        id="buysBill"
+        formControlName="buys_bill"
+        placeholder="Ingrese la factura de compra">
     </div>
 
-    <div class="content__input" id="contentBuysBill">
-      <label for="buysBill">Factura de compra</label>
-      <input type="text" id="buysBill" formControlName="buys_bill">
+    <div class="content__input" id="contentBuysDate">
+      <label
+        for="buysDate">
+        Fecha
+      </label>
+      <input
+        type="date"
+        id="buysDate"
+        formControlName="buys_date">
     </div>
 
     <div class="content__input" id="contentBuysStock">
-      <label for="buysStock">Cantidad de compra</label>
-      <input type="number" id="buysStock"  formControlName="buys_stock" (change)="getBuysTotalValue()">
+      <label for="buysStock">
+        Cantidad
+      </label>
+      <input
+        type="number"
+        id="buysStock"
+        formControlName="buys_stock"
+        (change)="getBuysTotalValue()"
+      >
     </div>
 
     <div class="content__input" id="contentBuysValue">
-      <label for="buysUnitValue">Valor compra (c/u)</label>
-      <input type="number" id="buysUnitValue" formControlName="buys_unit_value" (change)="getBuysTotalValue()" >
+      <label
+      for="buysUnitValue">
+      Valor por unidad
+      </label>
+      <div>
+        <input
+         type="number | currency"
+         formControlName="buys_unit_value"
+         (change)="getBuysTotalValue()" >
+      </div>
     </div>
 
 
     <div class="content__input"  id="contentBuysTotalValue">
-      <p style="font-size: 2rem;">Valor total</p>
-      <p style="font-size: 2rem;">{{value | currency:'$ '}}</p>
+      <p>Valor total  de la compra</p>
+      <p>{{value | currency:'$ '}}</p>
     </div>
 
     <button id="toggleSubmit">
@@ -48,19 +75,19 @@
 
   </form>
 
-  <ul>
+  <ul class="content__list--products" id="productsList">
     <li *ngFor="let buysProduct of buysProducts">
       <h3>
         {{buysProduct.product_id.code}} - {{buysProduct.product_id.description}}
       </h3>
       <div id="buysDateText">
-        Fecha de compra:
+        Fecha:
         <p>
           {{buysProduct.buys_date}}
         </p>
       </div>
       <div id="buysBillText">
-        Factura de compra:
+        Factura:
         <p>
           {{buysProduct.buys_bill}}
         </p>
@@ -72,7 +99,7 @@
         </p>
       </div>
       <div id="unitValueText">
-        Valor (c/u):
+        Valor:
         <p>
           {{buysProduct.buys_unit_value | currency:'$ '}}
         </p>

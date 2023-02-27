@@ -6,6 +6,7 @@ import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { ProductService } from 'src/app/services/product.service';
 import {switchMap,mergeMap} from 'rxjs/operators'
 import {zip} from 'rxjs'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-buys-products',
@@ -60,13 +61,14 @@ export class BuysProductsComponent {
     return this.formBuysProduct.get('buys_unit_value');
   }
 
+  dateNow:Date= new Date();
   private formAddBuysProduct() {
     this.formBuysProduct = this.formBuilder.group({
       product_id: ['', [Validators.required]],
-      buys_date: ['', [Validators.required]],
+      buys_date: [new Date().toDateString() , [Validators.required]],
       buys_bill: ['', [Validators.required]],
-      buys_stock: ['', [Validators.required]],
-      buys_unit_value: ['', [Validators.required]],
+      buys_stock: [0, [Validators.required]],
+      buys_unit_value: [0, [Validators.required]],
     });
   }
   constructor(
@@ -78,7 +80,8 @@ export class BuysProductsComponent {
   }
 
   getBuysTotalValue(){
-    this.value=this.buysStock?.value*this.buysUnitValue?.value
+    let unitsValue: null | any=this.buysUnitValue?.value;
+    this.value=this.buysStock?.value*this.buysUnitValue?.value;
   }
 
   getAllBuyProducts(){
