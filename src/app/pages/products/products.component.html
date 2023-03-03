@@ -1,1 +1,9 @@
-<app-buys-products [products] = "products" [buysProducts]="buysProducts"></app-buys-products>
+<div class="content__app-product">
+  <app-product [products] = "products" [categories]="categories" ></app-product>
+</div>
+
+<div class="content__app--category" [class.activate__modal]="modalState">
+  <app-category [categories]="categories"></app-category>
+</div>
+
+<button (click)="toggleModal()">Click</button>

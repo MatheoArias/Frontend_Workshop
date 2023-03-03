@@ -34,7 +34,7 @@
         formControlName="buys_date">
     </div>
 
-    <div class="content__input" id="contentBuysStock">
+    <div class="content__input inputStock" id="contentBuysStock">
       <label for="buysStock">
         Cantidad
       </label>
@@ -46,14 +46,14 @@
       >
     </div>
 
-    <div class="content__input" id="contentBuysValue">
+    <div class="content__input inputCurrency" id="contentBuysValue" >
       <label
       for="buysUnitValue">
       Valor por unidad
       </label>
       <div>
         <input
-         type="number | currency"
+         type="number"
          formControlName="buys_unit_value"
          (change)="getBuysTotalValue()" >
       </div>
@@ -117,7 +117,7 @@
         </p>
       </div>
         <button id="toogleUpdateText" (click)="toggleUpdates(buysProduct)">
-          Modificar
+          Seleccionar
         </button>
         <button id="toggeDeleteText" (click)="toggleDelete(buysProduct)">
           Eliminar

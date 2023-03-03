@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BillsComponent } from './pages/bills/bills.component';
+import { BuysproductspageComponent } from './pages/buysproductspage/buysproductspage.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -49,9 +50,14 @@ const routes: Routes = [
     component:UsersComponent
   },
   {
+    path:'buys_products',
+    component:BuysproductspageComponent
+  },
+  {
     path:'**',
     component:Notfound404Component
   },
+
 ];
 
 @NgModule({

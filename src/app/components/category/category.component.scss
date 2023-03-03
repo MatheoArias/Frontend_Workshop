@@ -1,0 +1,47 @@
+div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  height: 50%;
+  margin: auto;
+
+  form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
+    button{
+      align-self: flex-end;
+      padding: 0.5rem;
+    }
+  }
+
+  ul{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color--white);
+    border-radius: 5px;
+
+    li{
+      display: flex;
+      justify-content: space-evenly;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      h3{
+        min-width: 50%;
+        font-family: 'Raleway', sans-serif !important;
+      }
+      button{
+        align-self: flex-end;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+
+

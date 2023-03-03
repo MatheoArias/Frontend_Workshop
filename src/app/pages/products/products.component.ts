@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
-import { BuyProductsService } from 'src/app/services/buy-products.service';
-import { Product } from 'src/app/models/product.model';
+import { CategoryService } from 'src/app/services/category.service';
+import { Product} from 'src/app/models/product.model';
+import { Category } from 'src/app/models/category.model';
 import { BuyProducts } from 'src/app/models/buy_product.model';
 
 @Component({
@@ -12,17 +13,22 @@ import { BuyProducts } from 'src/app/models/buy_product.model';
 export class ProductsComponent implements OnInit  {
 
   products:Product[] = [];
+  categories:Category[] = [];
   buysProducts:BuyProducts[]=[]
-
+  modalState=false
 
   constructor(
     private productService: ProductService,
-    private buyProductsService:BuyProductsService
+    private categoryService:CategoryService,
   ) { }
 
   ngOnInit(): void {
     this.getAllProducts();
-    this.getAllBuyProducts();
+    this.getAllCategories();
+  }
+
+  toggleModal(){
+    this.modalState = !this.modalState;
   }
 
   getAllProducts(){
@@ -33,11 +39,11 @@ export class ProductsComponent implements OnInit  {
     );
   }
 
-  getAllBuyProducts(){
-    this.buyProductsService.getAllBuyProducts()
-    .subscribe(data=>{
-      this.buysProducts=data
-    })
+  getAllCategories(){
+    this.categoryService.getAllCategories().subscribe(
+      data=>{
+        this.categories = data;
+      }
+    )
   }
-
 }

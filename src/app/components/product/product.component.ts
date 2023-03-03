@@ -1,4 +1,4 @@
-import { Component,OnInit, Output } from '@angular/core';
+import { Component,OnInit, Input,Output } from '@angular/core';
 import { Product} from 'src/app/models/product.model';
 import { CreateProductsDTO,UpdateProductsDTO } from 'src/app/models/product.model';
 import { Category } from 'src/app/models/category.model';
@@ -13,15 +13,15 @@ import {zip} from 'rxjs'
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit {
-  products: Product[] = [];
-  categories: Category[] = [];
+export class ProductComponent{
+  @Input() products: Product[] = [];
+  @Input() categories: Category[] = [];
+  radioState:string='';
+
   selectedProductId:number=0;
   messagges:string='';
-
-  ///****Table values
-  displayedColumns: string[] = ['code', 'category', 'description','unitValue', 'totalStock','toggleUpdate','toggleDelete'];
-  dataSource = this.products
+  statusCode: number=0;
+  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
   formProduct!: FormGroup;
   get category_id() {
@@ -44,8 +44,8 @@ export class ProductComponent implements OnInit {
       category_id: ['', [Validators.required]],
       code: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      unit_value: ['', [Validators.required]],
-      totals_stock: ['', [Validators.required]],
+      unit_value: [0, [Validators.required]],
+      totals_stock: [0, [Validators.required]],
     });
   }
 
@@ -55,19 +55,6 @@ export class ProductComponent implements OnInit {
     private categoryService:CategoryService
   ) {
     this.formAddProduct();
-  }
-
-  ngOnInit(): void {
-    this.getAllCategories();
-    this.getAllProducts();
-  }
-
-  getAllCategories(){
-    this.categoryService.getAllCategories().subscribe(
-      data=>{
-        this.categories = data;
-      }
-    )
   }
 
   getAllProducts(){
@@ -94,6 +81,7 @@ export class ProductComponent implements OnInit {
   }
 
   toggleUpdate(item: Product){
+    this.radioState = item.code
     this.ProductService.getProduct(item.id).subscribe(
       data=>{
         this.formProduct.patchValue(data);

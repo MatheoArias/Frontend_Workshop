@@ -2,16 +2,29 @@
   --color--red: #d82b36;
   --color--white: #ffffff;
   --color--black: #481b1b;
-  --color--gray--background:#faf8f7;
+  --color--gray--background:#EBEBEB;
+  --color--text--nav:#C9C9C9;
+  --color--gray--background--list:#F7EDED;
   --color--gray:#636363;
+  --rojo-color-alert: #ff7c7c;
+  --color--green-success: #5fe39f;
+  --amarillo-color-information: #faec5c;
+}
+
+@font-face {
+  font-family: 'Thalib';
+  src: url('./assets/fonts/Thalib\ Textured.ttf');
 }
 
 * {
-  font-size: 62.5%;
   font-family: 'Raleway', sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html{
+  font-size: 62.5%;
 }
 
 body {
@@ -20,18 +33,8 @@ body {
 }
 
 main {
-  height: 100%;
+  max-height: 100%;
   max-width: 100%;
-  background-color: var(--color--gray--background);
-}
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 2.2rem;
-  color: var(--color--red);
-  font-family: 'Raleway', sans-serif !important;
-  margin:0.5rem 1rem !important;
 }
 
 #firstChoice{
@@ -79,9 +82,9 @@ form {
 }
 
 button {
-  width: 7rem;
+  width: 7.3rem;
   height: 3.5rem;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
   background-color: var(--color--red);
   color: var(--color--white);
@@ -226,4 +229,34 @@ body::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
 }
 
+.inputCurrency{
+  div {
+    display: flex;
+    align-items: center;
 
+    input {
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 0.2rem;
+      text-align: center;
+    }
+  }
+
+  div::before {
+    content: "$";
+    position: relative;
+    display: inline;
+    margin-top: 1rem;
+    padding-right: 0.5rem;
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+}
+
+.inputStock{
+  input {
+    text-align: center !important;
+    font-size: 1.8rem !important;
+    font-weight: 500 !important;
+  }
+}
