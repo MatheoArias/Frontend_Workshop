@@ -15,7 +15,6 @@ export class ProductsComponent implements OnInit  {
   products:Product[] = [];
   categories:Category[] = [];
   buysProducts:BuyProducts[]=[]
-  modalState=false
 
   constructor(
     private productService: ProductService,
@@ -27,9 +26,7 @@ export class ProductsComponent implements OnInit  {
     this.getAllCategories();
   }
 
-  toggleModal(){
-    this.modalState = !this.modalState;
-  }
+
 
   getAllProducts(){
     this.productService.getAllProducts().subscribe(

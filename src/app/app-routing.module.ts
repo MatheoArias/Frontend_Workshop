@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BuysProductsComponent } from './components/buys-products/buys-products.component';
+import { ProductComponent } from './components/product/product.component';
 import { BillsComponent } from './pages/bills/bills.component';
-import { BuysproductspageComponent } from './pages/buysproductspage/buysproductspage.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -23,7 +24,17 @@ const routes: Routes = [
   },
   {
     path:'products',
-    component:ProductsComponent
+    component:ProductsComponent,
+    children:[
+      {
+        path:'buys_product',
+        component:BuysProductsComponent
+      },
+      {
+        path:'product',
+        component:ProductComponent
+      },
+    ]
   },
   {
     path:'bill',
@@ -48,10 +59,6 @@ const routes: Routes = [
   {
     path:'users',
     component:UsersComponent
-  },
-  {
-    path:'buys_products',
-    component:BuysproductspageComponent
   },
   {
     path:'**',

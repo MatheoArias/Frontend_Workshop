@@ -22,6 +22,7 @@ export class ProductComponent{
   messagges:string='';
   statusCode: number=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
+  modalState=false
 
   formProduct!: FormGroup;
   get category_id() {
@@ -56,7 +57,9 @@ export class ProductComponent{
   ) {
     this.formAddProduct();
   }
-
+  toggleModal(){
+    this.modalState = !this.modalState;
+  }
   getAllProducts(){
     this.ProductService.getAllProducts().subscribe(
       data=>{

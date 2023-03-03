@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Product, UpdateProductsDTO,UpdateTotalStockProductDTO } from 'src/app/models/product.model';
 import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from 'src/app/models/buy_product.model';
@@ -13,13 +13,14 @@ import { DatePipe } from '@angular/common';
   templateUrl: './buys-products.component.html',
   styleUrls: ['./buys-products.component.scss']
 })
-export class BuysProductsComponent {
+export class BuysProductsComponent implements OnInit{
 
   formBuysProduct!:FormGroup;
   value: any | null=0;
 
-  @Input() buysProducts:BuyProducts[]=[];
-  @Input() products:Product[] = [];
+  buysProducts:BuyProducts[]=[];
+  products:Product[] = [];
+  radioState:number=0
 
   selectedBuyProduct!:BuyProducts;
   messagges:string='';
@@ -79,9 +80,22 @@ export class BuysProductsComponent {
     this.formAddBuysProduct();
   }
 
+  ngOnInit(): void {
+    this.getAllProducts();
+    this.getAllBuyProducts();
+  }
+
   getBuysTotalValue(){
     let unitsValue: null | any=this.buysUnitValue?.value;
     this.value=this.buysStock?.value*this.buysUnitValue?.value;
+  }
+
+  getAllProducts(){
+    this.productService.getAllProducts().subscribe(
+      data=>{
+        this.products = data
+      }
+    );
   }
 
   getAllBuyProducts(){
@@ -163,6 +177,8 @@ export class BuysProductsComponent {
   }
 
   toggleUpdates(item:BuyProducts) {
+    this.radioState = item.id;
+    this.value=(item.buys_unit_value)*(item.buys_stock)
     this.statusDeatil='Loading';
     this.buyProductsService.getBuyProduct(item.id).subscribe(
       data=>{

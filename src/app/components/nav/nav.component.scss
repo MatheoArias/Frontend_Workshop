@@ -68,17 +68,16 @@ nav {
   }
 
   ul {
-    display: none;
     grid-area: nav;
     justify-self: start;
     align-content: normal;
     list-style: none;
     width: 100%;
+    display: none;
     li {
       .content__text--after {
         color: var(--color--white);
         text-decoration: none;
-        text-align: right;
         font-size: 1.2rem;
         font-weight: 400;
         cursor: pointer;
@@ -153,6 +152,7 @@ nav {
     animation: button 0.5s ease-out forwards;
     align-self: end;
     cursor: pointer;
+    border: none;
 
     &.button--active {
       animation: change__button 0.3s ease-out forwards;
@@ -222,7 +222,6 @@ nav {
         }
       }
     }
-
     button {
       display: none;
     }

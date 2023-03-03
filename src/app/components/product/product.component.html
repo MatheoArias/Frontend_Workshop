@@ -86,3 +86,8 @@
     </li>
   </ul>
 
+  <div class="content__app--category" [class.activate__modal]="modalState">
+    <app-category [categories]="categories"></app-category>
+  </div>
+
+  <button (click)="toggleModal()">Click</button>

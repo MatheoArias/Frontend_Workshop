@@ -1,5 +1,4 @@
-<div class="content__buysproducts content__app">
-  <form (ngSubmit)="submit($event)" [formGroup]="formBuysProduct">
+<form (ngSubmit)="submit($event)" [formGroup]="formBuysProduct">
 
     <div class="content__input"  id="contentChoiceProduct">
       <label for="productId">Seleccione el producto</label>
@@ -61,68 +60,71 @@
 
 
     <div class="content__input"  id="contentBuysTotalValue">
-      <p>Valor total  de la compra</p>
+      <p>Valor total</p>
       <p>{{value | currency:'$ '}}</p>
     </div>
 
-    <button id="toggleSubmit">
+    <button class="button" id="toggleSubmit">
       Ingresar
     </button>
 
-    <button id="toggleSubmitUpdate" (click)="updateBuyProducts()">
+    <button class="button" id="toggleSubmitUpdate" (click)="updateBuyProducts()">
       Modificar
     </button>
 
   </form>
 
   <ul class="content__list--products" id="productsList">
-    <li *ngFor="let buysProduct of buysProducts">
-      <h3>
+    <li *ngFor="let buysProduct of buysProducts" [class.radio__activate] ="radioState===buysProduct.id">
+      <button
+        class="button__icon"
+        [class.radio__activate--icon] ="radioState===buysProduct.id"
+        (click)="toggleDelete(buysProduct)">
+      </button>
+      <h2>
         {{buysProduct.product_id.code}} - {{buysProduct.product_id.description}}
-      </h3>
-      <div id="buysDateText">
+      </h2>
+      <div class="content__date">
         Fecha:
         <p>
           {{buysProduct.buys_date}}
         </p>
       </div>
-      <div id="buysBillText">
+      <div class="content__bill">
         Factura:
         <p>
           {{buysProduct.buys_bill}}
         </p>
       </div>
-      <div id="buysStockText">
+      <div class="content__stock">
         Cantidad:
         <p>
           {{buysProduct.buys_stock}}
         </p>
       </div>
-      <div id="unitValueText">
+      <div class="content__valueunit">
         Valor:
         <p>
           {{buysProduct.buys_unit_value | currency:'$ '}}
         </p>
       </div>
-      <div id="totalStockText">
+      <div class="content__totalstock">
         Inventario
         <p>
           {{buysProduct.product_id.totals_stock}}
         </p>
       </div>
-      <div id="totalValueText">
-        Total:
+      <div class="content__totalvalue">
+        TOTAL
         <p>
           {{buysProduct.buys_unit_value*buysProduct.buys_stock | currency:'$ '}}
         </p>
       </div>
-        <button id="toogleUpdateText" (click)="toggleUpdates(buysProduct)">
-          Seleccionar
-        </button>
-        <button id="toggeDeleteText" (click)="toggleDelete(buysProduct)">
-          Eliminar
-        </button>
+      <input
+        type="radio"
+        name="chooseBuysProducts"
+        [value]="buysProduct.id"
+        (click)="toggleUpdates(buysProduct)"
+        >
     </li>
   </ul>
-
-</div>
