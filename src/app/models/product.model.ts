@@ -20,3 +20,12 @@ export interface UpdateProductsDTO extends CreateProductsDTO {
 export interface UpdateTotalStockProductDTO extends Pick<Product, 'totals_stock'>{
 
 }
+
+export interface Movements extends Pick<Product, 'code' | 'description' | 'totals_stock'>{
+  stock:number;
+  date:Date;
+  bill:string
+  category:string;
+}
+
+

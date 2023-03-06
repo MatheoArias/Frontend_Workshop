@@ -1,5 +1,13 @@
 <div>
-  <div class="content__app--products" [class.activate__modal]="modalState" >
+  <div class="content__app--products" [class.activate__modal]="modalState">
+
+    <h2>
+      Si la categoría no exite agreguela
+      <button (click)="toggleModal()">
+        Aquí
+      </button>
+    </h2>
+
     <form (ngSubmit)="submit($event)" [formGroup]="formProduct">
       <div class="content__input" id="contentProductCategory">
         <label for="productCategory">Categoría</label>
@@ -31,31 +39,31 @@
         <input type="number" id="totalsStock" formControlName="totals_stock">
       </div>
 
-      <button type="submit" id="toggleCreate">
+      <button type="submit" id="toggleCreate" class="button">
         Ingresar
       </button>
-      <button (click)="updateProduct()" id="toggleUpdate">
+      <button (click)="updateProduct()" id="toggleUpdate" class="button">
         Modificar
       </button>
     </form>
 
-    <ul class="content__list">
+    <ul class="content__list" >
       <li>
-        <h3 class="column__head--one">
+        <p class="head" id="upLeft">
           Código
-        </h3>
-        <h3 class="column__head--two">
+        </p>
+        <p class="head">
           Categoría
-        </h3>
-        <h3 class="column__head--three">
+        </p>
+        <p class="head">
           Descripción
-        </h3>
-        <h3 class="column__head--four">
-          Valor de venta
-        </h3>
-        <h3 class="column__head--five">
+        </p>
+        <p class="head">
+          Valor
+        </p>
+        <p class="head" id="upRight">
           Inventario
-        </h3>
+        </p>
       </li>
 
       <li *ngFor="let item of products" [class.radio__activate]="radioState===item.code">
@@ -77,26 +85,16 @@
         <p class="column--five">
           {{item.totals_stock}}
         </p>
-        <button class="column--six" (click)="toggleDelete(item)">
-          Eliminar
+        <button class="button__icon" (click)="toggleDelete(item)" [class.radio__activate--icon]="radioState===item.code">
         </button>
       </li>
     </ul>
   </div>
 
-  <app-category
-    [categories]="categories"
-    class="content__app--category"
-    [class.activate__modal]="modalState"
+  <app-category [categories]="categories" class="content__app--category" [class.activate__modal]="modalState"
     (modalStateEvent)="reciveToggleModal($event)">
   </app-category>
 
-
-  <button (click)="toggleModal()">
-    Click
-  </button>
-
 </div>
-
 
 

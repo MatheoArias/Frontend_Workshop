@@ -102,6 +102,7 @@ form {
   color: var(--color--white);
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -240,10 +241,7 @@ body::-webkit-scrollbar-thumb {
   background-position: center;
   background-color: transparent ;
   border: none;
-}
-
-.button__icon:hover{
-  background-color: #faec5c;
+  cursor: pointer;
 }
 
 .inputCurrency{

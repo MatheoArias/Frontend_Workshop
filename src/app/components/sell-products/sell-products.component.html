@@ -1,42 +1,3 @@
-<section>
-
-  <h2>Venta de productos</h2>
-
-  <form (ngSubmit)="submit($event)" [formGroup]="formSellsProduct">
-
-    <div class="content__input">
-      <label for="productId">Seleccione el producto</label>
-      <select id="productId" formControlName="product_id">
-        <option *ngFor="let item of products" value="{{item.id}}">
-          {{item.description}}
-        </option>
-      </select>
-    </div>
-
-    <div class="content__input">
-      <label for="sellDate">Fecha de venta</label>
-      <input type="date" id="sellDate" formControlName="sell_date">
-    </div>
-
-    <div class="content__input">
-      <label for="sellBill">Factura de venta</label>
-      <input type="text" id="sellBill" formControlName="sell_bill">
-    </div>
-
-    <div class="content__input">
-      <label for="sellStock">Cantidad</label>
-      <input type="number" id="sellStock" formControlName="sell_stock">
-    </div>
-
-    <div class="content__input">
-      <label for="">Valor total</label>
-      <input type="number" formControlName="total_sell_value">
-    </div>
-
-    <button>Ingresar</button>
-    <button (click)="updateSellProduct()">Modificar</button>
-  </form>
-
   <table mat-table [dataSource]="sellsProducts" class="mat-elevation-z8">
 
     <ng-container matColumnDef="productId">
@@ -92,6 +53,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
-
-</section>
 

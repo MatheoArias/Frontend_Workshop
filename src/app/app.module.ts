@@ -26,6 +26,7 @@ import { SellsComponent } from './pages/sells/sells.component';
 import { Notfound404Component } from './pages/notfound404/notfound404.component';
 import { NavComponent } from './components/nav/nav.component';
 import { UsersComponent } from './pages/users/users.component';
+import { MovementsComponent } from './components/movements/movements.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { UsersComponent } from './pages/users/users.component';
     Notfound404Component,
     NavComponent,
     UsersComponent,
+    MovementsComponent,
   ],
   imports: [
     BrowserModule,

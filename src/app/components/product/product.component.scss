@@ -27,123 +27,121 @@ div{
       opacity: 40%;
       z-index: 1;
     }
-  }
 
-  form{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "code category"
-      "description description"
-      "value stock"
-      "toggleUpdate toggleCreate";
+    h2{
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 0.5rem 0 0 0;
+      font-weight: 400;
 
-    #contentProductCategory{
-      grid-area: category;
-    }
-    #contentCode{
-      grid-area:code;
-    }
-    #contentDescription{
-      grid-area:description;
-    }
-    #contentUniValue{
-      grid-area:value;
-    }
-    #contentTotalsStock{
-      grid-area:stock;
-    }
-
-    #toggleCreate{
-      grid-area:toggleCreate;
-      justify-self: center;
-    }
-    #toggleUpdate{
-      grid-area:toggleUpdate;
-      justify-self: center;
-    }
-  }
-
-  .content__list {
-    margin:1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    background-color: var(--color--white);
-    border-radius: 5px;
-    -webkit-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
-    -moz-box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
-    box-shadow: 3px 7px 5px 1px rgba(227, 227, 227, 0.81);
-    background-color: var(--color--gray--background);
-
-    li {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(7,1fr);
-      grid-template-areas:
-        "headOne headTwo headThree headFour headFive . ."
-        ". one two three four five six";
-      gap: 0.5rem;
-
-      &.radio__activate{
-        border: 0.2rem solid red;
-      }
-
-      h3 {
-        font-size: 1.6rem;
+      button{
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.5rem;
         font-weight: 500;
-        line-height: 1.8rem;
-        color: var(--color--red);
-        font-family: 'Raleway', sans-serif !important;
+        color: var(--color--red--secundary);
+        background-color: var(--color--gray--background);
+        border:none;
+        cursor: pointer;
       }
 
-      p {
-        font-size: 1.3rem;
-        color: #000000;
-        max-width: 100%;
+      button:hover{
+        color: var(--color--red);
+        font-weight: 700;
       }
-      .column--two{
-        grid-area:two;
+
+    }
+
+    form{
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "code category"
+        "description description"
+        "value stock"
+        "toggleCreate toggleUpdate ";
+        margin: 1rem;
+
+      #contentProductCategory{
+        grid-area: category;
       }
-      .column--three{
-        grid-area:three;
+      #contentCode{
+        grid-area:code;
       }
-      .column--four{
-        grid-area:four;
+      #contentDescription{
+        grid-area:description;
       }
-      .column--five{
-        grid-area:five;
+      #contentUniValue{
+        grid-area:value;
+        div{
+          flex-direction: row;
+        }
       }
-      .column--six{
-        grid-area:six;
+      #contentTotalsStock{
+        grid-area:stock;
       }
-      .column--seven{
-        position:absolute;
-        width: 100%;
-        height: 100%;
+      #toggleCreate{
+        grid-area:toggleCreate;
+        justify-self: start;
+      }
+      #toggleUpdate{
+        grid-area:toggleUpdate;
+        justify-self: start;
       }
     }
-    /*Head's Table*/
-    .column__head--one{
-      grid-area:headOne;
-    }
-    .column__head--two{
-      grid-area:headTwo;
-    }
-    .column__head--three{
-      grid-area:headThree;
-    }
-    .column__head--four{
-      grid-area:headFour;
-    }
-    .column__head--five{
-      grid-area:headFive
-    }
-    /* Row's Table */
-    .column--one{
-      grid-area:one;
+
+    ul{
+      display: flex;
+      flex-direction: column;
+      max-height: 50vh;
+      margin:0.5rem;
+      border-radius: 15px;
+      overflow-y: scroll;
+
+      li{
+        background-color: var(--color--white);
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        padding: 0.5rem;
+        max-height: 100%;
+        border-bottom: 0.2rem solid var(--color--gray--background);
+
+        p{
+          max-width: 100%;
+          margin: 1rem 0.5rem;
+          text-align: left;
+          align-self: center;
+          font-size: 1.3rem;
+        }
+
+        .head{
+          font-weight: 500;
+          color: var(  --color--red--secundary);
+        }
+        input{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+        }
+
+        &.radio__activate{
+          border-bottom: 0.2rem solid var(--color--green-success);
+          border-top: 0.2rem solid var(--color--green-success);
+        }
+
+      }
+      li:first-child{
+        border-radius: 15px 15px 0 0;
+      }
+
+      li:last-child{
+        border-radius: 0 0 15px 15px;
+      }
     }
   }
 }
-
-
+.radio__activate--icon {
+  background-image: url("../../../assets/icon_success.svg") !important;
+}

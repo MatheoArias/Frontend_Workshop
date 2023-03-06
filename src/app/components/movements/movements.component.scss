@@ -1,0 +1,15 @@
+ul{
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  li{
+    display: flex;
+    max-width: 100%;
+    gap:0.5;
+    border: 0.1rem solid black;
+
+    p{
+      width: 100%;
+    }
+  }
+}
