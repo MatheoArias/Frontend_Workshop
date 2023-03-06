@@ -162,21 +162,6 @@ form {
       width: 100%;
     }
 
-    .button__icon{
-      position: absolute;
-      top:0;
-      right: 0;
-      margin: 1rem 1rem 1rem 0;
-      height: 1.5rem;
-      width: 1.5rem;
-      background-image: url('./assets/close_icon.svg');
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      background-color: transparent ;
-      border: none;
-    }
-
     input{
       position: absolute;
       width: 100%;
@@ -242,6 +227,25 @@ body::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
 }
 
+.button__icon{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin: 1rem 1rem 1rem 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-image: url('./assets/close_icon.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent ;
+  border: none;
+}
+
+.button__icon:hover{
+  background-color: #faec5c;
+}
+
 .inputCurrency{
   div {
     display: flex;
@@ -272,4 +276,41 @@ body::-webkit-scrollbar-thumb {
     font-size: 1.8rem !important;
     font-weight: 500 !important;
   }
+}
+
+@media (min-width: 1024px){
+  form{
+    button{
+      align-self: end;
+      margin-bottom: 0.7rem;
+    }
+  }
+
+  .content__list--products{
+    max-width: 90%;
+    margin: 0 auto;
+    li{
+      grid-template-columns: repeat(7,1fr);
+      grid-template-areas:
+        "date bill product  stock totalStock value totalvalue";
+      div{
+        flex-direction: column;
+        width: 100%;
+      }
+      h2{
+        text-align: left;
+
+      }
+      .content__stock,
+      .content__valueunit,
+      .content__totalstock,
+      .content__totalvalue{
+        text-align: center;
+      }
+      div,
+      h2{
+        margin-top: 2rem;
+      }
+    }
+    }
 }

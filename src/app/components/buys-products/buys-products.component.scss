@@ -62,15 +62,25 @@
     }
   }
 
-  .radio__activate{
+  .radio__activate {
     border: 0.2rem solid var(--color--green-success);
   }
 
-  .radio__activate--icon{
-    background-image: url("../../../assets/icon_success.svg")!important;
+  .radio__activate--icon {
+    background-image: url("../../../assets/icon_success.svg") !important;
   }
 
 
-@media (min-width: 768px) and (max-width:1200px) {
+  @media (min-width: 1024px) {
 
-}
+    form {
+      width: 90%;
+      display: grid;
+      align-items: center;
+      margin: 2rem auto;
+      grid-template-areas:
+        "buysDate buysDate buysBill buysBill toggleSubmit"
+        "chooseProduct chooseProduct chooseProduct chooseProduct toggleSubmitUpdate"
+        "buysValue buysStock buysTotalValue buysTotalValue .";
+    }
+  }

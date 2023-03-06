@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category, UpdateaCategoryDTO } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -14,7 +14,10 @@ export class CategoryComponent {
   formCategory!: FormGroup;
 
   @Input() categories: Category[] = [];
+  @Output() modalStateEvent= new EventEmitter<boolean>();
+  modalState:boolean=true;
 
+  toggleState:number=0;
   selectedCategoryId: number = 0;
   messagges:string='';
   statusCode: number=0;
@@ -42,6 +45,10 @@ export class CategoryComponent {
     this.formAddCategory();
   }
 
+  sendModalState(){
+    this.modalState =!this.modalState;
+    this.modalStateEvent.emit(this.modalState);
+  }
 
   getAllCategories() {
     this.categoryService.getAllCategories()
@@ -86,6 +93,7 @@ export class CategoryComponent {
 
   toggleUpdate(item: Category) {
     this.statusDeatil='Loading';
+    this.toggleState=item.id
     if(item.id){
       this.categoryService.getCategory(item.id)
       .subscribe(data => {

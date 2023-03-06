@@ -1,4 +1,4 @@
-import { Component,OnInit, Input,Output } from '@angular/core';
+import { Component,OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { Product} from 'src/app/models/product.model';
 import { CreateProductsDTO,UpdateProductsDTO } from 'src/app/models/product.model';
 import { Category } from 'src/app/models/category.model';
@@ -13,16 +13,19 @@ import {zip} from 'rxjs'
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent{
-  @Input() products: Product[] = [];
-  @Input() categories: Category[] = [];
+export class ProductComponent implements OnInit{
+  products: Product[] = [];
+  categories: Category[] = [];
   radioState:string='';
 
   selectedProductId:number=0;
   messagges:string='';
   statusCode: number=0;
-  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
-  modalState=false
+  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
+
+
+  modalState:boolean=false;
+  @Output() modalStateEvent=new EventEmitter();
 
   formProduct!: FormGroup;
   get category_id() {
@@ -57,15 +60,49 @@ export class ProductComponent{
   ) {
     this.formAddProduct();
   }
-  toggleModal(){
-    this.modalState = !this.modalState;
+
+  ngOnInit(): void {
+    this.getAllProducts();
+    this.getAllCategories();
   }
+
+
+  reciveToggleModal(event:boolean){
+    this.modalState = event;
+  }
+
+  toggleModal(){
+    this.modalState=!this.modalState;
+  }
+
+  getAllCategories(){
+    this.categoryService.getAllCategories().subscribe(
+      data=>{
+        this.categories = data;
+      }
+    )
+  }
+
   getAllProducts(){
     this.ProductService.getAllProducts().subscribe(
       data=>{
         this.products = data;
       }
     );
+  }
+
+  submit(event: Event) {
+    event.preventDefault();
+    const addProduct:CreateProductsDTO=this.formProduct.value
+    if (this.formProduct.valid) {
+      this.ProductService.createProduct(addProduct).subscribe(data=>{
+        this.getAllProducts();
+        this.messagges=`La Categoría ${data.description} con código ${data.code} fue agregado con éxito `;
+      });
+      this.formProduct.reset();
+    } else {
+      this.formProduct.markAllAsTouched();
+    }
   }
 
   updateProduct(){
@@ -96,20 +133,6 @@ export class ProductComponent{
 
   toggleDelete(item: Product){
     this.ProductService.deleteProduct(item.id).subscribe();
-  }
-
-  submit(event: Event) {
-    event.preventDefault();
-    const addProduct:CreateProductsDTO=this.formProduct.value
-    if (this.formProduct.valid) {
-      this.ProductService.createProduct(addProduct).subscribe(data=>{
-        this.getAllProducts();
-        this.messagges=`La Categoría ${data.description} con código ${data.code} fue agregado con éxito `;
-      });
-      this.formProduct.reset();
-    } else {
-      this.formProduct.markAllAsTouched();
-    }
   }
 
 }

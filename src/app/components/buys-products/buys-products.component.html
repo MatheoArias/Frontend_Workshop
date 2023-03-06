@@ -1,130 +1,111 @@
 <form (ngSubmit)="submit($event)" [formGroup]="formBuysProduct">
+  <div class="content__input" id="contentChoiceProduct">
+    <label for="productId">
+      Seleccione el producto
+    </label>
+    <select id="productId" formControlName="product_id">
+      <option value="" selected="true" id="firstChoice">
+        Seleccione
+      </option>
+      <option *ngFor="let product of products" value="{{product.id}}">
+        {{product.description}}
+      </option>
+    </select>
+  </div>
 
-    <div class="content__input"  id="contentChoiceProduct">
-      <label for="productId">Seleccione el producto</label>
-      <select id="productId" formControlName="product_id">
-        <option value="" selected="true" id="firstChoice">Seleccione</option>
-        <option *ngFor="let product of products" value="{{product.id}}">
-          {{product.description}}
-        </option>
-      </select>
-    </div>
+  <div class="content__input" id="contentBuysBill">
+    <label for="buysBill">
+      Factura
+    </label>
+    <input type="text" id="buysBill" formControlName="buys_bill" placeholder="Ingrese la factura de compra">
+  </div>
 
-    <div class="content__input" id="contentBuysBill">
-      <label
-        for="buysBill">
-        Factura
-      </label>
-      <input
-        type="text"
-        id="buysBill"
-        formControlName="buys_bill"
-        placeholder="Ingrese la factura de compra">
-    </div>
+  <div class="content__input" id="contentBuysDate">
+    <label for="buysDate">
+      Fecha
+    </label>
+    <input type="date" id="buysDate" formControlName="buys_date">
+  </div>
 
-    <div class="content__input" id="contentBuysDate">
-      <label
-        for="buysDate">
-        Fecha
-      </label>
-      <input
-        type="date"
-        id="buysDate"
-        formControlName="buys_date">
-    </div>
+  <div class="content__input inputStock" id="contentBuysStock">
+    <label for="buysStock">
+      Cantidad
+    </label>
+    <input type="number" id="buysStock" formControlName="buys_stock" (change)="getBuysTotalValue()">
+  </div>
 
-    <div class="content__input inputStock" id="contentBuysStock">
-      <label for="buysStock">
-        Cantidad
-      </label>
-      <input
-        type="number"
-        id="buysStock"
-        formControlName="buys_stock"
-        (change)="getBuysTotalValue()"
-      >
-    </div>
-
-    <div class="content__input inputCurrency" id="contentBuysValue" >
-      <label
-      for="buysUnitValue">
+  <div class="content__input inputCurrency" id="contentBuysValue">
+    <label for="buysUnitValue">
       Valor por unidad
-      </label>
-      <div>
-        <input
-         type="number"
-         formControlName="buys_unit_value"
-         (change)="getBuysTotalValue()" >
-      </div>
+    </label>
+    <div>
+      <input type="number" formControlName="buys_unit_value" (change)="getBuysTotalValue()">
     </div>
+  </div>
 
+  <div class="content__input" id="contentBuysTotalValue">
+    <p>
+      Valor total
+    </p>
+    <p>
+      {{value | currency:'$ '}}
+    </p>
+  </div>
 
-    <div class="content__input"  id="contentBuysTotalValue">
-      <p>Valor total</p>
-      <p>{{value | currency:'$ '}}</p>
+  <button class="button" id="toggleSubmit">
+    Ingresar
+  </button>
+
+  <button class="button" id="toggleSubmitUpdate" (click)="updateBuyProducts()">
+    Modificar
+  </button>
+
+</form>
+
+<ul class="content__list--products" id="productsList">
+  <li *ngFor="let buysProduct of buysProducts" [class.radio__activate]="radioState===buysProduct.id">
+    <button class="button__icon" [class.radio__activate--icon]="radioState===buysProduct.id"
+      (click)="toggleDelete(buysProduct)">
+    </button>
+    <h2>
+      {{buysProduct.product_id.code}} - {{buysProduct.product_id.description}}
+    </h2>
+    <div class="content__date">
+      Fecha:
+      <p>
+        {{buysProduct.buys_date}}
+      </p>
     </div>
-
-    <button class="button" id="toggleSubmit">
-      Ingresar
-    </button>
-
-    <button class="button" id="toggleSubmitUpdate" (click)="updateBuyProducts()">
-      Modificar
-    </button>
-
-  </form>
-
-  <ul class="content__list--products" id="productsList">
-    <li *ngFor="let buysProduct of buysProducts" [class.radio__activate] ="radioState===buysProduct.id">
-      <button
-        class="button__icon"
-        [class.radio__activate--icon] ="radioState===buysProduct.id"
-        (click)="toggleDelete(buysProduct)">
-      </button>
-      <h2>
-        {{buysProduct.product_id.code}} - {{buysProduct.product_id.description}}
-      </h2>
-      <div class="content__date">
-        Fecha:
-        <p>
-          {{buysProduct.buys_date}}
-        </p>
-      </div>
-      <div class="content__bill">
-        Factura:
-        <p>
-          {{buysProduct.buys_bill}}
-        </p>
-      </div>
-      <div class="content__stock">
-        Cantidad:
-        <p>
-          {{buysProduct.buys_stock}}
-        </p>
-      </div>
-      <div class="content__valueunit">
-        Valor:
-        <p>
-          {{buysProduct.buys_unit_value | currency:'$ '}}
-        </p>
-      </div>
-      <div class="content__totalstock">
-        Inventario
-        <p>
-          {{buysProduct.product_id.totals_stock}}
-        </p>
-      </div>
-      <div class="content__totalvalue">
-        TOTAL
-        <p>
-          {{buysProduct.buys_unit_value*buysProduct.buys_stock | currency:'$ '}}
-        </p>
-      </div>
-      <input
-        type="radio"
-        name="chooseBuysProducts"
-        [value]="buysProduct.id"
-        (click)="toggleUpdates(buysProduct)"
-        >
-    </li>
-  </ul>
+    <div class="content__bill">
+      Factura:
+      <p>
+        {{buysProduct.buys_bill}}
+      </p>
+    </div>
+    <div class="content__stock">
+      Cantidad:
+      <p>
+        {{buysProduct.buys_stock}}
+      </p>
+    </div>
+    <div class="content__valueunit">
+      Valor:
+      <p>
+        {{buysProduct.buys_unit_value | currency:'$ '}}
+      </p>
+    </div>
+    <div class="content__totalstock">
+      Inventario
+      <p>
+        {{buysProduct.product_id.totals_stock}}
+      </p>
+    </div>
+    <div class="content__totalvalue">
+      TOTAL
+      <p>
+        {{buysProduct.buys_unit_value*buysProduct.buys_stock | currency:'$ '}}
+      </p>
+    </div>
+    <input type="radio" name="chooseBuysProducts" [value]="buysProduct.id" (click)="toggleUpdates(buysProduct)">
+  </li>
+</ul>

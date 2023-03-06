@@ -31,7 +31,7 @@ const routes: Routes = [
         component:BuysProductsComponent
       },
       {
-        path:'product',
+        path:'add_product',
         component:ProductComponent
       },
     ]

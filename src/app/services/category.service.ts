@@ -44,17 +44,89 @@ export class CategoryService {
 
   getCategory(id:number){
     return this.http.get<Category>(`${this.apiUrl}${id}/`)
+    .pipe(
+      retry(3),
+      catchError((error:HttpErrorResponse) => {
+        if(error.status===HttpStatusCode.Conflict){
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status===HttpStatusCode.BadRequest){
+          return throwError('Está realizando una amala petición')
+        }
+        if(error.status===HttpStatusCode.NotFound){
+          return throwError('La página no ha sido encontada')
+        }
+        if(error.status===HttpStatusCode.Unauthorized){
+          return throwError('No estás autorizado')
+        }
+        return throwError('Algo está saliendo mal')
+      })
+    );
   }
 
   createCategory(data:CreateCategoryDTO){
     return this.http.post<Category>(this.apiUrl, data)
+    .pipe(
+      retry(3),
+      catchError((error:HttpErrorResponse) => {
+        if(error.status===HttpStatusCode.Conflict){
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status===HttpStatusCode.BadRequest){
+          return throwError('Está realizando una amala petición')
+        }
+        if(error.status===HttpStatusCode.NotFound){
+          return throwError('La página no ha sido encontada')
+        }
+        if(error.status===HttpStatusCode.Unauthorized){
+          return throwError('No estás autorizado')
+        }
+        return throwError('Algo está saliendo mal')
+      })
+    );
   }
 
   updateCategory(id:number, data:UpdateaCategoryDTO){
     return this.http.put<Category>(`${this.apiUrl}${id}/`, data)
+    .pipe(
+      retry(3),
+      catchError((error:HttpErrorResponse) => {
+        if(error.status===HttpStatusCode.Conflict){
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status===HttpStatusCode.BadRequest){
+          return throwError('Está realizando una amala petición')
+        }
+        if(error.status===HttpStatusCode.NotFound){
+          return throwError('La página no ha sido encontada')
+        }
+        if(error.status===HttpStatusCode.Unauthorized){
+          return throwError('No estás autorizado')
+        }
+        return throwError('Algo está saliendo mal')
+      })
+    );
   }
 
   deleteCategory(id:number){
     return this.http.delete<Category>(`${this.apiUrl}${id}/`)
+    .pipe(
+      retry(3),
+      catchError((error:HttpErrorResponse) => {
+        if(error.status===HttpStatusCode.Conflict){
+          return throwError('Algo está fallando en el servidor');
+        }
+        if(error.status===HttpStatusCode.BadRequest){
+          return throwError('Está realizando una amala petición')
+        }
+        if(error.status===HttpStatusCode.NotFound){
+          return throwError('La página no ha sido encontada')
+        }
+        if(error.status===HttpStatusCode.Unauthorized){
+          return throwError('No estás autorizado')
+        }
+        return throwError('Algo está saliendo mal')
+      })
+    );
   }
 }
