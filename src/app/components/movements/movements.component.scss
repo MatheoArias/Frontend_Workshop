@@ -1,15 +1,189 @@
-ul{
+.content__chart{
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  li{
-    display: flex;
-    max-width: 100%;
-    gap:0.5;
-    border: 0.1rem solid black;
+  flex-direction: row-reverse;
+  justify-content: center;
 
-    p{
-      width: 100%;
+  .section__input{
+    display: flex;
+    flex-direction:column ;
+    justify-content: space-around;
+    margin: 0.5rem;
+    align-self: center;
+    border-radius: 10px;
+    div{
+      position: relative;
+      display: flex;
+      border: 0.1rem solid var(--color--red);
+      background-color: var(--color--gray-background);
+      border-radius: 5px;
+      margin: 0.5rem;
+      width:8rem;
+      height: 3rem;
+      label{
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+        padding: 0.5rem;
+        font-weight: 400;
+        font-size: 1.5rem;
+        line-height: 1.7rem;
+      }
+      input{
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        opacity: 0;
+        cursor:pointer;
+      };
+
+      &.activate{
+        border: 0.2rem solid var(--color--green-success);
+        label{
+          font-weight: 400;
+        }
+      }
+    }
+    div:hover{
+      border: 0.1rem solid var(--color--red--secundary);
+      background-color: var(--color--red--secundary);
+      color: var(--color--white);
+      font-weight: 700;
+    }
+  }
+  .section__chart{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border-radius: 10px;
+    ngx-charts-advanced-pie-chart{
+      width: 100% !important;
+      display: flex !important;
+      justify-content: flex-end !important;
     }
   }
 }
+
+@media (min-width: 768px){
+  span{
+    display: none;
+  }
+  ul{
+    max-height: 40vh;
+    li{
+      grid-template-areas:
+      "arrow date bill code description stock stockTotal";
+      grid-template-columns: 1fr 1fr 2fr 1fr 2fr 1fr 1fr;
+    }
+    .content__description{
+      .header{
+        display: block !important;
+      }
+    }
+    div{
+      flex-direction: column;
+    }
+  }
+}
+
+ul{
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  max-height: 100vh;
+  overflow-y: scroll;
+  li{
+    display: grid;
+    grid-template-areas:  "description description description"
+                          "date date arrow"
+                          "bill bill arrow"
+                          "code code stockTotal"
+                          "stock stock stockTotal";
+    background-color: var(--color--white);
+    border-radius: 10px;
+    margin:0.5rem 0;
+    padding: 1rem;
+
+    .arrow__in {
+      color: var(--color--green-success);
+      p{
+        color: var(--color--green-success);
+        font-weight: 700;
+      }
+    }
+
+    .arrow__out {
+      color: var(--color--red);
+      p{
+        color: var(--color--red);
+        font-weight: 700;
+      }
+    }
+    .content__arrow{
+      grid-area:arrow;
+      display: flex;
+      flex-direction: column;
+      font-size: 3rem;
+      font-weight: 700;
+      height: 100%;
+      width: 100%;
+      margin:auto 0;
+      align-items: center;
+    }
+
+    .content__date{
+      grid-area:date;
+    }
+    .content__bill{
+      grid-area:bill;
+    }
+    .content__description{
+      grid-area:description;
+      .header{
+        display: none;
+      }
+      p{
+        font-weight: 500;
+        width: 100%;
+      }
+    }
+    .content__code{
+      grid-area: code ;
+    }
+    .content__stock{
+      grid-area: stock ;
+      p{
+        text-align: center;
+      }
+    }
+    .content__stock--total{
+      grid-area: stockTotal;
+      flex-direction: column;
+      p{
+        text-align: center;
+      }
+    }
+
+    div{
+      display: flex;
+      margin: 0 0.5rem;
+      padding: 0.1rem;
+      p{
+        font-size: 1.3rem;
+        padding: 0 0.2rem;
+        margin: 0;
+      }
+      .header{
+        color: var(--color--red);
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 500;
+      }
+      p{
+        color:var(--color--gray);
+        font-weight: 300;
+      }
+    }
+  }
+}
+

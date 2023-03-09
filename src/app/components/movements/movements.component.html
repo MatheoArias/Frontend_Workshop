@@ -1,11 +1,74 @@
+  <div class="content__chart">
+    <div class="section__input">
+      <div [class.activate]="stateButton==='year'" (change)="onChangeInput()">
+        <label for="inputYear">Año</label>
+        <input
+        type="radio"
+        name='time'
+        [formControl]="intervalTime"
+        value="year"
+        id="inputYear"
+        checked='checked'
+        (change)="onGetYearMovements()">
+      </div>
+      <div [class.activate]="stateButton==='month'" (change)="onChangeInput()">
+        <label for="inputMonth">Mes</label>
+        <input
+          type="radio"
+          name='time'
+          [formControl]="intervalTime"
+          value="month"
+          id="inputMonth"
+          (change)="onGetYearMovements()">
+      </div>
+    </div>
+
+    <div class="section__chart">
+      <ngx-charts-advanced-pie-chart
+      [scheme]="colorScheme"
+      [results]="dataMoevements"
+      [gradient]="gradient"
+      >
+      </ngx-charts-advanced-pie-chart>
+    </div>
+</div>
+
 <ul>
-  <li *ngFor="let item of movements">
-   <p>{{item.description}}</p>
-   <p>{{item.code}}</p>
-   <p>{{item.stock}}</p>
-   <p>{{item.date}}</p>
-   <p>{{item.bill}}</p>
-   <p>{{item.totals_stock}}</p>
-   <p>{{item.category}}</p>
+  <li *ngFor="let item of movements" class="content__product--in"
+    [class.content__product--out]="item.category==movement.category">
+    <div *ngIf="item.category==movement.category; else elseBlock" class="arrow__in content__arrow">
+      <p>Entrada</p>
+      ←
+    </div>
+    <ng-template #elseBlock>
+      <div class="arrow__out content__arrow" >
+        <p>Salida</p>
+        →
+      </div>
+    </ng-template>
+    <div class="content__date">
+      <p class="header">Fecha <span>:</span></p>
+      <p>{{item.date | date}}</p>
+    </div>
+    <div class="content__bill">
+      <p class="header">Factura <span>:</span></p>
+      <p>{{item.bill}}</p>
+    </div>
+    <div class="content__code">
+      <p class="header">Código <span>:</span></p>
+      <p>{{item.code}}</p>
+    </div>
+    <div class="content__description">
+      <p class="header">Descripción <span>:</span></p>
+      <p>{{item.description}}</p>
+    </div>
+    <div class="content__stock">
+      <p class="header">Cantidad<span>:</span></p>
+      <p>{{item.stock | number}}</p>
+    </div>
+    <div class="content__stock--total">
+      <p class="header">Inventario</p>
+      <p>{{item.totals_stock | number}}</p>
+    </div>
   </li>
 </ul>

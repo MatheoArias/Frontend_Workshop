@@ -192,7 +192,7 @@ form {
       font-weight: 500;
       padding: 0.1rem;
       p {
-        font-family: 'Quicksand';
+        font-family: 'Quicksand', sans-serif;
         font-size: 1.4rem;
         font-weight: 500;
         color: #000000;
@@ -274,6 +274,30 @@ body::-webkit-scrollbar-thumb {
     font-size: 1.8rem !important;
     font-weight: 500 !important;
   }
+}
+
+
+.total-label,
+.total-value{
+  display: none !important;
+}
+
+.item-labale,
+.item-value{
+  margin: 0.8rem !important;
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+.item-percent {
+  margin: 0rem 0.1rem !important;
+  text-align: right;
+  font-family: 'Quicksand', sans-serif !important;
+}
+.legend-items{
+  overflow: visible !important;
+}
+.item-color {
+  height: 6rem !important;
 }
 
 @media (min-width: 1024px){

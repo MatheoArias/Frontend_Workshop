@@ -1,17 +1,20 @@
-import { Component,OnInit} from '@angular/core';
-import {BuyProducts,UpdateBuysProductDTO,createBuysProductDTO,} from 'src/app/models/buy_product.model';
-import { SellProducts} from 'src/app/models/sell_product.model';
+import { Component,OnInit, ViewEncapsulation} from '@angular/core';
 import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { SellProductsService } from 'src/app/services/sell-products.service';
-import { BuysProductsComponent } from '../buys-products/buys-products.component';
-import { Product,Movements } from 'src/app/models/product.model';
+import { Movements,MovementesChart} from 'src/app/models/product.model';
+import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
+import { FormGroup,FormControl} from '@angular/forms';
 @Component({
   selector: 'app-movements',
   templateUrl: './movements.component.html',
   styleUrls: ['./movements.component.scss'],
+
 })
 export class MovementsComponent implements OnInit {
+  intervalTime = new FormControl('year');
+  stateButton:string | null='year';
 
+  movements: Movements[] = [];
   movement: Movements = {
     description: '',
     code: '',
@@ -19,9 +22,27 @@ export class MovementsComponent implements OnInit {
     date: new Date(),
     bill: '',
     totals_stock: 0,
-    category: '',
+    category: 'Entrada',
+    total_value: 0,
   };
-  movements: Movements[] = [];
+
+  // options
+  gradient: boolean = true;
+  showLegend: boolean = true;
+  showLabels: boolean = true;
+  isDoughnut: boolean = false;
+
+  dataMoevements:MovementesChart[]=[]
+  data: MovementesChart={
+    name:'',
+    value: 0
+  };
+  colorScheme = {
+    domain: ['#F47A82', '#5fe39f'],
+    name: 'colorScheme',
+    selectable: true,
+    group: ScaleType.Linear,
+  };
 
   constructor(
     private buyProductsService: BuyProductsService,
@@ -34,7 +55,8 @@ export class MovementsComponent implements OnInit {
   }
 
   getSellProducts() {
-    this.sellProductsService.getAllSellProducts().subscribe((data) => {
+    this.sellProductsService.getAllSellProducts()
+    .subscribe(data=> {
       data.map((item) => {
         this.movement = {
           description: item.product_id.description,
@@ -43,17 +65,23 @@ export class MovementsComponent implements OnInit {
           date: item.sell_date,
           bill: item.sell_bill,
           totals_stock: item.product_id.totals_stock,
+          total_value:  item.sell_stock * item.product_id.unit_value,
           category: 'Salida',
         };
+        /*******************************************************/
         this.movements.push(this.movement);
-        this.movements.sort((a,b)=>new Date(b.stock).getMonth()-new Date(a.stock).getMonth());
+        this.movements.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
       });
+      this.onClickIntervalTime(this.movements,this.intervalTime.value);
     });
+
   }
 
   getBuysProducts() {
-    this.buyProductsService.getAllBuyProducts().subscribe(
-      data => {
+    this.buyProductsService.getAllBuyProducts()
+    .subscribe(data => {
       data.map((item) => {
         this.movement = {
           description: item.product_id.description,
@@ -61,12 +89,75 @@ export class MovementsComponent implements OnInit {
           stock: item.buys_stock,
           date: item.buys_date,
           bill: item.buys_bill,
-          totals_stock: item.product_id.totals_stock,
-          category: 'entrada',
+          totals_stock: item.buys_stock * item.buys_unit_value,
+          total_value: item.buys_unit_value,
+          category: 'Entrada',
         };
         this.movements.push(this.movement);
-        this.movements.sort((a,b)=>new Date(b.stock).getMonth()-new Date(a.stock).getMonth());
+        this.movements.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
       });
+      this.onClickIntervalTime(this.movements,this.intervalTime.value);
     });
+
+  }
+
+  onClickIntervalTime(movements:Movements[],input:any){
+    if(input==='year'){
+      let listOutflow = movements.filter(
+        item => new Date(item.date).getFullYear() === new Date().getFullYear()
+         && item.category=='Salida');
+      let totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
+
+      let listIntFlow = movements.filter(
+        item => new Date(item.date).getFullYear() === new Date().getFullYear()
+        && item.category=='Entrada');
+     let totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
+
+      this.dataMoevements=[
+        {
+          name: "Entradas",
+          value: totalIntflow
+        },
+        {
+          name: "Salidas",
+          value: totalOutflow
+        }
+      ]
+    }else{
+      let listOutflow = movements.filter(
+        item =>
+         new Date(item.date).getFullYear() === new Date().getFullYear() &&
+         new Date(item.date).getMonth() === new Date().getMonth() &&
+         item.category=='Salida' );
+      let totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
+
+      let listIntFlow = movements.filter(
+        item =>
+         new Date(item.date).getFullYear() === new Date().getFullYear() &&
+         new Date(item.date).getMonth()=== new Date().getMonth() &&
+         item.category=='Entrada');
+      let totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
+
+      this.dataMoevements=[
+        {
+          name: "Entradas",
+          value: totalIntflow
+        },
+        {
+          name: "Salidas",
+          value: totalOutflow
+        }
+      ]
+    }
+  }
+
+  onGetYearMovements(){
+    this.onClickIntervalTime(this.movements,this.intervalTime.value);
+  }
+
+  onChangeInput(){
+    this.stateButton=this.intervalTime.value;
   }
 }

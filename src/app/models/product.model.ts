@@ -25,7 +25,13 @@ export interface Movements extends Pick<Product, 'code' | 'description' | 'total
   stock:number;
   date:Date;
   bill:string
-  category:string;
+  category:'Entrada' | 'Salida';
+  total_value:number;
+}
+
+export interface MovementesChart{
+  name:string;
+  value:number;
 }
 
 
