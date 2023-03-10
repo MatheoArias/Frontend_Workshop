@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { Product} from '../models/product.model';
 import { CreateProductsDTO,UpdateProductsDTO,UpdateTotalStockProductDTO } from '../models/product.model';
 import { environment } from 'src/enviroments/environment';
@@ -17,7 +17,7 @@ export class ProductService {
   ) { }
 
   getAllProducts(){
-    return this.http.get<Product[]>(this.apiUrl)
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
   getProduct(id:number){

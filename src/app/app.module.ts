@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgxChartsModule} from '@swimlane/ngx-charts'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ import { Notfound404Component } from './pages/notfound404/notfound404.component'
 import { NavComponent } from './components/nav/nav.component';
 import { UsersComponent } from './pages/users/users.component';
 import { MovementsComponent } from './components/movements/movements.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -62,7 +63,9 @@ import { MovementsComponent } from './components/movements/movements.component';
     MatIconModule,
     NgxChartsModule,
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

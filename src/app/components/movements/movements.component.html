@@ -8,7 +8,6 @@
         [formControl]="intervalTime"
         value="year"
         id="inputYear"
-        checked='checked'
         (change)="onGetYearMovements()">
       </div>
       <div [class.activate]="stateButton==='month'" (change)="onChangeInput()">

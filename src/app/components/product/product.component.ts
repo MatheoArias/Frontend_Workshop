@@ -73,6 +73,7 @@ export class ProductComponent implements OnInit{
 
   toggleModal(){
     this.modalState=!this.modalState;
+    this.getAllCategories();
   }
 
   getAllCategories(){
