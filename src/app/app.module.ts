@@ -18,7 +18,6 @@ import { CategoryComponent } from './components/category/category.component';
 import { BuysProductsComponent } from './components/buys-products/buys-products.component';
 import { SellProductsComponent } from './components/sell-products/sell-products.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { VehiclesComponent } from './pages/vehicles/vehicles.component';
 import { CustomersComponent } from './pages/customers/customers.component';
@@ -29,6 +28,10 @@ import { NavComponent } from './components/nav/nav.component';
 import { UsersComponent } from './pages/users/users.component';
 import { MovementsComponent } from './components/movements/movements.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { LayoutComponent } from './components/layout/layout.component';
+import { LoginComponent } from './components/login/login.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { DocumentTypeComponent } from './components/document-type/document-type.component';
 
 
 @NgModule({
@@ -39,7 +42,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     BuysProductsComponent,
     SellProductsComponent,
     HomeComponent,
-    LoginComponent,
     ProductsComponent,
     VehiclesComponent,
     CustomersComponent,
@@ -49,6 +51,10 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     NavComponent,
     UsersComponent,
     MovementsComponent,
+    LayoutComponent,
+    LoginComponent,
+    CustomerComponent,
+    DocumentTypeComponent,
   ],
   imports: [
     BrowserModule,

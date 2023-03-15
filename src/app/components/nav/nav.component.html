@@ -11,7 +11,7 @@
 
   <ul>
     <li>
-      <a class="content__text--after after--activate" [class.after--activate]="listState"
+      <a class="list__text--after after--activate" [class.after--activate]="listState"
         (click)="toggleActivateList()">
         Inventario
       </a>
@@ -35,8 +35,7 @@
     </li>
 
     <li>
-      <a class="content__text--after after--activate" [class.after--activate]="listState"
-        (click)="toggleActivateList()">
+      <a class="text-activate" [routerLink]="['/sells']">
         Ventas
       </a>
     </li>
@@ -59,17 +58,17 @@
   </ul>
 
   <div>
-    <p class="nav__name--text">
-      Mateo Arias Correa
-    </p>
-    <p class="nav__profession--text">
-      Empleado
-    </p>
-    <div class="nav__ball--icon">•</div>
-    <button class="button_login" (click)="LoginUser()">Login</button>
+      <p class="nav__name--text">
+        Mateo Arias Correa
+      </p>
+      <p class="nav__profession--text">
+        Empleado
+      </p>
+      <div class="nav__ball--icon">•</div>
+
+      <button class="button_login" (click)="LogoutUser()">Cerrar Sesion</button>
   </div>
 
-  <button class="button--active" [class.button--active]="navState" (click)="toggleShowNav()">
-  </button>
+  <button class="button--active" [class.button--active]="navState" (click)="toggleShowNav()"></button>
 
 </nav>

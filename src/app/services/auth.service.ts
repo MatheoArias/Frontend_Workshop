@@ -9,20 +9,29 @@ import { tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.API_URL}/login`
+  private apiUrlLogin = `${environment.API_URL}/login`
+  private apiUrlLogout = `${environment.API_URL}/logout`
+
   constructor(
     private http:HttpClient,
     private tokenService:TokenService
   ) { }
 
   login(username:string,password:string){
-    return this.http.post<Auth>(this.apiUrl,
+    return this.http.post<Auth>(this.apiUrlLogin,
       {
         username:username,
         password:password
       }
     ).pipe(
       tap(data=>this.tokenService.saveToken(data.token))
-    );
-  }
+  )};
+
+  logout(id:number) {
+    return this.http.post<Auth>(this.apiUrlLogout,
+      {
+        user:id,
+      }
+  )};
+
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Product,UpdateProductsDTO,UpdateTotalStockProductDTO} from 'src/app/models/product.model';
+import {Product} from 'src/app/models/product.model';
 import {BuyProducts,UpdateBuysProductDTO,createBuysProductDTO,} from 'src/app/models/buy_product.model';
 import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { ProductService } from 'src/app/services/product.service';
-import { switchMap, mergeMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { DatePipe } from '@angular/common';
 

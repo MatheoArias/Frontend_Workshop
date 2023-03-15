@@ -1,9 +1,3 @@
-.button_login{
-  background-image: none !important;
-  background-color: azure !important;
-  margin: 0.5rem !important;
-  width: 5rem!important;
-}
 nav {
   display: grid;
   align-items: center;
@@ -19,13 +13,16 @@ nav {
     width: 4.5rem;
     height: 4.5rem;
   }
+
+
   div{
     display: grid;
     justify-content: center;
     justify-items: start;
     align-items: center;
-    grid-template-areas: "name ball"
-                          "profession ball";
+    grid-template-areas: "name ball "
+                          "profession ball"
+                          "log log";
     width: 100%;
     grid-area: users;
 
@@ -34,6 +31,23 @@ nav {
     }
     .nav__profession--text{
       grid-area: profession;
+    }
+
+    .button_login{
+      grid-area: log;
+      background-image: none;
+      background-color: transparent;
+      margin: 0.4rem 0 0 0;
+      width: 100%;
+      height: auto;
+      text-align: left;
+      color: var(--color--white);
+      opacity: 60% !important;
+      font-weight: 300 !important;
+    }
+    .button_login:hover{
+      font-weight: 700 !important;
+      opacity: 100% !important;
     }
 
     p{
@@ -81,16 +95,19 @@ nav {
     width: 100%;
     display: none;
     li {
-      .content__text--after {
+      a{
         color: var(--color--white);
         text-decoration: none;
         font-size: 1.2rem;
         font-weight: 400;
         cursor: pointer;
 
-        &.after--activate{
+        &.after--activate,
+        .text-activate{
           font-weight: 700;
         }
+
+
 
         &.after--activate::after{
           transform: rotate(180deg);
@@ -98,7 +115,7 @@ nav {
         }
       }
 
-      .content__text--after::after {
+      .list__text--after::after {
         content: '';
         margin-left: 0.5rem;
         display: inline-block;
@@ -156,13 +173,14 @@ nav {
     width: 2.5rem;
     height: 2.5rem;
     animation: button 0.5s ease-out forwards;
-    align-self: end;
+    align-self: center;
     cursor: pointer;
     border: none;
 
     &.button--active {
       animation: change__button 0.3s ease-out forwards;
       background-image: url('../../../assets/close_icon_white.svg');
+      align-self: end;
     }
 
     @keyframes change__button {

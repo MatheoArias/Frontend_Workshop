@@ -38,6 +38,11 @@ main {
   max-height: 100%;
   max-width: 100%;
 }
+
+a,
+button {
+  cursor: pointer;
+}
 /*this is the apps' containers' styles*/
 .content__app{
   max-width: 100%;

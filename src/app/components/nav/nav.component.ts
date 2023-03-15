@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from 'src/app/services/token.service';
 import { Users } from 'src/app/models/users.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,8 +13,9 @@ import { Users } from 'src/app/models/users.model';
 export class NavComponent {
 
   constructor(
-    private usersService: UsersService,
-    private authService:AuthService
+    private authService: AuthService,
+    private tokenService: TokenService,
+    private router: Router
   ){}
 
   navState=false;
@@ -49,13 +52,15 @@ export class NavComponent {
     }
   }
 
-  LoginUser(){
-    this.authService.login('MatheoArias','Mateocorrea1').subscribe(
-      data=>{
-        this.token=data.token;
-        this.user=data.user;
-      }
-    )
+  LogoutUser(){
+    const user=this.tokenService.getUser();
+    if(user){
+      const objUser=JSON.parse(user);
+      this.authService.logout(objUser.user.id).subscribe();
+      this.router.navigate(['/login']);
+      localStorage.removeItem('token');
+    }else{
+      alert('Este usuario no ha iniciado sección')
+    }
   }
-
 }

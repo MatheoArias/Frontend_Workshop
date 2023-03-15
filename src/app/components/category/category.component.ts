@@ -28,10 +28,6 @@ export class CategoryComponent {
     category:"",
   }
 
-  get categorysProduct() {
-    return this.formCategory.get('category');
-  }
-
   private formAddCategory() {
     this.formCategory = this.formBuilder.group({
       category: ['', [Validators.required]],

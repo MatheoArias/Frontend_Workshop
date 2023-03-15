@@ -1,0 +1,25 @@
+<div class="content__app--login">
+  <div class="content__login"  >
+    <img src="../../../assets/icon_color.svg" alt="this is the comopany's icon">
+    <h1>
+      B & H
+      <span>
+        Repuestos y Accesorios
+      </span>
+    </h1>
+    <form (ngSubmit)="submit($event)" [formGroup]="formLogin">
+      <div class="content__input">
+        <label for="emailAddressInput">Coreo Electrónico</label>
+        <input type="text" formControlName="emailAdress" id="emailAddressInput"
+        placeholder="Ingrese su Correo Electrónico">
+      </div>
+      <div class="content__input">
+        <label for="passwordInput">Contraseña</label>
+        <input type="password" formControlName="password" id="passwordInput"
+        placeholder="Ingrese su contraseña">
+      </div>
+      <button type="submit" class="button">Ingresar</button>
+    </form>
+    <a>¿Olvidaste tu contraseña?</a>
+  </div>
+</div>

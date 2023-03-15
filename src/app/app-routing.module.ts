@@ -7,72 +7,83 @@ import { SellProductsComponent } from './components/sell-products/sell-products.
 import { BillsComponent } from './pages/bills/bills.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { Notfound404Component } from './pages/notfound404/notfound404.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { SellsComponent } from './pages/sells/sells.component';
 import { UsersComponent } from './pages/users/users.component';
 import { VehiclesComponent } from './pages/vehicles/vehicles.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { LoginComponent } from './components/login/login.component';
+
+import { AuthGuard } from './guards/auth.guard';
+
+
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo: '/home',
-    pathMatch:"full"
-  },
-  {
-    path:'home',
-    component:HomeComponent
-  },
-  {
-    path:'products',
-    component:ProductsComponent,
+    component:LayoutComponent,
     children:[
       {
-        path:'buys_product',
-        component:BuysProductsComponent
+        path:'',
+        redirectTo: '/login',
+        pathMatch:"full"
+      },
+
+      {
+        path:'home',
+        component:HomeComponent
       },
       {
-        path:'add_product',
-        component:ProductComponent
+        path:'products',
+        component:ProductsComponent,
+        children:[
+          {
+            path:'buys_product',
+            component:BuysProductsComponent,
+            canActivate:[AuthGuard]
+          },
+          {
+            path:'add_product',
+            component:ProductComponent,
+            canActivate:[AuthGuard]
+          },
+          {
+            path:'movements',
+            component:MovementsComponent,
+            canActivate:[AuthGuard]
+          }
+        ]
       },
       {
-        path:'movements',
-        component:MovementsComponent
-      }
+        path:'bill',
+        component:BillsComponent
+      },
+      {
+        path:'customer',
+        component:CustomersComponent
+      },
+
+      {
+        path:'sells',
+        component:SellProductsComponent,
+      },
+      {
+        path:'users',
+        component:UsersComponent
+      },
     ]
-  },
-  {
-    path:'bill',
-    component:BillsComponent
-  },
-  {
-    path:'customer',
-    component:CustomersComponent
   },
   {
     path:'login',
     component:LoginComponent
   },
   {
-    path:'sells',
-    component:SellsComponent,
-  },
-
-  {
-    path:'vehicle',
-    component:VehiclesComponent
-  },
-  {
-    path:'users',
-    component:UsersComponent
-  },
-  {
     path:'**',
     component:Notfound404Component
   },
-
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
