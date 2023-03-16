@@ -1,0 +1,82 @@
+<form (ngSubmit)="submit($event)" [formGroup]="formEmployee">
+
+  <div class="content__input">
+    <label for="inputNames">Nombres y Apellidos</label>
+    <input type="text" id="inputNames" formControlName="names">
+  </div>
+
+  <div class="content__input">
+    <label for="inputDocumentType">Tipo de documento</label>
+    <select type="number" id="inputDocumentType" formControlName="document_type">
+      <option value="" selected="true">
+        Seleccione
+      </option>
+      <option *ngFor="let item of documentTypes" value="{{item.id}}">
+        {{item.types}} - {{item.name}}
+      </option>
+    </select>
+  </div>
+
+  <div class="content__input">
+    <label for="inputDocumentNumber">Número de documento</label>
+    <input type="number" id="inputDocumentNumber" formControlName="document_number">
+  </div>
+
+  <div class="content__input">
+    <label for="inputEmployeesType">Ocupación</label>
+    <select type="text" id="inputEmployeesType" formControlName="employees_type">
+      <option value="" selected="true" id="firstChoice">
+        Seleccione
+      </option>
+      <option *ngFor="let item of employeeTypes" value="{{item.id}}">
+        {{item.jobs_names_cod}} - {{item.jobs_names}}
+      </option>
+    </select>
+  </div>
+
+  <div class="content__input">
+    <label for="inputTelephoneNumber">Número de teléfono fijo</label>
+    <input type="tel" id="inputTelephoneNumber" formControlName="telephone_number">
+  </div>
+
+  <div class="content__input">
+    <label for="inputTelephoneCel">Número de celular</label>
+    <input type="tel" id="inputTelephoneCel" formControlName="telephone_cel">
+  </div>
+
+  <div class="content__input">
+    <label for="inputAdressResidence">Dirección de residencia</label>
+    <input type="text" id="inputAdressResidence" formControlName="residence_address">
+  </div>
+
+  <div class="content__input">
+    <label for="InputEmailAddress">Correo Electrónico</label>
+    <input type="text" id="InputEmailAddress" formControlName="email_address">
+  </div>
+
+  <button class="button">
+    Ingresar
+  </button>
+
+  <button (click)="updateEmployee()" class="button">
+    Modificar
+  </button>
+
+</form>
+
+<ul>
+  <li *ngFor="let item of employees">
+    <input type="radio" name="choiceEmployee" value="{{item.id}}" (click)="toggleUpdate(item)">
+    <p>{{item.names}}</p>
+    <p>{{item.employees_type.jobs_names_cod}} - {{item.employees_type.jobs_names}}</p>
+    <p>{{item.document_type.types}} - {{item.document_number}}</p>
+    <p>{{item.telephone_number}}</p>
+    <p>{{item.telephone_cel}}</p>
+    <p>{{item.address_residence}}</p>
+    <p>{{item.email_address}}</p>
+    <button
+    (click)=" toggleDelete(item)">
+    Eliminar
+  </button>
+  </li>
+</ul>

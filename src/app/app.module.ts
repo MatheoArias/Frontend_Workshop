@@ -32,6 +32,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { DocumentTypeComponent } from './components/document-type/document-type.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { EmployeesComponent } from './pages/employees/employees.component';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { DocumentTypeComponent } from './components/document-type/document-type.
     LoginComponent,
     CustomerComponent,
     DocumentTypeComponent,
+    EmployeeComponent,
+    EmployeesComponent,
   ],
   imports: [
     BrowserModule,

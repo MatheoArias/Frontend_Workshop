@@ -73,6 +73,7 @@ export class CategoryComponent {
 
 
   updateCategory() {
+    this.statusDeatil='Loading';
     const updateCategory: UpdateaCategoryDTO = this.formCategory.value;
     if (this.formCategory.valid) {
       this.categoryService
@@ -82,8 +83,10 @@ export class CategoryComponent {
           this.messagges=`La Categoría ${data.category} fue modificada con éxito `;
         });
       this.formCategory.reset();
+      this.statusDeatil='Success';
     } else {
       this.formCategory.markAllAsTouched();
+      this.statusDeatil='Error';
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { Customer,UpdateCustomerDTO,CreateCustomerDTO } from 'src/app/models/customer.model';
 import { DocumentType } from 'src/app/models/document_type.models';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -11,15 +11,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./customer.component.scss']
 })
 
-export class CustomerComponent implements OnInit{
+export class CustomerComponent {
 
   CustomerId:number=0;
   messagges:string='';
   statusCode: number=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
-  documentType:DocumentType[]=[]
-  customers:Customer[] = [];
+  @Input()documentType:DocumentType[]=[]
+  @Input() customers:Customer[] = [];
   customer:Customer={
       id: 0,
       names: '',
@@ -36,6 +36,11 @@ export class CustomerComponent implements OnInit{
   }
 
   formCustomer!:FormGroup;
+
+  get inputDocumentType(){
+    return this.formCustomer.get('document_type')
+  }
+
   private formAddCustomer() {
     this.formCustomer = this.formBuilder.group({
       names: ['', [Validators.required]],
@@ -54,11 +59,6 @@ export class CustomerComponent implements OnInit{
     private formBuilder: FormBuilder
   ){
     this.formAddCustomer();
-  }
-
-  ngOnInit(){
-    this.getAllCustomer();
-    this.getAllDocumentType();
   }
 
   getAllCustomer(){
@@ -114,7 +114,7 @@ export class CustomerComponent implements OnInit{
       .subscribe(data => {
         this.formCustomer.patchValue(data);
         this.CustomerId = data.id;
-        console.log('El id del cliente es: ',this.CustomerId)
+        this.inputDocumentType?.setValue(data.document_type.id);
       });
       this.statusDeatil='Success';
     }else{

@@ -16,6 +16,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { EmployeesComponent } from './pages/employees/employees.component';
 
 
 
@@ -71,6 +72,10 @@ const routes: Routes = [
       {
         path:'users',
         component:UsersComponent
+      },
+      {
+        path:'employees',
+        component:EmployeesComponent
       },
     ]
   },

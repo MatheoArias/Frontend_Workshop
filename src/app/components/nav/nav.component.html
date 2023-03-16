@@ -49,11 +49,22 @@
     </li>
 
     <li>
-      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/bill']">Contabilidad</a>
-    </li>
-
-    <li>
-      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/bill']">Empleados</a>
+      <a class="list__text--after after--activate" [class.after--activate]="listState" (click)="toggleActivateList()">
+        Empleados
+      </a>
+      <ul class="list--activate" [class.list--activate]="listState">
+        <li>
+          <a
+          [routerLink]="['/employees']"
+          (click)="toggleChooseList()"
+          routerLinkActive="activate__link">
+            Agregar empleado
+          </a>
+        </li>
+        <li>
+          <a href="">Estadísticas</a>
+        </li>
+      </ul>
     </li>
   </ul>
 
