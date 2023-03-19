@@ -1,1 +1,81 @@
+<form (ngSubmit)="submit($event)" [formGroup]="formSellProduct">
 
+  <div class="content__input">
+    <label for="">Cliente</label>
+    <select type="text" id="" formControlName="customer" (change)="onChangeInputCustomer()">
+      <option value="">Seleccionar</option>
+      <option *ngFor="let item of customers" value="{{item.id}}">
+         {{item.document_type.types}} {{item.names}}
+      </option>
+    </select>
+  </div>
+
+  <div class="content__input" *ngIf="stateLenghtList; else elseBlock">
+    <label for="">Vehículo</label>
+    <select type="text" id="" formControlName="vehicle">
+      <option value="">
+        Seleccione
+      </option>
+      <option *ngFor="let item of vehicles" value="{{item.id}}">
+          Placa: {{item.license_plate}} - Marca: {{item.trademark}} - {{item.model}}
+      </option>
+    </select>
+  </div>
+
+  <ng-template #elseBlock>
+    <div class="content__input">
+      <label>Vehículo</label>
+      <p>No existe ningun vehículo asociado con este propietario</p>
+    </div>
+  </ng-template>
+
+
+
+  <div class="content__input">
+    <label for="">Persona que presta el servicio</label>
+    <select type="text" id="" formControlName="employee">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of employeesList" value="{{item.id}}">
+        {{item.names}}
+      </option>
+    </select>
+  </div>
+
+  <div class="content__input">
+    <label for="">Medio de pago</label>
+    <select type="text" id="" formControlName="payment_medium">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of paymentMedium" value="{{item.id}}">
+         {{item.medium}}
+        </option>
+    </select>
+  </div>
+
+  <div class="content__input">
+    <label for="">Descuento</label>
+    <select type="text" id="" formControlName="discounts">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of discount" value="{{item.id}}">
+        {{item.types}}( {{item.percentage | number}}% ) - {{item.description}}
+      </option>
+    </select>
+  </div>
+
+  <button class="button">
+    Registrar
+  </button>
+
+  <div class="content__input">
+    <ul>
+      <li *ngFor="let item of products">
+        <label for="">{{item.description}}</label>
+        <input
+          type="checkbox"
+          name="ChoiceProductsSell"
+          value="{{item.id}}"
+          (change)="onClickListProducts(item)">
+      </li>
+    </ul>
+  </div>
+
+</form>

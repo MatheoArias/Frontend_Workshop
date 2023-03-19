@@ -17,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { EmployeesComponent } from './pages/employees/employees.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { VehicleComponent } from './components/vehicle/vehicle.component';
 
 
 
@@ -64,10 +66,15 @@ const routes: Routes = [
         path:'customer',
         component:CustomersComponent
       },
-
       {
-        path:'sells',
-        component:SellProductsComponent,
+        path:'vehicles',
+        component:VehiclesComponent,
+        children:[
+          {
+            path:'add_vehicle',
+            component:VehicleComponent,
+          }
+        ]
       },
       {
         path:'users',
@@ -75,9 +82,20 @@ const routes: Routes = [
       },
       {
         path:'employees',
-        component:EmployeesComponent
+        component:EmployeesComponent,
+        children:[
+          {
+            path:'add_employees',
+            component:EmployeeComponent,
+            canActivate:[AuthGuard]
+          }
+        ]
       },
     ]
+  },
+  {
+    path:'sells',
+    component:SellsComponent,
   },
   {
     path:'login',

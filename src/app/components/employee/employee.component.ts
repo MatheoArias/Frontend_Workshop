@@ -34,7 +34,7 @@ export class EmployeeComponent implements OnInit {
     return this.formEmployee.get('employees_type');
   }
 
-  formAddEmployee(){
+  private formAddEmployee(){
     this.formEmployee = this.formBuilder.group({
       names: ['', [Validators.required]],
       document_type: ['', [Validators.required]],

@@ -34,6 +34,7 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { DocumentTypeComponent } from './components/document-type/document-type.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
+import { VehicleComponent } from './components/vehicle/vehicle.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { EmployeesComponent } from './pages/employees/employees.component';
     DocumentTypeComponent,
     EmployeeComponent,
     EmployeesComponent,
+    VehicleComponent,
   ],
   imports: [
     BrowserModule,

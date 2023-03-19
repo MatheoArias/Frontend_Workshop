@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpErrorResponse,HttpStatusCode} from '@angular/common/http';
-import {environment} from '../../enviroments/environment'
-import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
+import { HttpClient,HttpErrorResponse,HttpStatusCode } from '@angular/common/http';
 import {retry,catchError} from 'rxjs/operators'
 import {throwError} from 'rxjs'
-import { UpdateProductsDTO} from '../models/product.model';
+import { environment } from 'src/enviroments/environment';
+
+import { Sell,CreateSellDTO,UpdateSellDTO } from '../models/sell.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BuyProductsService {
+export class SellService {
 
-  BuyProductsService(id: any, product: UpdateProductsDTO): any {
-    throw new Error('Method not implemented.');
-  }
+  private apiUrl = `${environment.API_URL}/bills/add_bill/`
 
-  private apiUrl = `${environment.API_URL}/products/add_buy_product/`
   constructor(
     private http: HttpClient
   ) { }
 
-
-  getAllBuyProducts(){
-    return this.http.get<BuyProducts[]>(this.apiUrl)
+  getAllBuySells(){
+    return this.http.get<Sell[]>(this.apiUrl)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -43,8 +39,8 @@ export class BuyProductsService {
     );
   }
 
-  getBuyProduct(id:number){
-    return this.http.get<BuyProducts>(`${this.apiUrl}${id}/`)
+  getSell(id:number){
+    return this.http.get<Sell>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -66,8 +62,8 @@ export class BuyProductsService {
 
   }
 
-  createBuyProduct(data:createBuysProductDTO){
-    return this.http.post<BuyProducts>(this.apiUrl,data)
+  createSell(data:CreateSellDTO){
+    return this.http.post<Sell>(this.apiUrl,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -88,8 +84,8 @@ export class BuyProductsService {
     );
   }
 
-  updateBuyProduct(id:number, data:UpdateBuysProductDTO){
-    return this.http.put<BuyProducts>(`${this.apiUrl}${id}/`,data)
+  updateSell(id:number, data:UpdateSellDTO){
+    return this.http.put<Sell>(`${this.apiUrl}${id}/`,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -110,8 +106,8 @@ export class BuyProductsService {
     );
   }
 
-  deleteBuyProduct(id:number){
-    return this.http.delete<BuyProducts>(`${this.apiUrl}${id}/`)
+  deleteSell(id:number){
+    return this.http.delete<Sell>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -131,5 +127,4 @@ export class BuyProductsService {
       })
     );
   }
-
 }

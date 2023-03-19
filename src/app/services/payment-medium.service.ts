@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpErrorResponse,HttpStatusCode} from '@angular/common/http';
-import {environment} from '../../enviroments/environment'
-import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
+import { HttpClient,HttpErrorResponse,HttpStatusCode } from '@angular/common/http';
 import {retry,catchError} from 'rxjs/operators'
 import {throwError} from 'rxjs'
-import { UpdateProductsDTO} from '../models/product.model';
+import { environment } from 'src/enviroments/environment';
+
+import { PaymentMedium,CreatePaymentMediumDTO } from '../models/payment_medium.models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BuyProductsService {
+export class PaymentMediumService {
 
-  BuyProductsService(id: any, product: UpdateProductsDTO): any {
-    throw new Error('Method not implemented.');
-  }
+  private apiUrl = `${environment.API_URL}/bills/payment_medium/`
 
-  private apiUrl = `${environment.API_URL}/products/add_buy_product/`
   constructor(
     private http: HttpClient
   ) { }
 
-
-  getAllBuyProducts(){
-    return this.http.get<BuyProducts[]>(this.apiUrl)
+  getAllPaymentsMedium(){
+    return this.http.get<PaymentMedium[]>(this.apiUrl)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -43,8 +39,8 @@ export class BuyProductsService {
     );
   }
 
-  getBuyProduct(id:number){
-    return this.http.get<BuyProducts>(`${this.apiUrl}${id}/`)
+  getPaymentMedium(id:number){
+    return this.http.get<PaymentMedium>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -66,8 +62,8 @@ export class BuyProductsService {
 
   }
 
-  createBuyProduct(data:createBuysProductDTO){
-    return this.http.post<BuyProducts>(this.apiUrl,data)
+  createPaymentMedium(data:CreatePaymentMediumDTO){
+    return this.http.post<PaymentMedium>(this.apiUrl,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -88,8 +84,8 @@ export class BuyProductsService {
     );
   }
 
-  updateBuyProduct(id:number, data:UpdateBuysProductDTO){
-    return this.http.put<BuyProducts>(`${this.apiUrl}${id}/`,data)
+  updatePaymentMedium(id:number, data:PaymentMedium){
+    return this.http.put<PaymentMedium>(`${this.apiUrl}${id}/`,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -110,8 +106,8 @@ export class BuyProductsService {
     );
   }
 
-  deleteBuyProduct(id:number){
-    return this.http.delete<BuyProducts>(`${this.apiUrl}${id}/`)
+  deletePaymentMedium(id:number){
+    return this.http.delete<PaymentMedium>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {

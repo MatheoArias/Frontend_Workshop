@@ -1,0 +1,76 @@
+<form (ngSubmit)="submit($event)" [formGroup]="formVehicles">
+
+  <div class="content__input">
+    <label for="inputLicensePlate">Placa</label>
+    <input type="text" id="inputLicensePlate" formControlName="license_plate">
+  </div>
+
+  <div class="content__input">
+    <label for="inputTrademark">Marca</label>
+    <input type="text" id="inputTrademark" formControlName="trademark">
+  </div>
+
+  <div class="content__input">
+    <label for="inputModel">Modelo</label>
+    <input type="text" id="inputModel" formControlName="model">
+  </div>
+
+  <div class="content__input">
+    <label for="inputCategory">Categoría</label>
+    <select type="text" id="inputCategory"  name="choiceCategory" formControlName="category">
+      <option value="" selected="true">
+        Seleccione
+      </option>
+      <option
+       *ngFor="let item of categories"
+       value="{{item.id}}">
+       {{item.category}}
+      </option>
+    </select>
+  </div>
+
+  <div class="content__input">
+    <label for="inputOwner">Propietario</label>
+    <select type="text" id="inputOwner" formControlName="owner">
+      <option value="" selected="true">
+        Seleccione
+      </option>
+      <option
+       *ngFor="let item of customers"
+       value="{{item.id}}">
+       {{item.document_type.types}} {{item.document_number | number}} - {{item.names}}
+      </option>
+    </select>
+  </div>
+
+  <button class="button" id="toggleSubmit">
+    Ingresar
+  </button>
+
+  <button
+    class="button"
+    id="toggleSubmitUpdate"
+    (click)="updateVehicle()">
+    Modificar
+  </button>
+
+</form>
+
+<ul>
+  <li *ngFor="let item of vehicles">
+    <input
+      type="radio"
+      value="{{item.id}}"
+      (click)="toggleUpdate(item)">
+    <p>{{item.license_plate}}</p>
+    <p>{{item.trademark}}</p>
+    <p>{{item.model}}</p>
+    <p>{{item.owner.names}}</p>
+    <p>{{item.owner.document_type.types}} {{item.owner.document_number | number}}</p>
+    <p>{{item.category.category}}</p>
+    <button
+      (click)="toggleDelete(item)">
+      Eliminar
+  </button>
+  </li>
+</ul>

@@ -1,7 +1,11 @@
-<nav class="nav--show" [class.nav--show]="navState">
+<nav
+  class="nav--show"
+  [class.nav--show]="navState">
 
+  <!-- this is the company icon's  content -->
   <img src="../../../assets/Logo.svg" alt="This is the icon's company">
 
+  <!-- this is the company names  -->
   <h1>
     B & H
     <span>
@@ -9,77 +13,188 @@
     </span>
   </h1>
 
+  <!-- this is the multiple choice for enter in the links -->
   <ul>
+    <!-- this is the inventary link content  -->
     <li>
-      <a class="list__text--after after--activate" [class.after--activate]="listState"
-        (click)="toggleActivateList()">
+      <a
+        class="list__text--after after--activate"
+        [class.after--activate]="listStateInventory"
+        (click)="onActivateInventory()">
         Inventario
       </a>
-      <ul class="list--activate" [class.list--activate]="listState">
+      <ul
+        class="list--activate"
+        [class.list--activate]="listStateInventory">
+
         <li>
-          <a routerLinkActive="activate__link" [routerLink]="['/products/buys_product']" (click)="toggleChooseList()">
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/products/buys_product']"
+            (click)="OncCloseNav()">
             Comprar producto
           </a>
         </li>
         <li>
-          <a routerLinkActive="activate__link" [routerLink]="['/products/add_product']" (click)="toggleChooseList()">
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/products/add_product']"
+            (click)="OncCloseNav()">
             Agregar producto
           </a>
         </li>
         <li>
-          <a routerLinkActive="activate__link" [routerLink]="['/products/movements']" (click)="toggleChooseList()">
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/products/movements']"
+            (click)="OncCloseNav()">
             Movimientos
           </a>
         </li>
       </ul>
     </li>
-
+    <!-- this is the sells link content -->
     <li>
-      <a class="text-activate" [routerLink]="['/sells']">
+      <a
+        class="list__text--after after--activate"
+        [class.after--activate]="listStateSell"
+        (click)="onActivateSell()">
         Ventas
       </a>
-    </li>
-
-    <li>
-      <a class="content__text--after" routerLinkActive="activate__link" [routerLink]="['/customer']">Clientes</a>
-    </li>
-
-    <li>
-      <a class="content__text--after" routerLinkActive="activate" [routerLink]="['/users']">Usuarios</a>
-    </li>
-
-    <li>
-      <a class="list__text--after after--activate" [class.after--activate]="listState" (click)="toggleActivateList()">
-        Empleados
-      </a>
-      <ul class="list--activate" [class.list--activate]="listState">
+      <ul
+        class="list--activate"
+        [class.list--activate]="listStateSell">
         <li>
           <a
-          [routerLink]="['/employees']"
-          (click)="toggleChooseList()"
+            (click)="OncCloseNav()">
+            Gestión de ventas
+          </a>
+        </li>
+        <li>
+          <a
+            (click)="OncCloseNav()">
+            Informe de ventas
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- this is the customer link content -->
+    <li>
+      <a
+        class="list__text--after after--activate"
+        [class.after--activate]="listStateCustomers"
+        (click)="onActivateCustomer()">
+        Clientes
+      </a>
+      <ul
+        class="list--activate"
+        [class.list--activate]="listStateCustomers">
+        <li>
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/customer']"
+            (click)="OncCloseNav()">
+            Agregar cliente
+          </a>
+        </li>
+        <li>
+          <a
+          (click)="OncCloseNav()">
+            Informe de clientes
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- this is the vehicles link content -->
+    <li>
+      <a
+        class="list__text--after after--activate"
+        [class.after--activate]="listStateVehicles"
+        (click)="onActivateVehicle()">
+        Vehículos
+      </a>
+      <ul
+        class="list--activate"
+        [class.list--activate]="listStateVehicles">
+        <li>
+          <a
+          [routerLink]="['/vehicles/add_vehicle']"
+          (click)="OncCloseNav()"
+          routerLinkActive="activate__link">
+            Agregar vehículo
+          </a>
+        </li>
+        <li>
+          <a
+          (click)="OncCloseNav()"
+          >Informe de vehículos</a>
+        </li>
+      </ul>
+    </li>
+    <!-- this is the employees link content -->
+    <li>
+      <a
+        class="list__text--after after--activate"
+        [class.after--activate]="listStateEmployees"
+        (click)="onActivateEmployee()">
+        Empleados
+      </a>
+      <ul
+        class="list--activate"
+        [class.list--activate]="listStateEmployees">
+        <li>
+          <a
+          [routerLink]="['/employees/add_employees']"
+          (click)="OncCloseNav()"
           routerLinkActive="activate__link">
             Agregar empleado
           </a>
         </li>
         <li>
-          <a href="">Estadísticas</a>
+          <a
+          (click)="OncCloseNav()"
+          >Informes de empleados</a>
         </li>
       </ul>
     </li>
+  <!-- this is the users link content -->
+    <li>
+      <a
+        class="content__text--after"
+        routerLinkActive="activate"
+        [routerLink]="['/users']">
+        Usuarios
+      </a>
+    </li>
   </ul>
 
+  <!-- this is the content of users login -->
   <div>
-      <p class="nav__name--text">
-        Mateo Arias Correa
+      <p
+       class="nav__name--text">
+        {{user.names}}
       </p>
-      <p class="nav__profession--text">
-        Empleado
+      <p
+        class="nav__profession--text">
+        {{user.position}}
       </p>
-      <div class="nav__ball--icon">•</div>
+      <div
+        class="nav__ball--icon">
+        <img src="../../../assets/user.svg" alt="">
+      </div>
 
-      <button class="button_login" (click)="LogoutUser()">Cerrar Sesion</button>
+      <button
+        class="button_logout"
+        (click)="LogoutUser()">
+        Cerrar Sesion
+      </button>
   </div>
 
-  <button class="button--active" [class.button--active]="navState" (click)="toggleShowNav()"></button>
+   <!-- this is the button open navbar  -->
+  <button
+   class="button--active"
+   [class.button--active]="navState"
+   (click)="toggleShowNav()">
+  </button>
 
 </nav>

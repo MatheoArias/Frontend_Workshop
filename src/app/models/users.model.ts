@@ -20,4 +20,7 @@ export interface GetAllUsers extends Omit<Users,'password'>{}
 
 export interface UpdateProductsDTO extends Partial<Users>{}
 
-
+export interface UserNav{
+  names:string,
+  position:string,
+}

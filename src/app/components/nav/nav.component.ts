@@ -1,16 +1,31 @@
-import { Component } from '@angular/core';
-import { UsersService } from 'src/app/services/users.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
-import { Users } from 'src/app/models/users.model';
 import { Router } from '@angular/router';
+import { UserNav } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
+
+export class NavComponent implements OnInit {
+
+  navState:boolean=false;
+  listStateInventory=false;
+  listStateSell:boolean=false
+  listStateCustomers:boolean=false;
+  listStateVehicles:boolean=false;
+  listStateEmployees:boolean=false;
+
+  token:string=''
+  user:UserNav={
+    names:'',
+    position:'',
+  }
+  superUser:boolean = false;
+
 
   constructor(
     private authService: AuthService,
@@ -18,38 +33,74 @@ export class NavComponent {
     private router: Router
   ){}
 
-  navState=false;
-  listState=false;
-  token:string=''
-  user:Users={
-    id: 0,
-    last_login: new Date(),
-    username:'',
-    email:'',
-    name: '',
-    last_name:'',
-    is_active: true,
-    is_staff: true,
-    is_superuse: true,
-    groups:[],
-    user_permissions: [],
+  ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser(){
+    let getUser: null | string =this.tokenService.getUser();
+    if(getUser){
+      let usernameToken=JSON.parse(getUser).user;
+      this.user={
+        names:`${usernameToken.name} ${usernameToken.last_name}`,
+        position:'Administrador'
+      }
+    }else{
+      this.user={
+        names:'No hay sesion iniciada',
+        position:'',
+      }
+    }
   }
 
   toggleShowNav(){
     this.navState=!this.navState;
   }
-
-  toggleActivateList(){
-    this.listState=!this.listState;
+  onActivateInventory(){
+    this.listStateInventory=!this.listStateInventory;
+    this.listStateSell=false
+    this.listStateCustomers=false;
+    this.listStateVehicles=false;
+    this.listStateEmployees=false;
+  }
+  onActivateSell(){
+    this.listStateSell=!this.listStateSell;
+    this.listStateInventory=false
+    this.listStateCustomers=false;
+    this.listStateVehicles=false;
+    this.listStateEmployees=false;
+  }
+  onActivateCustomer(){
+    this.listStateCustomers=!this.listStateCustomers;
+    this.listStateInventory=false
+    this.listStateSell=false
+    this.listStateVehicles=false;
+    this.listStateEmployees=false;
+  }
+  onActivateVehicle(){
+    this.listStateVehicles=!this.listStateVehicles;
+    this.listStateInventory=false
+    this.listStateSell=false
+    this.listStateCustomers=false;
+    this.listStateEmployees=false;
+  }
+  onActivateEmployee(){
+    this.listStateEmployees=!this.listStateEmployees;
+    this.listStateInventory=false
+    this.listStateSell=false
+    this.listStateCustomers=false;
+    this.listStateVehicles=false;
   }
 
-  toggleChooseList(){
-    if(this.navState==false){
-      this.listState=!this.listState;
-    }else{
-      this.listState=!this.listState;
+  OncCloseNav(){
+    if(this.navState==true){
       this.navState=!this.navState;
     }
+    this.listStateInventory=this.listStateInventory==true?this.listStateInventory!=this.listStateInventory:false;
+    this.listStateSell=this.listStateSell==true?this.listStateSell=!this.listStateSell:false;
+    this.listStateCustomers=this.listStateCustomers==true?this.listStateCustomers=!this.listStateCustomers:false;
+    this.listStateVehicles=this.listStateVehicles==true?this.listStateVehicles=!this.listStateVehicles:false;
+    this.listStateEmployees=this.listStateEmployees==true?this.listStateEmployees=!this.listStateEmployees:false;
   }
 
   LogoutUser(){
