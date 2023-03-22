@@ -2,8 +2,7 @@ import { Component, OnChanges, OnInit, Input, Output,EventEmitter } from '@angul
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category, UpdateaCategoryDTO } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
-import {switchMap,mergeMap} from 'rxjs/operators'
-import {zip} from 'rxjs'
+
 
 @Component({
   selector: 'app-category',
@@ -17,8 +16,7 @@ export class CategoryComponent {
   @Output() modalStateEvent= new EventEmitter<boolean>();
   modalState:boolean=true;
 
-  toggleState:number=0;
-  selectedCategoryId: number = 0;
+  categoryId: number = 0;
   messagges:string='';
   statusCode: number=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
@@ -42,15 +40,16 @@ export class CategoryComponent {
   }
 
   sendModalState(){
-    this.modalState =!this.modalState;
+    this.modalState =false;
     this.modalStateEvent.emit(this.modalState);
+    this.getAllCategories();
   }
 
   getAllCategories() {
     this.categoryService.getAllCategories()
-      .subscribe(data =>{
-        this.categories=data
-      });
+    .subscribe(data =>{
+      this.categories=data
+    });
   }
 
 
@@ -58,15 +57,21 @@ export class CategoryComponent {
     this.statusDeatil='Loading';
     const addCategory = this.formCategory.value;
     if (this.formCategory.valid) {
-        this.categoryService.createCategory(addCategory)
+      this.categoryService.createCategory(addCategory)
         .subscribe(data=>{
           this.getAllCategories();
+          this.messagges=`La categoria ${data.category} fue agregada con éxito`;
+        },error=>{
+          this.statusDeatil='Error';
+          this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+          this.formCategory.markAllAsTouched();
         })
         this.statusDeatil='Success';
         this.formCategory.reset();
       }
       else {
         this.statusDeatil='Error';
+        this.messagges=`Ocurrió un error ${this.statusDeatil}`;
         this.formCategory.markAllAsTouched();
     }
   }
@@ -76,45 +81,63 @@ export class CategoryComponent {
     this.statusDeatil='Loading';
     const updateCategory: UpdateaCategoryDTO = this.formCategory.value;
     if (this.formCategory.valid) {
-      this.categoryService
-        .updateCategory(this.selectedCategoryId, updateCategory)
+      this.categoryService.updateCategory(this.categoryId, updateCategory)
         .subscribe((data) => {
           this.getAllCategories();
           this.messagges=`La Categoría ${data.category} fue modificada con éxito `;
+        },error=>{
+          this.statusDeatil='Error';
+          this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+          this.formCategory.markAllAsTouched();
         });
       this.formCategory.reset();
       this.statusDeatil='Success';
+      this.categoryId=0;
     } else {
-      this.formCategory.markAllAsTouched();
       this.statusDeatil='Error';
+      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+      this.formCategory.markAllAsTouched();
     }
   }
 
   toggleUpdate(item: Category) {
     this.statusDeatil='Loading';
-    this.toggleState=item.id
+    this.categoryId=item.id;
+    console.log(this.categoryId);
     if(item.id){
       this.categoryService.getCategory(item.id)
       .subscribe(data => {
         this.formCategory.patchValue(data);
-        this.selectedCategoryId = data.id;
+        this.categoryId = data.id;
+      },error=>{
+        this.statusDeatil='Error';
+        this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+        this.formCategory.markAllAsTouched();
       });
       this.statusDeatil='Success';
     }else{
       this.statusDeatil='Error';
+      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+      this.formCategory.markAllAsTouched();
     }
   }
 
   toggleDelete(item: Category) {
     this.statusDeatil='Loading';
     if(item.id){
-      this.categoryService.deleteCategory(item.id).subscribe(data => {
-        this.getAllCategories();
-
-      });
+      this.categoryService.deleteCategory(item.id)
+        .subscribe(data => {
+          this.getAllCategories();
+          },error=>{
+            this.statusDeatil='Error';
+            this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+            this.formCategory.markAllAsTouched();
+          });
       this.statusDeatil='Success';
     }else{
       this.statusDeatil='Error';
+      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
+      this.formCategory.markAllAsTouched();
     }
   }
 }

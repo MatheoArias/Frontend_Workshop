@@ -1,97 +1,194 @@
 <div>
-  <div class="content__app--products" [class.activate__modal]="modalState">
+  <div
+    class="content__app--products"
+    [class.activate__modal]="modalState">
 
-    <h2>
+    <h2 class="tittle__text--category">
       Si la categoría no exite agreguela
       <button (click)="toggleModal()">
         Aquí
       </button>
     </h2>
 
-    <form (ngSubmit)="submit($event)" [formGroup]="formProduct">
-      <div class="content__input" id="contentProductCategory">
-        <label for="productCategory">Categoría</label>
-        <select id="productCategory" formControlName="category_id">
-          <option value="" selected="true">Seleccione</option>
-          <option *ngFor="let category of categories" value={{category.id}}>
-            {{category.category | uppercase}}
+    <form
+      (ngSubmit)="submit($event)"
+      [formGroup]="formProduct">
+
+      <div
+        class="content__input
+         content__productCategory">
+        <label
+          for="productCategory">
+          Categoría
+        </label>
+        <select
+          id="productCategory"
+          formControlName="category_id">
+          <option
+            class="firstChoice"
+            value=""
+            selected="true">
+            Seleccione
+          </option>
+          <option
+            *ngFor="let category of categories"
+            value={{category.id}}>
+            {{category.category | titlecase}}
           </option>
         </select>
       </div>
-      <div class="content__input" id="contentCode">
-        <label for="code">Código</label>
-        <input type="text" id="code" formControlName="code">
-      </div>
-      <div class="content__input" id="contentDescription">
-        <label for="description">Descripción</label>
-        <input type="text" id="description" formControlName="description">
+
+      <div
+       class="content__input
+        content__code">
+        <label
+         for="code">
+         Código
+        </label>
+        <input
+         type="text"
+          id="code"
+          formControlName="code"
+          placeholder="Ingrese el código del producto">
       </div>
 
-      <div class="content__input inputCurrency" id="contentUniValue">
-        <label for="unitValue">Valor de venta</label>
+      <div
+        class="content__input
+        content__description">
+        <label
+          for="description">
+          Descripción
+        </label>
+        <input
+         type="text"
+         id="description"
+         formControlName="description"
+         placeholder="Ingrese la descripción del producto">
+      </div>
+
+      <div
+        class="content__input
+        inputCurrency
+        content__uniValue">
+        <label
+          for="unitValue">
+          Valor de venta
+        </label>
         <div>
-          <input type="number" id="unitValue" formControlName="unit_value">
+          <input
+           type="number"
+           id="unitValue"
+           formControlName="unit_value">
         </div>
       </div>
 
-      <div class="content__input inputStock" id="contentTotalsStock">
-        <label for="totalsStock">Inventario inicial</label>
-        <input type="number" id="totalsStock" formControlName="totals_stock">
+      <div
+        class="content__input
+        inputStock
+        content__totalsStock">
+        <label
+         for="totalsStock">
+         Inventario
+        </label>
+        <input
+          type="number"
+          id="totalsStock"
+          formControlName="totals_stock">
       </div>
 
-      <button type="submit" id="toggleCreate" class="button">
-        Ingresar
-      </button>
-      <button (click)="updateProduct()" id="toggleUpdate" class="button">
-        Modificar
-      </button>
+      <div class="content__button">
+          <button
+          type="submit"
+          class="button">
+          Ingresar
+        </button>
+
+        <button
+          (click)="updateProduct()"
+          class="button">
+          Modificar
+        </button>
+      </div>
+
     </form>
 
-    <ul class="content__list" >
-      <li>
-        <p class="head" id="upLeft">
+    <div class="content__input--find">
+      <label for="">Buscar producto</label>
+      <input
+        type="search"
+         [formControl]="valueFind"
+        (input) ="onChangeText()"
+        placeholder="Busca el producto aquí">
+        <img src="../../../assets/lupa.svg" alt="this is the find icon">
+    </div>
+
+    <ul
+      class="content__list"
+      *ngIf="listFilter.length; else elseBlock">
+      <li
+        *ngFor="let item of products | filter:itemFind"
+        [class.radio__activate]="productId===item.id">
+        <input
+          type="radio"
+          name="choiceProduct"
+          (click)="toggleUpdate(item)"
+          [value]="item.code">
+
+        <div class="description">
+          <h2 class="contentent__description--text">
+            {{item.description | titlecase}}
+          </h2>
+        </div>
+
+        <div class="code">
           Código
-        </p>
-        <p class="head">
+          <p>
+            {{item.code}}`
+          </p>
+        </div>
+
+        <div class="category">
           Categoría
-        </p>
-        <p class="head">
-          Descripción
-        </p>
-        <p class="head">
+          <p>
+            {{item.category_id.category | titlecase}}
+          </p>
+        </div>
+
+        <div class="value">
           Valor
-        </p>
-        <p class="head" id="upRight">
+          <p>
+            $ {{item.unit_value | number}}
+          </p>
+        </div>
+
+        <div class="inventory">
           Inventario
-        </p>
-      </li>
+          <p>
+            {{item.totals_stock | number}}
+          </p>
+        </div>
 
-      <li *ngFor="let item of products" [class.radio__activate]="radioState===item.code">
-        <input type="radio" name="choiceProduct" class="column--seven" (click)="toggleUpdate(item)" [value]="item.code">
-
-        <p class="column--one">
-          {{item.code}}
-        </p>
-
-        <p class="column--two">
-          {{item.category_id.category}}
-        </p>
-        <p class="column--three">
-          {{item.description}}
-        </p>
-        <p class="column--four">
-          $ {{item.unit_value | number}}
-        </p>
-        <p class="column--five">
-          {{item.totals_stock}}
-        </p>
-        <button class="button__icon" (click)="toggleDelete(item)" [class.radio__activate--icon]="radioState===item.code">
+        <button
+          class="button__icon"
+          (click)="toggleDelete(item)"
+          [class.radio__activate--icon]="productId===item.id">
         </button>
       </li>
     </ul>
+
+    <ng-template #elseBlock>
+      <div class="content__notfound">
+        <img src="../../../assets/alert.svg" alt="this is the image alert">
+        <p class="content__text--notfound">No se encuentra ningún producto</p>
+      </div>
+
+    </ng-template>
   </div>
 
-  <app-category [categories]="categories" class="content__app--category" [class.activate__modal]="modalState"
+  <app-category
+    [categories]="categories"
+    class="content__app--category"
+    [class.activate__modal]="modalState"
     (modalStateEvent)="reciveToggleModal($event)">
   </app-category>
 

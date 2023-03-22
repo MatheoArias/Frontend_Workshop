@@ -193,7 +193,6 @@ export class BuysProductsComponent implements OnInit {
         this.statusDeatil = 'Success';
       },
       (error) => {
-        window.alert(error);
         this.statusDeatil = 'Error';
       }
     );

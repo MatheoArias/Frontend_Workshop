@@ -31,7 +31,7 @@
           <a
             routerLinkActive="activate__link"
             [routerLink]="['/products/buys_product']"
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Comprar producto
           </a>
         </li>
@@ -39,7 +39,7 @@
           <a
             routerLinkActive="activate__link"
             [routerLink]="['/products/add_product']"
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Agregar producto
           </a>
         </li>
@@ -47,7 +47,7 @@
           <a
             routerLinkActive="activate__link"
             [routerLink]="['/products/movements']"
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Movimientos
           </a>
         </li>
@@ -66,13 +66,13 @@
         [class.list--activate]="listStateSell">
         <li>
           <a
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Gestión de ventas
           </a>
         </li>
         <li>
           <a
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Informe de ventas
           </a>
         </li>
@@ -93,13 +93,13 @@
           <a
             routerLinkActive="activate__link"
             [routerLink]="['/customer']"
-            (click)="OncCloseNav()">
+            (click)="OnCloseNav()">
             Agregar cliente
           </a>
         </li>
         <li>
           <a
-          (click)="OncCloseNav()">
+          (click)="OnCloseNav()">
             Informe de clientes
           </a>
         </li>
@@ -119,14 +119,14 @@
         <li>
           <a
           [routerLink]="['/vehicles/add_vehicle']"
-          (click)="OncCloseNav()"
+          (click)="OnCloseNav()"
           routerLinkActive="activate__link">
             Agregar vehículo
           </a>
         </li>
         <li>
           <a
-          (click)="OncCloseNav()"
+          (click)="OnCloseNav()"
           >Informe de vehículos</a>
         </li>
       </ul>
@@ -145,14 +145,14 @@
         <li>
           <a
           [routerLink]="['/employees/add_employees']"
-          (click)="OncCloseNav()"
+          (click)="OnCloseNav()"
           routerLinkActive="activate__link">
             Agregar empleado
           </a>
         </li>
         <li>
           <a
-          (click)="OncCloseNav()"
+          (click)="OnCloseNav()"
           >Informes de empleados</a>
         </li>
       </ul>

@@ -1,29 +1,59 @@
-<div class="subcontent__app" (click)="sendModalState()">
+<div class="subcontent__app">
 
-  <button class="button__icon"></button>
+  <button
+   class="button__icon"
+   (click)="sendModalState()">
+  </button>
 
-  <form (ngSubmit)="submit($event)" [formGroup]="formCategory">
-    <div class="content__input">
-      <label for="category">
-        Ingrese una nueva categoría
+  <form
+    (ngSubmit)="submit($event)"
+    [formGroup]="formCategory">
+
+    <div
+      class="content__input">
+      <label
+        for="category">
+        Categoría
       </label>
-      <input type="text" id="category" formControlName="category">
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        placeholder="Ingrese una nueva categoría">
     </div>
-    <div class="content__button">
-      <button type="submit" class="button">
+
+    <div
+
+      class="content__button">
+      <button
+        type="submit"
+        class="button">
         Ingresar
       </button>
-      <button class="button" (click)="updateCategory()">
+      <button
+        class="button"
+        (click)="updateCategory()">
         Modificar
       </button>
+
     </div>
+
   </form>
 
   <ul>
-    <li *ngFor="let item of categories" [class.radio__activate]="toggleState===item.id">
-      {{item.category}}
-      <button class="button__icon" (click)="toggleDelete(item)" [class.radio__activate--icon]="toggleState===item.id"></button>
-      <input type="radio" name="choiceCategory" (click)="toggleUpdate(item)" [value]="item.id">
+    <li
+      *ngFor="let item of categories"
+      [class.radio__activate]="categoryId===item.id">
+      <p>{{item.category}}</p>
+      <button
+        class="button__icon"
+        (click)="toggleDelete(item)"
+        [class.radio__activate--icon]="categoryId===item.id">
+      </button>
+      <input
+        type="radio"
+        (click)="toggleUpdate(item)"
+        [value]="item.id">
     </li>
   </ul>
 

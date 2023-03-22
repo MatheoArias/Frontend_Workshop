@@ -37,6 +37,7 @@ export class NavComponent implements OnInit {
     this.getUser();
   }
 
+  //This function is called for to get user and return name and position user
   getUser(){
     let getUser: null | string =this.tokenService.getUser();
     if(getUser){
@@ -53,9 +54,12 @@ export class NavComponent implements OnInit {
     }
   }
 
+  //This function is called when i want open navbar in small screens
   toggleShowNav(){
     this.navState=!this.navState;
   }
+
+  //This functions are called when i want open the items list. Each funtion open one list items
   onActivateInventory(){
     this.listStateInventory=!this.listStateInventory;
     this.listStateSell=false
@@ -92,7 +96,8 @@ export class NavComponent implements OnInit {
     this.listStateVehicles=false;
   }
 
-  OncCloseNav(){
+  //This function is called when i want to close the every items list
+  OnCloseNav(){
     if(this.navState==true){
       this.navState=!this.navState;
     }
@@ -103,6 +108,7 @@ export class NavComponent implements OnInit {
     this.listStateEmployees=this.listStateEmployees==true?this.listStateEmployees=!this.listStateEmployees:false;
   }
 
+  //This function is called when i want logout administrator
   LogoutUser(){
     const user=this.tokenService.getUser();
     if(user){

@@ -35,6 +35,7 @@ import { DocumentTypeComponent } from './components/document-type/document-type.
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { VehicleComponent } from './components/vehicle/vehicle.component';
     EmployeeComponent,
     EmployeesComponent,
     VehicleComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

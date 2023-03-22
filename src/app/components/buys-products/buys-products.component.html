@@ -62,7 +62,7 @@
 
 </form>
 
-<ul class="content__list--products" id="productsList">
+<ul class="content__list" id="productsList">
   <li *ngFor="let buysProduct of buysProducts" [class.radio__activate]="radioState===buysProduct.id">
     <button class="button__icon" [class.radio__activate--icon]="radioState===buysProduct.id"
       (click)="toggleDelete(buysProduct)">

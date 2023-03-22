@@ -1,9 +1,10 @@
-div{
+div {
   position: relative;
   display: flex;
   flex-direction: column;
 
-  .content__app--category{
+  /*This are the styles of de app-category*/
+  .content__app--category {
     position: absolute;
     top: 0;
     left: 0;
@@ -12,7 +13,7 @@ div{
     margin: auto;
     display: none;
 
-    &.activate__modal{
+    &.activate__modal {
       display: flex;
       width: 70%;
       height: 70%;
@@ -20,128 +21,232 @@ div{
     }
   }
 
-  .content__app--products{
+  /*This are the styles of de app-products*/
+  .content__app--products {
     max-width: 100%;
     max-height: 100%;
-    &.activate__modal{
+
+    &.activate__modal {
       opacity: 40%;
       z-index: 1;
     }
 
-    h2{
+    h2 {
       font-family: 'Quicksand', sans-serif;
       font-size: 1.5rem;
       text-align: center;
       margin: 0.5rem 0 0 0;
       font-weight: 400;
 
-      button{
+      button {
         font-family: 'Quicksand', sans-serif;
         font-size: 1.5rem;
         font-weight: 500;
         color: var(--color--red--secundary);
         background-color: var(--color--gray--background);
-        border:none;
+        border: none;
         cursor: pointer;
       }
 
-      button:hover{
+      button:hover {
         color: var(--color--red);
         font-weight: 700;
       }
 
     }
 
-    form{
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-areas:
-        "code category"
-        "description description"
-        "value stock"
-        "toggleCreate toggleUpdate ";
-        margin: 1rem;
+    form {
+      .content__uniValue {
+        grid-area: value;
 
-      #contentProductCategory{
-        grid-area: category;
-      }
-      #contentCode{
-        grid-area:code;
-      }
-      #contentDescription{
-        grid-area:description;
-      }
-      #contentUniValue{
-        grid-area:value;
-        div{
+        div {
           flex-direction: row;
         }
       }
-      #contentTotalsStock{
-        grid-area:stock;
-      }
-      #toggleCreate{
-        grid-area:toggleCreate;
-        justify-self: start;
-      }
-      #toggleUpdate{
-        grid-area:toggleUpdate;
-        justify-self: start;
+
+      .content__button {
+        flex-direction: row;
+        justify-content: space-around;
       }
     }
 
-    ul{
-      display: flex;
-      flex-direction: column;
-      max-height: 50vh;
-      margin:0.5rem;
-      border-radius: 15px;
-      overflow-y: scroll;
+    .content__input--find {
+      max-width: 100%;
+    }
 
-      li{
-        background-color: var(--color--white);
-        position: relative;
+    ul {
+      li {
         display: grid;
-        grid-template-columns: repeat(5,1fr);
-        padding: 0.5rem;
-        max-height: 100%;
-        border-bottom: 0.2rem solid var(--color--gray--background);
+        grid-template-areas: "description description"
+          "code inventory"
+          "category value";
+        gap: 0.5rem;
+      }
 
-        p{
-          max-width: 100%;
-          margin: 1rem 0.5rem;
+      div {
+        flex-direction: column;
+      }
+
+      .description {
+        grid-area: description;
+
+        h2 {
+          font-size: 1.8rem;
+          line-height: 2rem;
+          font-weight: 600;
           text-align: left;
-          align-self: center;
-          font-size: 1.3rem;
         }
+      }
 
-        .head{
+      .code {
+        grid-area: code;
+      }
+
+      .category {
+        grid-area: category;
+      }
+
+      .value {
+        grid-area: value;
+        align-items: center;
+
+        p {
           font-weight: 500;
-          color: var(  --color--red--secundary);
+          text-align: center;
         }
-        input{
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          opacity: 0;
-        }
-
-        &.radio__activate{
-          border-bottom: 0.2rem solid var(--color--green-success);
-          border-top: 0.2rem solid var(--color--green-success);
-        }
-
-      }
-      li:first-child{
-        border-radius: 15px 15px 0 0;
       }
 
-      li:last-child{
-        border-radius: 0 0 15px 15px;
+      .inventory {
+        grid-area: inventory;
+        align-items: center;
+        font-size: 1.6rem;
+        font-weight: 500;
+
+        p {
+          text-align: center;
+          font-size: 3rem;
+          padding-top: 0.5rem;
+        }
       }
     }
   }
 }
-.radio__activate--icon {
-  background-image: url("../../../assets/icon_success.svg") !important;
+
+@media(min-width: 767px) {
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "code code category category"
+      "description description description description"
+      "value value value stock"
+      ". . button button";
+    margin: 1rem;
+
+    .content__productCategory {
+      grid-area: category;
+    }
+
+    .content__code {
+      grid-area: code;
+    }
+
+    .content__description {
+      grid-area: description;
+    }
+
+    .content__uniValue {
+      grid-area: value;
+
+      div {
+        flex-direction: row;
+      }
+    }
+
+    .content__totalsStock {
+      grid-area: stock;
+    }
+
+    .content__button{
+      grid-area:button;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+
+  div {
+    .content__app--products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "tittle find"
+        "form listItems"
+        "form listItems";
+      align-items: center;
+
+      .tittle__text--category {
+        grid-area: tittle;
+        align-self: end;
+      }
+
+      form{
+        max-width: 50vw;
+      }
+
+      .content__input--find {
+        grid-area: find;
+        justify-self: start;
+        margin-left: 5rem;
+        min-width: 80%;
+      }
+
+      .content__list {
+        grid-area: listItems;
+        max-width: 60vw;
+        max-height: 70vh;
+        align-content: flex-start;
+        justify-content: center;
+      }
+    }
+
+  }
+
+}
+
+@media (min-width: 1440px) {
+  div {
+    max-width: 80vw;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+
+.content__notfound {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem;
+  box-sizing: border-box;
+
+  p {
+    font-family: 'Thalib';
+    color: var(--color--red);
+    font-size: 3rem;
+    line-height: 3.2rem;
+    text-align: center;
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+    margin-top: 1rem;
+  }
+
+  img{
+    height: 20rem;
+    width: 20rem;
+    align-content: flex-end;
+    align-self: center;
+  }
 }
