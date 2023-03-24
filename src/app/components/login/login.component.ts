@@ -13,11 +13,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  messagges:string='';
+  statusCode: number=0;
+  statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
+
   formLogin!:FormGroup;
+
+  get emailAdress(){
+    return  this.formLogin.get('emailAdress');
+  }
+
+  get password(){
+    return this.formLogin.get('password');
+  }
 
   private formUsersLogin(){
     this.formLogin=this.formBuilder.group({
-      emailAdress: ['', [Validators.required]],
+      emailAdress: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required]],
     })
   }
@@ -31,14 +43,33 @@ export class LoginComponent {
     this.formUsersLogin()
   }
 
+
+  getStatusDetail(){
+    this.statusDeatil='Loading'
+  }
+
   submit(event:Event){
+    this.statusDeatil='Loading';
     event.preventDefault();
     const user= this.formLogin.value;
-    this.authService.login(user.emailAdress,user.password).subscribe(
-      data=>{
-        this.tokenService.saveUser(data);
-      }
-    )
-    this.router.navigate(['/home']);
+    if(this.formLogin.valid){
+      this.authService.login(user.emailAdress,user.password).subscribe(
+        data=>{
+          this.tokenService.saveUser(data);
+          this.router.navigate(['/products/add_product']);
+          this.statusDeatil='Loading';
+        },error=>{
+          this.statusDeatil='Error';
+          this.messagges='El coreo electrónico o la contraseña no son correctas. Vuelve a intentarlo'
+          this.formLogin.markAllAsTouched();
+        }
+      )
+    }else{
+      this.statusDeatil='Error';
+      this.messagges='El coreo electrónico o la contraseña no son válidos'
+      this.formLogin.markAllAsTouched();
+    }
   }
+
+
 }

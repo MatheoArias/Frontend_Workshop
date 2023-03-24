@@ -2,24 +2,73 @@
   <div class="content__login"  >
     <img src="../../../assets/icon_color.svg" alt="this is the comopany's icon">
     <h1>
-      B & H
-      <span>
-        Repuestos y Accesorios
-      </span>
+      B & H <br>
+      Repuestos y Accesorios
     </h1>
-    <form (ngSubmit)="submit($event)" [formGroup]="formLogin">
+    <form
+     (ngSubmit)="submit($event)"
+     [formGroup]="formLogin">
       <div class="content__input">
-        <label for="emailAddressInput">Coreo Electrónico</label>
-        <input type="text" formControlName="emailAdress" id="emailAddressInput"
-        placeholder="Ingrese su Correo Electrónico">
+        <input
+          type="text"
+          [class.is--valid]="emailAdress?.valid && emailAdress?.touched"
+          [class.is--invalid]="emailAdress?.invalid && emailAdress?.touched"
+          formControlName="emailAdress"
+          id="emailAddressInput"
+          placeholder="Ingrese su Correo Electrónico"
+          (click)="getStatusDetail()">
+
+        <p
+          class="content__text--alert"
+          *ngIf="emailAdress?.touched && emailAdress?.hasError('required')">
+          El campo de correo electrónico no debería estar vacío.
+        </p>
+        <p
+          class="content__text--alert"
+          *ngIf="emailAdress?.touched && emailAdress?.hasError('email')">
+          El correo electrónico proporcionado no es válido. Intente proporcionar uno que contenga los caracteres:@example.com.
+        </p>
       </div>
-      <div class="content__input">
-        <label for="passwordInput">Contraseña</label>
-        <input type="password" formControlName="password" id="passwordInput"
-        placeholder="Ingrese su contraseña">
+
+      <div
+        class="content__input">
+        <input
+          type="password"
+          [class.is--valid]="password?.valid && password?.touched"
+          [class.is--invalid]="password?.invalid && password?.touched"
+          formControlName="password"
+          id="passwordInput"
+          placeholder="Ingrese su contraseña"
+          (click)="getStatusDetail()">
+
+        <p
+          class="content__text--alert"
+          *ngIf=" password?.touched && password?.hasError('required')">
+          El campo de contraseña no debería estar vacío.
+        </p>
       </div>
-      <button type="submit" class="button">Ingresar</button>
+
+      <p
+        class="content__text--alert"
+        *ngIf="statusDeatil=='Error' && formLogin.valid">
+        {{messagges}}
+      </p>
+
+      <button
+        type="submit"
+        class="button">Ingresar
+      </button>
+
+      <a
+      href="#"
+      class="content__text--recovery">
+      ¿Olvidaste tu contraseña?
+      </a>
+
     </form>
-    <a>¿Olvidaste tu contraseña?</a>
+
   </div>
+
+
+
 </div>
