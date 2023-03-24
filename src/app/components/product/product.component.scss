@@ -18,17 +18,28 @@ div {
       width: 70%;
       height: 70%;
       z-index: 2;
+      animation: content 0.8s ease-in-out forwards;
     }
+
   }
 
   /*This are the styles of de app-products*/
   .content__app--products {
     max-width: 100%;
     max-height: 100%;
+    animation: content 0.8s ease-in-out forwards;
 
     &.activate__modal {
-      opacity: 40%;
-      z-index: 1;
+      animation: subcontent 0.6s ease-in-out forwards;
+    }
+
+    @keyframes subcontent {
+      0%{
+        opacity: 100%;
+      }
+      100%{
+        opacity: 30%;
+      }
     }
 
     h2 {
@@ -81,6 +92,7 @@ div {
           "code inventory"
           "category value";
         gap: 0.5rem;
+
       }
 
       div {
@@ -130,7 +142,20 @@ div {
       }
     }
   }
+
+  @keyframes content{
+    0%{
+      opacity: 0;
+      transform: scale(0,0)
+    }
+    100%{
+      opacity: 1;
+      transform: scale(1,1)
+    }
+  }
 }
+
+
 
 @media(min-width: 767px) {
 

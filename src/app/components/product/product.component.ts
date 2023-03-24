@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit{
   @Output() modalStateEvent=new EventEmitter();
 
   formProduct!: FormGroup;
-  get category_id() {
+  get categoryId() {
     return this.formProduct.get('category_id');
   }
   get code() {
@@ -39,19 +39,19 @@ export class ProductComponent implements OnInit{
   get description() {
     return this.formProduct.get('description');
   }
-  get unit_value(){
+  get unitValue(){
     return this.formProduct.get('unit_value');
   }
-  get totals_stock() {
+  get totalStock() {
     return this.formProduct.get('totals_stock');
   }
   private formAddProduct() {
     this.formProduct = this.formBuilder.group({
       category_id: ['', [Validators.required]],
-      code: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      unit_value: [0, [Validators.required]],
-      totals_stock: [0, [Validators.required]],
+      code: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      description: ['', [Validators.required,Validators.maxLength(200)]],
+      unit_value: [, [Validators.required]],
+      totals_stock: [, [Validators.required]],
     });
   }
 
@@ -138,7 +138,7 @@ export class ProductComponent implements OnInit{
     this.ProductService.getProduct(item.id).subscribe(
       data=>{
         this.formProduct.patchValue(data);
-        this.category_id?.setValue(data.category_id.id);
+        this.categoryId?.setValue(data.category_id.id);
         this.statusDeatil='Success';
       },(error)=>{
         this.statusDeatil='Error';

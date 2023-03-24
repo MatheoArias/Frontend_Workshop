@@ -5,7 +5,7 @@
 
     <h2 class="tittle__text--category">
       Si la categoría no exite agreguela
-      <button (click)="toggleModal()">
+      <button class="button__modal" (click)="toggleModal()">
         Aquí
       </button>
     </h2>
@@ -23,7 +23,9 @@
         </label>
         <select
           id="productCategory"
-          formControlName="category_id">
+          formControlName="category_id"
+          [class.is--valid]="categoryId?.valid && categoryId?.touched"
+          [class.is--invalid]="categoryId?.invalid && categoryId?.touched">
           <option
             class="firstChoice"
             value=""
@@ -36,6 +38,11 @@
             {{category.category | titlecase}}
           </option>
         </select>
+        <p
+        *ngIf=" categoryId?.touched && categoryId?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio
+        </p>
       </div>
 
       <div
@@ -49,7 +56,24 @@
          type="text"
           id="code"
           formControlName="code"
+          [class.is--valid]="code?.valid && code?.touched"
+          [class.is--invalid]="code?.invalid && code?.touched"
           placeholder="Ingrese el código del producto">
+        <p
+          *ngIf=" code?.touched && code?.hasError('required')"
+          class="content__text--alert">
+          *Campo obligatorio
+        </p>
+        <p
+          *ngIf=" code?.touched && code?.hasError('minlength')"
+          class="content__text--alert">
+          *Debería agregar más de 3 caracteres
+        </p>
+        <p
+          *ngIf=" code?.touched && code?.hasError('maxlength')"
+          class="content__text--alert">
+          *Debería agregar menos de 7 caracteres
+        </p>
       </div>
 
       <div
@@ -63,7 +87,14 @@
          type="text"
          id="description"
          formControlName="description"
+         [class.is--valid]="description?.valid && description?.touched"
+         [class.is--invalid]="description?.invalid && description?.touched"
          placeholder="Ingrese la descripción del producto">
+        <p
+        *ngIf=" description?.touched && description?.hasError('required')"
+         class="content__text--alert">
+         *Campo obligatorio
+        </p>
       </div>
 
       <div
@@ -78,8 +109,15 @@
           <input
            type="number"
            id="unitValue"
+           [class.is--valid]="unitValue?.valid && unitValue?.touched"
+           [class.is--invalid]="unitValue?.invalid && unitValue?.touched"
            formControlName="unit_value">
         </div>
+        <p
+        *ngIf=" unitValue?.touched && unitValue?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio
+        </p>
       </div>
 
       <div
@@ -93,19 +131,30 @@
         <input
           type="number"
           id="totalsStock"
-          formControlName="totals_stock">
+          formControlName="totals_stock"
+          [class.is--valid]="totalStock?.valid && totalStock?.touched"
+          [class.is--invalid]="totalStock?.invalid && totalStock?.touched">
+          <p
+          *ngIf=" totalStock?.touched && totalStock?.hasError('required')"
+          class="content__text--alert">
+          *Campo obligatorio
+          </p>
       </div>
 
       <div class="content__button">
           <button
-          type="submit"
-          class="button">
-          Ingresar
-        </button>
+            type="submit"
+            class="button"
+            [disabled]="!formProduct.valid"
+            [class.is__invalid]="!formProduct.valid">
+            Ingresar
+          </button>
 
         <button
           (click)="updateProduct()"
-          class="button">
+          class="button"
+          [disabled]="!formProduct.valid"
+          [class.is__invalid]="!formProduct.valid">
           Modificar
         </button>
       </div>
