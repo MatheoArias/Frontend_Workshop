@@ -6,7 +6,6 @@
   justify-content: center;
   background-image: url("../../../assets/Logo_login.svg");
 
-
   .content__login {
     width: 85%;
     align-self: center;
@@ -15,14 +14,14 @@
     flex-direction: column;
     border-top: 0.3rem solid var(--color--red);
     border-bottom: 0.3rem solid var(--color--red);
-    padding: 0 0 1rem 0;
+    padding: 0;
     border-radius: 10px;
     animation: content 0.6s ease-in-out forwards;
     z-index: 1;
 
     img {
-      height: 20rem;
-      width: 20rem;
+      height: 16rem;
+      width: 100%;
     }
 
     h1 {

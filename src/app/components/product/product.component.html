@@ -1,11 +1,14 @@
-<div>
+<div class="content__app">
   <div
     class="content__app--products"
     [class.activate__modal]="modalState">
 
     <h2 class="tittle__text--category">
       Si la categoría no exite agreguela
-      <button class="button__modal" (click)="toggleModal()">
+      <button
+        class="button__modal"
+        (click)="toggleModal()"
+        [disabled]="modalState">
         Aquí
       </button>
     </h2>
@@ -41,7 +44,7 @@
         <p
         *ngIf=" categoryId?.touched && categoryId?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio
+        *Campo obligatorio.
         </p>
       </div>
 
@@ -62,17 +65,17 @@
         <p
           *ngIf=" code?.touched && code?.hasError('required')"
           class="content__text--alert">
-          *Campo obligatorio
+          *Campo obligatorio.
         </p>
         <p
           *ngIf=" code?.touched && code?.hasError('minlength')"
           class="content__text--alert">
-          *Debería agregar más de 3 caracteres
+          *Debería agregar más de 3 caracteres.
         </p>
         <p
           *ngIf=" code?.touched && code?.hasError('maxlength')"
           class="content__text--alert">
-          *Debería agregar menos de 7 caracteres
+          *Debería agregar menos de 7 caracteres.
         </p>
       </div>
 
@@ -93,7 +96,7 @@
         <p
         *ngIf=" description?.touched && description?.hasError('required')"
          class="content__text--alert">
-         *Campo obligatorio
+         *Campo obligatorio.
         </p>
       </div>
 
@@ -116,7 +119,7 @@
         <p
         *ngIf=" unitValue?.touched && unitValue?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio
+        *Campo obligatorio.
         </p>
       </div>
 
@@ -137,7 +140,7 @@
           <p
           *ngIf=" totalStock?.touched && totalStock?.hasError('required')"
           class="content__text--alert">
-          *Campo obligatorio
+          *Campo obligatorio.
           </p>
       </div>
 
@@ -227,11 +230,16 @@
 
     <ng-template #elseBlock>
       <div class="content__notfound">
-        <img src="../../../assets/alert.svg" alt="this is the image alert">
-        <p class="content__text--notfound">No se encuentra ningún producto</p>
+        <img
+         src="../../../assets/alert.svg"
+         alt="this is the image alert">
+        <p
+        class="content__text--notfound">
+          No se encuentra ningún producto
+        </p>
       </div>
-
     </ng-template>
+
   </div>
 
   <app-category

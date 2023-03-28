@@ -20,6 +20,11 @@
         id="category"
         formControlName="category"
         placeholder="Ingrese una nueva categoría">
+        <p
+        *ngIf=" InputCategory?.touched && InputCategory?.hasError('required')"
+        class="content__text--alert">
+          *Campo obligatorio.
+        </p>
     </div>
 
     <div
@@ -27,12 +32,16 @@
       class="content__button">
       <button
         type="submit"
-        class="button">
+        class="button"
+        [disabled]="!formCategory.valid"
+        [class.is__invalid]="!formCategory.valid">
         Ingresar
       </button>
       <button
         class="button"
-        (click)="updateCategory()">
+        (click)="updateCategory()"
+        [disabled]="!formCategory.valid"
+        [class.is__invalid]="!formCategory.valid">
         Modificar
       </button>
 

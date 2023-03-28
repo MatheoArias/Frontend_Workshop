@@ -63,7 +63,6 @@ export class BuyProductsService {
         return throwError('Algo está saliendo mal')
       })
     );
-
   }
 
   createBuyProduct(data:createBuysProductDTO){

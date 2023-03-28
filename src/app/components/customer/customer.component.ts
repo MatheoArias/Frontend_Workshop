@@ -3,7 +3,8 @@ import { Customer,UpdateCustomerDTO,CreateCustomerDTO } from 'src/app/models/cus
 import { DocumentType } from 'src/app/models/document_type.models';
 import { CustomerService } from 'src/app/services/customer.service';
 import { DocumentTypeService } from 'src/app/services/document-type.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-customer',
@@ -13,13 +14,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class CustomerComponent {
 
-  CustomerId:number=0;
+  customerId:number=0;
   messagges:string='';
   statusCode: number=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
+  valueFind=new FormControl('');
+  itemFind:string="";
+  filterpipe= new FilterPipe()
+
 
   @Input()documentType:DocumentType[]=[]
   @Input() customers:Customer[] = [];
+  @Input() listFilter:Customer[]=[];
   customer:Customer={
       id: 0,
       names: '',
@@ -37,8 +43,26 @@ export class CustomerComponent {
 
   formCustomer!:FormGroup;
 
+  get inputNames(){
+    return this.formCustomer.get('names');
+  }
   get inputDocumentType(){
-    return this.formCustomer.get('document_type')
+    return this.formCustomer.get('document_type');
+  }
+  get inputDocumentNumber(){
+    return this.formCustomer.get('document_number');
+  }
+  get residenceAddress(){
+    return this.formCustomer.get('residence_address');
+  }
+  get telephone(){
+    return this.formCustomer.get('telephone_number');
+  }
+  get celphone(){
+    return this.formCustomer.get('telephone_cel');
+  }
+  get emailAddress(){
+    return this.formCustomer.get('email_address');
   }
 
   private formAddCustomer() {
@@ -49,7 +73,7 @@ export class CustomerComponent {
       residence_address: ['', [Validators.required]],
       telephone_cel: ['', [Validators.required]],
       telephone_number: ['', [Validators.required]],
-      email_address: ['', [Validators.required]],
+      email_address: ['', [Validators.required,Validators.email]],
     });
   }
 
@@ -64,7 +88,7 @@ export class CustomerComponent {
   getAllCustomer(){
     return this.customerService.getAllCustomer()
     .subscribe(data=>{
-      this.customers=data
+      this.customers=data;
     });
   }
 
@@ -94,7 +118,7 @@ export class CustomerComponent {
     const updateCustomer:UpdateCustomerDTO=this.formCustomer.value;
     this.statusDeatil='Loading';
     if(this.formCustomer.valid){
-      this.customerService.updateCustomer(updateCustomer,this.CustomerId)
+      this.customerService.updateCustomer(updateCustomer,this.customerId)
       .subscribe(data=>{
         this.getAllCustomer();
       })
@@ -108,12 +132,11 @@ export class CustomerComponent {
 
   toggleUpdate(item:Customer){
     this.statusDeatil='Loading';
-    this.CustomerId=item.id
+    this.customerId=item.id
     if(item.id){
       this.customerService.getCustomer(item.id)
       .subscribe(data => {
         this.formCustomer.patchValue(data);
-        this.CustomerId = data.id;
         this.inputDocumentType?.setValue(data.document_type.id);
       });
       this.statusDeatil='Success';
@@ -132,6 +155,16 @@ export class CustomerComponent {
       this.statusDeatil='Success';
     }else{
       this.statusDeatil='Error';
+    }
+  }
+
+  onChangeText(){
+    if(this.valueFind.value){
+      this.itemFind=this.valueFind.value;
+      this.listFilter=this.filterpipe.transform(this.customers,this.itemFind);
+      this.customerId=0;
+    }else{
+      this.itemFind="";
     }
   }
 

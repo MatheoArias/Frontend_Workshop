@@ -1,7 +1,13 @@
+/*Era mas sencillo cambiar solo este pedazo que el resto. Fue un error de junior*/
+.content__app{
+  background-image: url("../../../assets/Logo_login.svg");
+}
+
 div {
   position: relative;
   display: flex;
   flex-direction: column;
+  z-index: 0;
 
   /*This are the styles of de app-category*/
   .content__app--category {
@@ -12,6 +18,7 @@ div {
     bottom: 0;
     margin: auto;
     display: none;
+    z-index: 1;
 
     &.activate__modal {
       display: flex;
@@ -28,6 +35,7 @@ div {
     max-width: 100%;
     max-height: 100%;
     animation: content 0.8s ease-in-out forwards;
+    z-index: 1;
 
     &.activate__modal {
       animation: subcontent 0.6s ease-in-out forwards;
@@ -83,6 +91,11 @@ div {
 
     .content__input--find {
       max-width: 100%;
+
+      img {
+        right: 2px;
+        top: 25px;
+      }
     }
 
     ul {
@@ -247,31 +260,3 @@ div {
   }
 }
 
-
-.content__notfound {
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: 0.5rem;
-  box-sizing: border-box;
-
-  p {
-    font-family: 'Thalib';
-    color: var(--color--red);
-    font-size: 3rem;
-    line-height: 3.2rem;
-    text-align: center;
-    width: 100%;
-    align-self: center;
-    justify-self: center;
-    margin-top: 1rem;
-  }
-
-  img{
-    height: 20rem;
-    width: 20rem;
-    align-content: flex-end;
-    align-self: center;
-  }
-}

@@ -25,15 +25,15 @@ export class CustomerService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada');
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada');
+          return throwError('La página no ha sido encontada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado');
+          return throwError('No estás autorizado')
         }
-        return throwError('Algo está saliendo mal');
+        return throwError('Algo está saliendo mal')
       })
     );
   }
@@ -47,18 +47,18 @@ export class CustomerService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición');
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada');
+          return throwError('La página no ha sido encontada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado');
+          return throwError('No estás autorizado')
         }
-        return throwError('Algo está saliendo mal');
-      }
-    )
-  )}
+        return throwError('Algo está saliendo mal')
+      })
+    );
+  }
 
   createCustomer(data:CreateCustomerDTO){
     return this.http.post<Customer>(this.apiUrl,data)
@@ -69,18 +69,18 @@ export class CustomerService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición');
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada');
+          return throwError('La página no ha sido encontada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado');
+          return throwError('No estás autorizado')
         }
-        return throwError('Algo está saliendo mal');
-      }
-    )
-  )}
+        return throwError('Algo está saliendo mal')
+      })
+    );
+  }
 
   deleteCustomer(id:number){
     return this.http.delete<Customer>(`${this.apiUrl}${id}/`)
@@ -91,18 +91,18 @@ export class CustomerService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición');
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada');
+          return throwError('La página no ha sido encontada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado');
+          return throwError('No estás autorizado')
         }
-        return throwError('Algo está saliendo mal');
-      }
-    )
-  )}
+        return throwError('Algo está saliendo mal')
+      })
+    );
+  }
 
   updateCustomer(data:UpdateCustomerDTO,id:number){
     return this.http.put<Customer>(`${this.apiUrl}${id}/`,data)
@@ -113,18 +113,16 @@ export class CustomerService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición');
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada');
+          return throwError('La página no ha sido encontada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado');
+          return throwError('No estás autorizado')
         }
-        return throwError('Algo está saliendo mal');
-      }
-    )
-    )
+        return throwError('Algo está saliendo mal')
+      })
+    );
   }
-
 }

@@ -36,6 +36,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { TelephonePipe } from './pipes/telephone.pipe';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     EmployeesComponent,
     VehicleComponent,
     FilterPipe,
+    TelephonePipe,
   ],
   imports: [
     BrowserModule,
