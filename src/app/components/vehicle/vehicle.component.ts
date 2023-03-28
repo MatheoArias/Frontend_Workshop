@@ -6,6 +6,7 @@ import { Customer } from 'src/app/models/customer.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-vehicle',
@@ -19,6 +20,10 @@ export class VehicleComponent implements OnInit {
   categories:Category[]=[];
   customers:Customer[]=[];
   vehicleId:number=0;
+  valueFind=new FormControl('');
+  itemFind:string="";
+  filterpipe= new FilterPipe()
+  listFilter:Vehicles[]=[];
 
   formVehicles!:FormGroup;
 
@@ -26,15 +31,24 @@ export class VehicleComponent implements OnInit {
     return this.formVehicles.get('category');
   }
 
-  get InputOwner(){
+  get owner(){
     return this.formVehicles.get('owner');
+  }
+  get licensePlate(){
+    return this.formVehicles.get('license_plate');
+  }
+  get trademark(){
+    return this.formVehicles.get('trademark');
+  }
+  get model(){
+    return this.formVehicles.get('model');
   }
 
   private formAddVehicle() {
     this.formVehicles = this.formBuilder.group({
       category: ['', [Validators.required]],
       owner: ['', [Validators.required]],
-      license_plate: ['', [Validators.required]],
+      license_plate: ['', [Validators.required,Validators.maxLength(6)]],
       trademark: ['', [Validators.required]],
       model: ['', [Validators.required]],
     });
@@ -58,7 +72,8 @@ export class VehicleComponent implements OnInit {
   getAllVehicles(){
     this.vehicleService.getAllVehicles()
     .subscribe(data=>{
-      this.vehicles = data
+      this.vehicles = data;
+      this.listFilter=data;
     })
   }
 
@@ -108,7 +123,7 @@ export class VehicleComponent implements OnInit {
       .subscribe(data=>{
         this.formVehicles.patchValue(data);
         this.inputCategory?.setValue(data.category.id);
-        this.InputOwner?.setValue(data.owner.id);
+        this.owner?.setValue(data.owner.id);
       })
     }
   }
@@ -120,4 +135,13 @@ export class VehicleComponent implements OnInit {
     })
   }
 
+  onChangeText(){
+    if(this.valueFind.value){
+      this.itemFind=this.valueFind.value;
+      this.listFilter=this.filterpipe.transform(this.vehicles,this.itemFind);
+      this.vehicleId=0;
+    }else{
+      this.itemFind="";
+    }
+  }
 }

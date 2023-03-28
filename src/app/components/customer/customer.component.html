@@ -12,8 +12,9 @@
         Nombres y apellidos
       </label>
       <input
-       type="text"
+        type="text"
         formControlName="names"
+        placeholder="Ingrese los nombres y apellidos del cliente"
         [class.is--valid]="inputNames?.valid && inputNames?.touched"
         [class.is--invalid]="inputNames?.invalid && inputNames?.touched">
        <p
@@ -35,7 +36,10 @@
         [class.is--valid]="inputDocumentType?.valid && inputDocumentType?.touched"
         [class.is--invalid]="inputDocumentType?.invalid && inputDocumentType?.touched">
         <option
-          value="">Seleccione
+          value=""
+          class="firstChoice"
+          selected="true">
+          Seleccione
         </option>
         <option
           *ngFor="let item of documentType"
@@ -60,6 +64,7 @@
       <input
         type="number"
         formControlName="document_number"
+        placeholder="Ingrese el número de documento"
         [class.is--valid]="inputDocumentNumber?.valid && inputDocumentNumber?.touched"
         [class.is--invalid]="inputDocumentNumber?.invalid && inputDocumentNumber?.touched">
       <p
@@ -79,6 +84,7 @@
       <input
         type="text"
         formControlName="residence_address"
+        placeholder="Ingrese la dirección de residencia"
         [class.is--valid]="residenceAddress?.valid && residenceAddress?.touched"
         [class.is--invalid]="residenceAddress?.invalid && residenceAddress?.touched">
       <p
@@ -99,6 +105,7 @@
         type="number"
         id="telephoneCel"
         formControlName="telephone_cel"
+        placeholder="Ingrese el teléfono celular"
         [class.is--valid]="celphone?.valid && celphone?.touched"
         [class.is--invalid]="celphone?.invalid && celphone?.touched">
       <p
@@ -119,6 +126,7 @@
         type="number"
         id="telephoneNumber"
         formControlName="telephone_number"
+        placeholder="Ingrese el teléfono fijo"
         [class.is--valid]="telephone?.valid && telephone?.touched"
         [class.is--invalid]="telephone?.invalid && telephone?.touched">
         <p
@@ -138,6 +146,7 @@
       <input
         type="email"
         formControlName="email_address"
+        placeholder="Ingrese el correo electrónico"
         [class.is--valid]="emailAddress?.valid && emailAddress?.touched"
         [class.is--invalid]="emailAddress?.invalid && emailAddress?.touched">
       <p
@@ -178,7 +187,7 @@
       type="search"
        [formControl]="valueFind"
       (input) ="onChangeText()"
-      placeholder="Busca el producto aquí">
+      placeholder="Busca el cliente aquí">
       <img
         src="../../../assets/lupa.svg"
         alt="this is the find icon">
@@ -203,25 +212,23 @@
         </h2>
       </div>
 
+      <div class="document">
+        <p>
+            {{item.document_type.types | uppercase}}
+            {{item.document_number | number}}
+        </p>
+      </div>
+
       <div class="email--address">
         <p>
           {{item.email_address | lowercase}}
         </p>
       </div>
 
-      <div class="document">
+      <div class="celphone">
+        Celular:
         <p>
-          <span>
-            {{item.document_type.types}}
-          </span>
-            {{item.document_number | number}}
-        </p>
-      </div>
-
-      <div class="residence--address">
-        Dirección:
-        <p>
-          {{item.residence_address}}
+           {{item.telephone_cel | telephone}}
         </p>
       </div>
 
@@ -232,10 +239,9 @@
         </p>
       </div>
 
-      <div class="celphone">
-        Celular:
+      <div class="residence--address">
         <p>
-           {{item.telephone_cel | telephone}}
+          {{item.residence_address | titlecase}}
         </p>
       </div>
 

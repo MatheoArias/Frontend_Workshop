@@ -1,82 +1,268 @@
-<form (ngSubmit)="submit($event)" [formGroup]="formEmployee">
+<div class="content__app">
+  <form
+    (ngSubmit)="submit($event)"
+    [formGroup]="formEmployee">
 
-  <div class="content__input">
-    <label for="inputNames">Nombres y Apellidos</label>
-    <input type="text" id="inputNames" formControlName="names">
+    <div class="content__input">
+      <label>
+        Nombres y Apellidos
+      </label>
+      <input
+        type="text"
+        formControlName="names"
+        placeholder="Ingrese los nombres y apellidos"
+        [class.is--valid]="names?.valid && names?.touched"
+        [class.is--invalid]="names?.invalid && names?.touched">
+      <p
+        *ngIf="names?.touched && names?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+
+    <div class="content__input">
+      <label>
+       Tipo de documento
+      </label>
+      <select
+        type="number"
+         formControlName="document_type"
+         [class.is--valid]="documentType?.valid && documentType?.touched"
+         [class.is--invalid]="documentType?.invalid && documentType?.touched">
+        <option
+          value=""
+          class="firstChoice"
+          selected="true">
+          Seleccione
+        </option>
+        <option
+          *ngFor="let item of documentTypes"
+          value="{{item.id}}">
+          {{item.types | uppercase}} - {{item.name}}
+        </option>
+      </select>
+      <p
+        *ngIf="documentType?.touched && documentType?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Número de documento
+      </label>
+      <input
+        type="number"
+        formControlName="document_number"
+        placeholder="Ingrese el número de documento"
+        [class.is--valid]="documentNumber?.valid && documentNumber?.touched"
+        [class.is--invalid]="documentNumber?.invalid && documentNumber?.touched">
+        <p
+          *ngIf="documentNumber?.touched && documentNumber?.hasError('required')"
+          class="content__text--alert">
+        *Campo obligatorio.
+        </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Ocupación
+      </label>
+      <select
+        type="text"
+        formControlName="employees_type"
+        [class.is--valid]="employeesType?.valid && employeesType?.touched"
+        [class.is--invalid]="employeesType?.invalid && employeesType?.touched">
+        <option
+          value=""
+          class="firstChoice"
+          selected="true">
+          Seleccione
+        </option>
+        <option
+          *ngFor="let item of employeeTypes"
+          value="{{item.id}}">
+          {{item.jobs_names | titlecase}} ({{item.jobs_names_cod | uppercase}})
+        </option>
+      </select>
+      <p
+        *ngIf="employeesType?.touched && employeesType?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Número de teléfono fijo
+      </label>
+      <input
+        type="tel"
+        formControlName="telephone_number"
+        placeholder="Ingrese el número de télefono fijo"
+        [class.is--valid]="telephoneNumber?.valid && telephoneNumber?.touched"
+        [class.is--invalid]="telephoneNumber?.invalid && telephoneNumber?.touched">
+      <p
+        *ngIf="telephoneNumber?.touched && telephoneNumber?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Número de celular
+      </label>
+      <input
+        type="tel"
+        formControlName="telephone_cel"
+        placeholder="Ingrese el número de télefono celular"
+        [class.is--valid]="telephoneCel?.valid && telephoneCel?.touched"
+        [class.is--invalid]="telephoneCel?.invalid && telephoneCel?.touched">
+      <p
+        *ngIf="telephoneCel?.touched && telephoneCel?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Dirección de residencia
+      </label>
+      <input
+        type="text"
+        formControlName="residence_address"
+        placeholder="Ingrese la dirección de residencia"
+        [class.is--valid]="residenceAddress?.valid && residenceAddress?.touched"
+        [class.is--invalid]="residenceAddress?.invalid && residenceAddress?.touched">
+      <p
+        *ngIf="residenceAddress?.touched && residenceAddress?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__input">
+      <label>
+        Correo Electrónico
+      </label>
+      <input
+      type="text"
+      id="InputEmailAddress"
+      formControlName="email_address"
+      placeholder="Ingrese el correo electrónico"
+      [class.is--valid]="emailAddress?.valid && emailAddress?.touched"
+      [class.is--invalid]="emailAddress?.invalid && emailAddress?.touched">
+      <p
+        *ngIf="emailAddress?.touched && emailAddress?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
+
+    <div class="content__button">
+      <button
+        class="button"
+        [disabled]="!formEmployee.valid"
+        [class.is__invalid]="!formEmployee.valid">
+        Ingresar
+      </button>
+
+      <button
+        (click)="updateEmployee()"
+        class="button"
+        [disabled]="!formEmployee.valid"
+        [class.is__invalid]="!formEmployee.valid">
+        Modificar
+      </button>
+    </div>
+
+  </form>
+
+  <div
+  class="content__input--find">
+  <label for="">Buscar producto</label>
+  <input
+    type="search"
+     [formControl]="valueFind"
+    (input) ="onChangeText()"
+    placeholder="Busca el cliente aquí">
+    <img
+      src="../../../assets/lupa.svg"
+      alt="this is the find icon">
   </div>
 
-  <div class="content__input">
-    <label for="inputDocumentType">Tipo de documento</label>
-    <select type="number" id="inputDocumentType" formControlName="document_type">
-      <option value="" selected="true">
-        Seleccione
-      </option>
-      <option *ngFor="let item of documentTypes" value="{{item.id}}">
-        {{item.types}} - {{item.name}}
-      </option>
-    </select>
-  </div>
+  <ul
+    *ngIf="listFilter.length; else elseBlock"
+    class="content__list">
+    <li
+      [class.radio__activate]="employeesId===item.id"
+      *ngFor="let item of employees | filter:itemFind">
+      <input
+        type="radio"
+        name="choiceEmployee"
+        value="{{item.id}}"
+        (click)="toggleUpdate(item)">
+      <div>
+        <h2>
+          {{item.names | titlecase}}
+        </h2>
+      </div>
+      <div>
+        <p>
+          {{item.employees_type.jobs_names | titlecase}} ({{item.employees_type.jobs_names_cod | uppercase}})
+        </p>
+      </div>
+      <div>
+        <p>
+          {{item.document_type.types | uppercase}} - {{item.document_number | number}}
+        </p>
+      </div>
+      <div>
+        Fijo:
+        <p>
+          {{item.telephone_number | telephone}}
+        </p>
+      </div>
+      <div>
+        Celular:
+        <p>
+          {{item.telephone_cel | telephone}}
+        </p>
+      </div>
+      <div>
+        <p>
+          {{item.residence_address | titlecase}}
+        </p>
+      </div>
+      <div>
+        <p>
+          {{item.email_address | lowercase}}
+        </p>
+      </div>
+      <button
+      class="button__icon"
+      (click)=" toggleDelete(item)"
+      [class.radio__activate--icon]="employeesId===item.id">
+    </button>
+    </li>
+  </ul>
 
-  <div class="content__input">
-    <label for="inputDocumentNumber">Número de documento</label>
-    <input type="number" id="inputDocumentNumber" formControlName="document_number">
-  </div>
+  <ng-template #elseBlock>
+    <div class="content__notfound">
+      <img
+       src="../../../assets/alert.svg"
+       alt="this is the image alert">
+      <p
+      class="content__text--notfound">
+        No se encuentra ningún empleado
+      </p>
+    </div>
+  </ng-template>
 
-  <div class="content__input">
-    <label for="inputEmployeesType">Ocupación</label>
-    <select type="text" id="inputEmployeesType" formControlName="employees_type">
-      <option value="" selected="true" id="firstChoice">
-        Seleccione
-      </option>
-      <option *ngFor="let item of employeeTypes" value="{{item.id}}">
-        {{item.jobs_names_cod}} - {{item.jobs_names}}
-      </option>
-    </select>
-  </div>
+</div>
 
-  <div class="content__input">
-    <label for="inputTelephoneNumber">Número de teléfono fijo</label>
-    <input type="tel" id="inputTelephoneNumber" formControlName="telephone_number">
-  </div>
 
-  <div class="content__input">
-    <label for="inputTelephoneCel">Número de celular</label>
-    <input type="tel" id="inputTelephoneCel" formControlName="telephone_cel">
-  </div>
-
-  <div class="content__input">
-    <label for="inputAdressResidence">Dirección de residencia</label>
-    <input type="text" id="inputAdressResidence" formControlName="residence_address">
-  </div>
-
-  <div class="content__input">
-    <label for="InputEmailAddress">Correo Electrónico</label>
-    <input type="text" id="InputEmailAddress" formControlName="email_address">
-  </div>
-
-  <button class="button">
-    Ingresar
-  </button>
-
-  <button (click)="updateEmployee()" class="button">
-    Modificar
-  </button>
-
-</form>
-
-<ul>
-  <li *ngFor="let item of employees">
-    <input type="radio" name="choiceEmployee" value="{{item.id}}" (click)="toggleUpdate(item)">
-    <p>{{item.names}}</p>
-    <p>{{item.employees_type.jobs_names_cod}} - {{item.employees_type.jobs_names}}</p>
-    <p>{{item.document_type.types}} - {{item.document_number}}</p>
-    <p>{{item.telephone_number}}</p>
-    <p>{{item.telephone_cel}}</p>
-    <p>{{item.address_residence}}</p>
-    <p>{{item.email_address}}</p>
-    <button
-    (click)=" toggleDelete(item)">
-    Eliminar
-  </button>
-  </li>
-</ul>

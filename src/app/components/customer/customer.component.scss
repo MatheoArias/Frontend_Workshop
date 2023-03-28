@@ -20,47 +20,39 @@
   }
 
   .content__list {
-    max-height: 70vh;
+    max-height: 80vh;
 
     li {
       display: flex;
       flex-direction: column;
+      justify-content: center;
 
-      div {
+      .telephone,
+      .celphone {
         p {
-
           margin-left: 0.5rem;
+        }
+      }
 
+      .email--address,
+      .celphone{
+        font-weight: 600 !important;
+        p {
+          font-weight: 600 !important;
         }
       }
 
       .document {
         grid-area: document;
-
-        p {
-          margin: 0;
-          span {
-            color: var(--color--red);
-          }
-        }
       }
 
       .residence--address {
         grid-area: address;
-        display: flex;
-        flex-direction: column;
       }
 
       .email--address {
         grid-area: email;
-
-        p {
-          font-weight: 500 !important;
-          margin: 0;
-
-        }
       }
-
     }
   }
 
@@ -119,8 +111,6 @@
 
     .content__button {
       grid-area: cotentButton;
-      display: flex;
-      justify-content: flex-end;
     }
   }
 }

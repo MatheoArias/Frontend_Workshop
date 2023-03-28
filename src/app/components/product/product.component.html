@@ -20,12 +20,10 @@
       <div
         class="content__input
          content__productCategory">
-        <label
-          for="productCategory">
+        <label>
           Categoría
         </label>
         <select
-          id="productCategory"
           formControlName="category_id"
           [class.is--valid]="categoryId?.valid && categoryId?.touched"
           [class.is--invalid]="categoryId?.invalid && categoryId?.touched">
@@ -51,13 +49,11 @@
       <div
        class="content__input
         content__code">
-        <label
-         for="code">
+        <label>
          Código
         </label>
         <input
          type="text"
-          id="code"
           formControlName="code"
           [class.is--valid]="code?.valid && code?.touched"
           [class.is--invalid]="code?.invalid && code?.touched"
@@ -82,13 +78,11 @@
       <div
         class="content__input
         content__description">
-        <label
-          for="description">
+        <label>
           Descripción
         </label>
         <input
          type="text"
-         id="description"
          formControlName="description"
          [class.is--valid]="description?.valid && description?.touched"
          [class.is--invalid]="description?.invalid && description?.touched"
@@ -104,17 +98,16 @@
         class="content__input
         inputCurrency
         content__uniValue">
-        <label
-          for="unitValue">
+        <label>
           Valor de venta
         </label>
         <div>
           <input
            type="number"
-           id="unitValue"
            [class.is--valid]="unitValue?.valid && unitValue?.touched"
            [class.is--invalid]="unitValue?.invalid && unitValue?.touched"
-           formControlName="unit_value">
+           formControlName="unit_value"
+           placeholder="Ingrese el valor por unidad">
         </div>
         <p
         *ngIf=" unitValue?.touched && unitValue?.hasError('required')"
@@ -127,13 +120,11 @@
         class="content__input
         inputStock
         content__totalsStock">
-        <label
-         for="totalsStock">
+        <label>
          Inventario
         </label>
         <input
           type="number"
-          id="totalsStock"
           formControlName="totals_stock"
           [class.is--valid]="totalStock?.valid && totalStock?.touched"
           [class.is--invalid]="totalStock?.invalid && totalStock?.touched">
@@ -144,7 +135,8 @@
           </p>
       </div>
 
-      <div class="content__button">
+      <div
+        class="content__button">
           <button
             type="submit"
             class="button"
@@ -170,7 +162,7 @@
         type="search"
          [formControl]="valueFind"
         (input) ="onChangeText()"
-        placeholder="Busca el producto aquí">
+        placeholder="Busque el producto aquí">
         <img src="../../../assets/lupa.svg" alt="this is the find icon">
     </div>
 
@@ -195,7 +187,7 @@
         <div class="code">
           Código
           <p>
-            {{item.code}}`
+            {{item.code}}
           </p>
         </div>
 

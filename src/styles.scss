@@ -56,6 +56,8 @@ button {
 input[type="date"],
 .firstChoice {
   text-align: center;
+  color: var(--color--text--nav);
+  font-weight: 400;
 }
 
 /*this is the button in the part top-right in the boxes content*/
@@ -121,6 +123,10 @@ form {
   -moz-box-shadow: -2px 6px 15px -5px rgba(99, 99, 99, 1);
   box-shadow: -2px 6px 15px -5px rgba(99, 99, 99, 1);
 
+  .content__button {
+    display: flex;
+    justify-content: flex-end;
+  }
 
   .content__input {
     display: flex;
@@ -161,7 +167,7 @@ form {
     select {
       font-size: 1.3rem;
       line-height: 1.5rem;
-      font-weight: 400;
+      font-weight: 500;
       color: var(--color--gray);
       height: 3.6rem;
       padding: 1rem 1rem;
@@ -176,13 +182,18 @@ form {
         line-height: 1.5rem;
       }
     }
+
+    input::placeholder{
+      color: var(--color--text--nav);
+      font-weight: 400;
+    }
   }
 }
 
 .content__input--find {
   margin: 1rem;
   background: transparent;
-  position: relative !important;
+  position: relative;
 
   label {
     color: var(--color--red);
@@ -200,7 +211,7 @@ form {
   }
 
   img {
-    position: absolute !important;
+    position: absolute;
     width: 4rem;
     height: 3rem;
     background-color: var(--color--white);
@@ -310,7 +321,7 @@ form {
     }
   }
 }
-
+/*This is the style notFpund list*/
 .content__notfound {
   max-width: 100%;
   max-height: 100%;
@@ -336,6 +347,40 @@ form {
     width: 20rem;
     align-content: flex-end;
     align-self: center;
+  }
+}
+
+.radio__activate {
+  border: 0.15rem solid var(--color--green-success) !important;
+  background:
+    linear-gradient(323.66deg,
+      rgba(48, 242, 96, 0.4) 2.46%,
+      rgba(48, 242, 96, 0.112) 20.41%,
+      rgba(255, 255, 255, 0.12) 38.28%,
+      rgba(255, 255, 255, 0.4) 58.96%),
+      #FFFFFF !important;
+
+  div,
+  span,
+  h2 {
+    color: var(--color--green-success) !important;
+    font-weight: 500 !important;
+  }
+}
+
+/*This the change style of image's simbol*/
+.radio__activate--icon {
+  background-image: url("./assets/icon_success.svg") !important;
+}
+
+select,
+input {
+  &.is--valid {
+    border-color: var(--color--green-success) !important;
+  }
+
+  &.is--invalid {
+    border-color: var(--color--red--secundary) !important;
   }
 }
 
@@ -404,35 +449,6 @@ ngx-charts-advanced-pie-chart {
 
 .item-color {
   height: 6rem !important;
-}
-
-
-.radio__activate {
-  border: 0.15rem solid var(--color--green-success) !important;
-  background: linear-gradient(323.66deg, rgba(48, 242, 96, 0.4) 2.46%, rgba(48, 242, 96, 0.112) 20.41%, rgba(255, 255, 255, 0.12) 38.28%, rgba(255, 255, 255, 0.4) 58.96%), #FFFFFF !important;
-
-  div,
-  span,
-  h2 {
-    color: var(--color--green-success) !important;
-    font-weight: 500 !important;
-  }
-}
-
-/*This the change style of image's simbol*/
-.radio__activate--icon {
-  background-image: url("./assets/icon_success.svg") !important;
-}
-
-select,
-input {
-  &.is--valid {
-    border-color: var(--color--green-success) !important;
-  }
-
-  &.is--invalid {
-    border-color: var(--color--red--secundary) !important;
-  }
 }
 
 

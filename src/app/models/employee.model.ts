@@ -14,7 +14,7 @@ export interface Employees{
   document_number: number,
   telephone_number: number,
   telephone_cel: number,
-  address_residence: string,
+  residence_address: string,
   email_address: string,
 }
 

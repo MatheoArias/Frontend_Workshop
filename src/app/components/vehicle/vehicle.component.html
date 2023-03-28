@@ -1,76 +1,218 @@
-<form (ngSubmit)="submit($event)" [formGroup]="formVehicles">
+<div class="content__app">
 
-  <div class="content__input">
-    <label for="inputLicensePlate">Placa</label>
-    <input type="text" id="inputLicensePlate" formControlName="license_plate">
-  </div>
+  <form
+    (ngSubmit)="submit($event)"
+    [formGroup]="formVehicles">
 
-  <div class="content__input">
-    <label for="inputTrademark">Marca</label>
-    <input type="text" id="inputTrademark" formControlName="trademark">
-  </div>
+    <div class="content__input license--plate">
+      <label>
+        Placa
+      </label>
+      <input
+        type="text"
+        id="inputLicensePlate"
+        formControlName="license_plate"
+        placeholder="Ingresa la placa del vehículo"
+        [class.is--valid]="licensePlate?.valid && licensePlate?.touched"
+        [class.is--invalid]="licensePlate?.invalid && licensePlate?.touched">
+      <p
+        *ngIf=" licensePlate?.touched && licensePlate?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+      <p
+      *ngIf=" licensePlate?.touched && licensePlate?.hasError('maxlength')"
+      class="content__text--alert">
+      *Debería agregar solamente 6 caracteres.
+      </p>
+    </div>
 
-  <div class="content__input">
-    <label for="inputModel">Modelo</label>
-    <input type="text" id="inputModel" formControlName="model">
-  </div>
+    <div class="content__input">
+      <label>
+        Marca
+      </label>
+      <input
+        type="text"
+        formControlName="trademark"
+        placeholder="Ingresa la marca del vehículo"
+        [class.is--valid]="trademark?.valid && trademark?.touched"
+        [class.is--invalid]="trademark?.invalid && trademark?.touched">
+      <p
+        *ngIf=" trademark?.touched && trademark?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
 
-  <div class="content__input">
-    <label for="inputCategory">Categoría</label>
-    <select type="text" id="inputCategory"  name="choiceCategory" formControlName="category">
-      <option value="" selected="true">
-        Seleccione
-      </option>
-      <option
-       *ngFor="let item of categories"
-       value="{{item.id}}">
-       {{item.category}}
-      </option>
-    </select>
-  </div>
+    <div class="content__input">
+      <label>
+        Modelo
+      </label>
+      <input
+        type="text"
+        formControlName="model"
+        placeholder="Ingresa el modelo de la marca"
+        [class.is--valid]="model?.valid && model?.touched"
+        [class.is--invalid]="model?.invalid && model?.touched">
+      <p
+        *ngIf=" model?.touched && model?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
 
-  <div class="content__input">
-    <label for="inputOwner">Propietario</label>
-    <select type="text" id="inputOwner" formControlName="owner">
-      <option value="" selected="true">
-        Seleccione
-      </option>
-      <option
-       *ngFor="let item of customers"
-       value="{{item.id}}">
-       {{item.document_type.types}} {{item.document_number | number}} - {{item.names}}
-      </option>
-    </select>
-  </div>
+    <div class="content__input">
+      <label>
+        Categoría
+      </label>
+      <select
+        type="text"
+        name="choiceCategory"
+        formControlName="category"
+        [class.is--valid]="inputCategory?.valid && inputCategory?.touched"
+        [class.is--invalid]="inputCategory?.invalid && inputCategory?.touched">
+        <option
+          class="firstChoice"
+          value=""
+          selected="true">
+          Seleccione
+        </option>
+        <option
+         *ngFor="let item of categories"
+         value="{{item.id}}">
+         {{item.category}}
+        </option>
+      </select>
+      <p
+        *ngIf=" inputCategory?.touched && inputCategory?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+    </div>
 
-  <button class="button" id="toggleSubmit">
-    Ingresar
-  </button>
+    <div class="content__input">
+      <label>
+        Propietario
+      </label>
+      <select
+        type="text"
+        formControlName="owner"
+        [class.is--valid]="owner?.valid && owner?.touched"
+        [class.is--invalid]="owner?.invalid && owner?.touched">
+        <option
+          class="firstChoice"
+          value=""
+          selected="true">
+          Seleccione
+        </option>
+        <option
+         *ngFor="let item of customers"
+         value="{{item.id}}">
+         {{item.document_type.types}} {{item.document_number | number}} - {{item.names}}
+        </option>
+      </select>
+      <p
+      *ngIf=" owner?.touched && owner?.hasError('required')"
+      class="content__text--alert">
+      *Campo obligatorio.
+      </p>
+    </div>
 
-  <button
-    class="button"
-    id="toggleSubmitUpdate"
-    (click)="updateVehicle()">
-    Modificar
-  </button>
+    <div class="content__button">
 
-</form>
+      <button
+        class="button"
+        [disabled]="!formVehicles.valid"
+        [class.is__invalid]="!formVehicles.valid">
+        Ingresar
+      </button>
 
-<ul>
-  <li *ngFor="let item of vehicles">
+      <button
+        class="button"
+        [disabled]="!formVehicles.valid"
+        [class.is__invalid]="!formVehicles.valid"
+        (click)="updateVehicle()">
+        Modificar
+      </button>
+
+    </div>
+
+  </form>
+
+  <div
+    class="content__input--find">
+    <label for="">Buscar producto</label>
     <input
-      type="radio"
-      value="{{item.id}}"
-      (click)="toggleUpdate(item)">
-    <p>{{item.license_plate}}</p>
-    <p>{{item.trademark}}</p>
-    <p>{{item.model}}</p>
-    <p>{{item.owner.names}}</p>
-    <p>{{item.owner.document_type.types}} {{item.owner.document_number | number}}</p>
-    <p>{{item.category.category}}</p>
-    <button
-      (click)="toggleDelete(item)">
-      Eliminar
-  </button>
-  </li>
-</ul>
+      type="search"
+      [formControl]="valueFind"
+      (input) ="onChangeText()"
+      placeholder="Busque el vehículo aquí">
+    <img
+      src="../../../assets/lupa.svg"
+      alt="this is the find icon">
+  </div>
+
+
+  <ul
+    class="content__list"
+    *ngIf="listFilter.length; else elseBlock">
+    <li
+    [class.radio__activate]="vehicleId===item.id"
+     *ngFor="let item of vehicles | filter:itemFind">
+      <input
+        type="radio"
+        value="{{item.id}}"
+        (click)="toggleUpdate(item)">
+      <div class="license--plate">
+        <h2>{{item.license_plate}}</h2>
+      </div>
+
+      <div class="trademarck">
+        Marca:
+        <p>{{item.trademark}}</p>
+      </div>
+
+      <div class="model">
+        Tipo:
+        <p>{{item.model}}</p>
+      </div>
+
+      <div class="category">
+        <p>{{item.category.category}}</p>
+      </div>
+
+      <div class="owner">
+        <p>{{item.owner.names}}</p>
+      </div>
+
+      <div class="document">
+        <p>
+          {{item.owner.document_type.types}}
+          {{item.owner.document_number | number}}
+        </p>
+      </div>
+
+      <button
+        (click)="toggleDelete(item)"
+        class="button__icon"
+        [class.radio__activate--icon]="vehicleId===item.id">
+      </button>
+
+    </li>
+
+  </ul>
+
+  <ng-template #elseBlock>
+    <div class="content__notfound">
+      <img
+       src="../../../assets/alert.svg"
+       alt="this is the image alert">
+      <p
+      class="content__text--notfound">
+        No se encuentra ningún producto
+      </p>
+    </div>
+  </ng-template>
+
+</div>
+
