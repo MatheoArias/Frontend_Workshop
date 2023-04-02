@@ -66,8 +66,10 @@
         [class.list--activate]="listStateSell">
         <li>
           <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/sell']"
             (click)="OnCloseNav()">
-            Gestión de ventas
+            Venta de productos
           </a>
         </li>
         <li>

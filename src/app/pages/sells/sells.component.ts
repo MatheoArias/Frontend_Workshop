@@ -32,6 +32,7 @@ export class SellsComponent implements OnInit {
   paymentMedium:PaymentMedium[] = [];
   discount:Discounts[] = [];
   employeesList:Employees[] = [];
+  listFilter:Product[]=[];
 
   constructor(
     private productService: ProductService,
@@ -60,6 +61,7 @@ export class SellsComponent implements OnInit {
     this.productService.getAllProducts().subscribe(
       data=>{
         this.products = data;
+        this.listFilter=data;
       }
     )
   }

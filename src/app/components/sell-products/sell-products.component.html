@@ -1,81 +1,237 @@
-<form (ngSubmit)="submit($event)" [formGroup]="formSellProduct">
+<div
+  class="content__app">
 
-  <div class="content__input">
-    <label for="">Cliente</label>
-    <select type="text" id="" formControlName="customer" (change)="onChangeInputCustomer()">
-      <option value="">Seleccionar</option>
-      <option *ngFor="let item of customers" value="{{item.id}}">
-         {{item.document_type.types}} {{item.names}}
-      </option>
-    </select>
-  </div>
+  <form (ngSubmit)="submit($event)" [formGroup]="formBill">
 
-  <div class="content__input" *ngIf="stateLenghtList; else elseBlock">
-    <label for="">Vehículo</label>
-    <select type="text" id="" formControlName="vehicle">
-      <option value="">
-        Seleccione
-      </option>
-      <option *ngFor="let item of vehicles" value="{{item.id}}">
+    <div class="content__input">
+      <label for="">Cliente
+      </label>
+      <select type="text" formControlName="customer" (change)="onChangeInputCustomer()">
+        <option value="">
+          Seleccionar
+        </option>
+        <option *ngFor="let item of customers" value="{{item.id}}">
+          {{item.document_type.types}} {{item.names}}
+        </option>
+      </select>
+    </div>
+
+    <div class="content__input" *ngIf="stateLenghtList; else elseBlock">
+      <label>
+        Vehículo
+      </label>
+      <select type="text" formControlName="vehicle">
+        <option value="">
+          Seleccione
+        </option>
+        <option *ngFor="let item of vehicles" value="{{item.id}}">
           Placa: {{item.license_plate}} - Marca: {{item.trademark}} - {{item.model}}
-      </option>
-    </select>
+        </option>
+      </select>
+    </div>
+
+    <div class="content__input">
+      <label for="">Persona que presta el servicio</label>
+      <select type="text" formControlName="employee">
+        <option value="">
+          Seleccione
+        </option>
+        <option *ngFor="let item of employeesList" value="{{item.id}}">
+          {{item.names}}
+        </option>
+      </select>
+    </div>
+
+    <div class="content__input">
+      <label for="">Medio de pago</label>
+      <select type="text" formControlName="payment_medium">
+        <option value="">
+          Seleccione</option>
+        <option *ngFor="let item of paymentMedium" value="{{item.id}}">
+          {{item.medium}}
+        </option>
+      </select>
+    </div>
+
+    <div class="content__input">
+      <label for="">Descuento
+      </label>
+      <select type="text" formControlName="discounts">
+        <option value="">
+          Seleccione
+        </option>
+        <option *ngFor="let item of discount" value="{{item.id}}">
+          {{item.types}}( {{item.percentage | number}}% ) - {{item.description}}
+        </option>
+      </select>
+    </div>
+
+    <ul
+      class="content__products--sell
+      content__products--form">
+      <li
+        class="text--body"
+        *ngFor="let item of sellProductList">
+
+        <div
+          class="content_text">
+          <p>
+            <span>
+              {{item.product_id.code}}
+            </span>
+            {{item.product_id.description}}/
+          </p>
+        </div>
+
+        <div
+          class="content_text">
+          <p>
+            <span>
+              valor(c/u)
+            </span>
+            {{item.product_id.unit_value | currency}}
+          </p>
+        </div>
+
+        <div
+          class="content_text">
+          <p>
+            <span>
+              Cantidad
+            </span>
+            {{item.sell_stock| number}}
+          </p>
+        </div>
+
+        <div
+          class="content_text">
+          <p>
+            <span>
+              Total
+            </span>
+            {{item.total_sell_value |currency}}
+          </p>
+        </div>
+
+        <button
+          class="button_sell"
+          [class.radio__activate--icon]="sellProductId===item.id"
+          (click)="toggleDelete(item)">
+        </button>
+
+      </li>
+
+    </ul>
+
+    <div class="content__button">
+
+      <p>{{sell.total_value | currency}}</p>
+
+      <button class="button">
+        Registrar
+      </button>
+
+    </div>
+
+  </form>
+
+
+
+  <ul class="content__products--sell">
+
+    <form [formGroup]="formSellProduct">
+
+      <input type="date" formControlName="date">
+
+      <li class="text--head">
+        <p>Productos</p>
+        <p>Valor
+          <span>(c/u)</span>
+        </p>
+        <p>Cantidad</p>
+        <p>Total</p>
+      </li>
+
+      <li class="text--body">
+        <div class="content_text">
+          <p>
+            {{product.description}}
+            <span>
+              {{product.code}}
+            </span>
+          </p>
+        </div>
+        <div class="content_text">
+          <p>
+            {{product.unit_value | currency}}
+          </p>
+        </div>
+        <div class="content_text">
+          <input
+            type="number"
+            formControlName="cuantity">
+        </div>
+        <div class="content_text">
+          <p>
+            {{product.unit_value * cuantity?.value |  currency}}
+          </p>
+        </div>
+      </li>
+
+      <div class="content__button">
+        <button
+          (click)="onClickAddProductList(product)"
+          class="button"
+          [disabled]="!formSellProduct.valid">
+          Agregar
+        </button>
+      </div>
+
+    </form>
+  </ul>
+
+  <div class="content__input--find">
+    <label for="">Buscar producto</label>
+    <input
+      type="search"
+       [formControl]="valueFind"
+      (input) ="onChangeText()"
+      placeholder="Busque el producto aquí">
+      <img src="../../../assets/lupa.svg" alt="this is the find icon">
   </div>
+
+  <ul
+    class="content__list--products"
+    *ngIf="listFilter.length; else elseBlock">
+    <li
+      [class.radio__activate]="product.id==item.id"
+      *ngFor="let item of products | filter:itemFind">
+      <input
+      type="radio"
+      name="ChoiceId"
+      value="{{item.id}}"
+      (change)="onClickListProducts(item)">
+      <p>{{item.description}}</p>
+      <p>{{item.code}}</p>
+      <p>{{item.unit_value | currency}}</p>
+    </li>
+  </ul>
 
   <ng-template #elseBlock>
-    <div class="content__input">
-      <label>Vehículo</label>
-      <p>No existe ningun vehículo asociado con este propietario</p>
+    <div class="content__notfound">
+      <img
+
+       src="../../../assets/alert.svg"
+       alt="this is the image alert">
+      <p
+      class="content__text--notfound">
+        No se encuentra ningún producto
+      </p>
     </div>
   </ng-template>
 
+</div>
 
 
-  <div class="content__input">
-    <label for="">Persona que presta el servicio</label>
-    <select type="text" id="" formControlName="employee">
-      <option value="">Seleccione</option>
-      <option *ngFor="let item of employeesList" value="{{item.id}}">
-        {{item.names}}
-      </option>
-    </select>
-  </div>
 
-  <div class="content__input">
-    <label for="">Medio de pago</label>
-    <select type="text" id="" formControlName="payment_medium">
-      <option value="">Seleccione</option>
-      <option *ngFor="let item of paymentMedium" value="{{item.id}}">
-         {{item.medium}}
-        </option>
-    </select>
-  </div>
 
-  <div class="content__input">
-    <label for="">Descuento</label>
-    <select type="text" id="" formControlName="discounts">
-      <option value="">Seleccione</option>
-      <option *ngFor="let item of discount" value="{{item.id}}">
-        {{item.types}}( {{item.percentage | number}}% ) - {{item.description}}
-      </option>
-    </select>
-  </div>
-
-  <button class="button">
-    Registrar
-  </button>
-
-  <div class="content__input">
-    <ul>
-      <li *ngFor="let item of products">
-        <label for="">{{item.description}}</label>
-        <input
-          type="checkbox"
-          name="ChoiceProductsSell"
-          value="{{item.id}}"
-          (change)="onClickListProducts(item)">
-      </li>
-    </ul>
-  </div>
-
-</form>

@@ -38,6 +38,17 @@ const routes: Routes = [
         component:HomeComponent
       },
       {
+        path:'sells',
+        component:SellsComponent,
+        children:[
+          {
+            path:'sell',
+            component:SellsComponent,
+            canActivate:[AuthGuard]
+          }
+        ]
+      },
+      {
         path:'products',
         component:ProductsComponent,
         children:[
@@ -96,6 +107,7 @@ const routes: Routes = [
   {
     path:'sells',
     component:SellsComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'login',

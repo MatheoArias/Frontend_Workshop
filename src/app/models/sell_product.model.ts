@@ -9,10 +9,10 @@ export interface SellProducts{
   total_sell_value:number;
 }
 
-export interface CreateSellProductsDTO extends Omit<Product, 'id' | 'product_id'>{
-
+export interface CreateSellProductsDTO extends Omit<SellProducts, 'id' | 'product_id'>{
+  product_id:number;
 }
 
-export interface UpdateSellProductsDTO extends Omit<Product,'product_id'> {
-  product_id:number;
+export interface UpdateSellProductsDTO extends CreateSellProductsDTO {
+  id:number;
 }

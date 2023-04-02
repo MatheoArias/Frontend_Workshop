@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpErrorResponse,HttpStatusCode} from '@angular/common/http';
-import {environment} from '../../enviroments/environment'
-import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
 import {retry,catchError} from 'rxjs/operators'
 import {throwError} from 'rxjs'
-import { UpdateProductsDTO} from '../models/product.model';
+import {environment} from '../../enviroments/environment'
+import { Bill,CreateBillDTO,UpdateBillDTO } from '../models/bill.models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BuyProductsService {
 
-  private apiUrl = `${environment.API_URL}/products/add_buy_product/`
+export class BillService {
+
+  private apiUrl = `${environment.API_URL}/bills/add_bill/`
   constructor(
     private http: HttpClient
   ) { }
 
-
-  getAllBuyProducts(){
-    return this.http.get<BuyProducts[]>(this.apiUrl)
+  getAllBill(){
+    return this.http.get<Bill[]>(this.apiUrl)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -39,8 +38,8 @@ export class BuyProductsService {
     );
   }
 
-  getBuyProduct(id:number){
-    return this.http.get<BuyProducts>(`${this.apiUrl}${id}/`)
+  getBill(id:number){
+    return this.http.get<Bill>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -61,8 +60,8 @@ export class BuyProductsService {
     );
   }
 
-  createBuyProduct(data:createBuysProductDTO){
-    return this.http.post<BuyProducts>(this.apiUrl,data)
+  createBill(data:CreateBillDTO){
+    return this.http.post<Bill>(this.apiUrl,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -83,8 +82,8 @@ export class BuyProductsService {
     );
   }
 
-  updateBuyProduct(id:number, data:UpdateBuysProductDTO){
-    return this.http.put<BuyProducts>(`${this.apiUrl}${id}/`,data)
+  updateBill(id:number, data:UpdateBillDTO){
+    return this.http.put<Bill>(`${this.apiUrl}${id}/`,data)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -105,8 +104,8 @@ export class BuyProductsService {
     );
   }
 
-  deleteBuyProduct(id:number){
-    return this.http.delete<BuyProducts>(`${this.apiUrl}${id}/`)
+  deleteBill(id:number){
+    return this.http.delete<Bill>(`${this.apiUrl}${id}/`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {
@@ -126,5 +125,4 @@ export class BuyProductsService {
       })
     );
   }
-
 }
