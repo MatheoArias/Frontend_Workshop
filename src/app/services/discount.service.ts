@@ -11,7 +11,7 @@ import { Discounts,CreateDiscountDTO } from '../models/discount.model';
 
 export class DiscountService {
 
-  private apiUrl = `${environment.API_URL}/bills/discounts/`
+  private apiUrl = `${environment.API_URL}/products/discounts/`
 
   constructor(
     private http: HttpClient
@@ -25,7 +25,7 @@ export class DiscountService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -47,7 +47,7 @@ export class DiscountService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -70,7 +70,7 @@ export class DiscountService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -92,7 +92,7 @@ export class DiscountService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -114,7 +114,7 @@ export class DiscountService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una amala petición')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')

@@ -10,7 +10,6 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SellProductsService } from 'src/app/services/sell-products.service';
-import { SellService } from 'src/app/services/sell.service';
 import { PaymentMediumService } from 'src/app/services/payment-medium.service';
 import { DiscountService } from 'src/app/services/discount.service';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -39,7 +38,6 @@ export class SellsComponent implements OnInit {
     private sellProductsService: SellProductsService,
     private customerService:CustomerService,
     private vehicleService: VehicleService,
-    private sellService:SellService,
     private paymentMediumService:PaymentMediumService,
     private discountService:DiscountService,
     private employeeService:EmployeeService

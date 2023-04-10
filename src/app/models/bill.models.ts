@@ -8,26 +8,22 @@ import { PaymentMedium } from "./payment_medium.models";
 export interface Bill{
   id:number;
   employee:Employees;
-  discounts:Discounts;
   customer:Customer;
   vehicle:Vehicles;
   payment_medium:PaymentMedium;
   products_sell:SellProducts[];
-  discount_value:Discounts;
   subtotal:number;
   tax:number;
   tax_surcharge:number;
   total_value:number
 }
 
-export interface CreateBillDTO extends Omit<Bill, 'id' | 'employee' | 'discounts' | 'customer' | 'vehicle' | 'payment_medium' | 'products_sell' | 'discount_value' >{
+export interface CreateBillDTO extends Omit<Bill, 'id' | 'employee' | 'customer' | 'vehicle' | 'payment_medium' | 'products_sell'>{
   employee:number;
-  discounts:number;
   customer:number;
   vehicle:number;
   payment_medium:number;
   products_sell:number[];
-  discount_value:number;
 }
 
 export interface UpdateBillDTO extends CreateBillDTO{

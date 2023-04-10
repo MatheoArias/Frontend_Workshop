@@ -1,5 +1,5 @@
 export interface Discounts{
-  id: 1,
+  id: number,
   types: string;
   description: string;
   percentage: number;

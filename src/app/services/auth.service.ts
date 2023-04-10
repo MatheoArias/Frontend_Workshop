@@ -21,7 +21,6 @@ export class AuthService {
   ) { }
 
   login(username:string,password:string){
-    console.log(username,password)
     return this.http.post<Auth>(this.apiUrlLogin,
       {
         email:username,

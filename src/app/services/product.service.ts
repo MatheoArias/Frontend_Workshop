@@ -34,7 +34,7 @@ export class ProductService {
           return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
+          return throwError('La página no ha sido encontrada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
           return throwError('No estás autorizado')
@@ -56,7 +56,7 @@ export class ProductService {
           return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
+          return throwError('La página no ha sido encontrada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
           return throwError('No estás autorizado')
@@ -78,7 +78,7 @@ export class ProductService {
           return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
+          return throwError('La página no ha sido encontrada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
           return throwError('No estás autorizado')
@@ -100,7 +100,7 @@ export class ProductService {
           return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
+          return throwError('La página no ha sido encontrada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
           return throwError('No estás autorizado')
@@ -122,7 +122,7 @@ export class ProductService {
           return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
+          return throwError('La página no ha sido encontrada')
         }
         if(error.status===HttpStatusCode.Unauthorized){
           return throwError('No estás autorizado')

@@ -3,154 +3,83 @@ img {
   right: 13px;
 }
 
-.content__button {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
+.text__body--first{
+  border-left: 0.1rem solid var(--color--gray--background) !important;
 }
 
-li{
-  position: relative;
-  .button_sell{
-    position: absolute;
-    background-image: url('../../../assets/close_icon.svg') !important;
-    background-repeat: none;
-    background-size: cover;
-    border: none;
-    background-color: var(--color--white);
-    right: 3px;
-    top:3px;
-    width: 1.5rem;
-    height: 1.5rem;
+.form__sell--product{
+  margin-top: 2rem;
+}
 
+.content__button {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  .text_total--value{
+    position: absolute;
+    align-self: center;
+    left:20%;
+    margin-right: 2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color--red);
   }
 }
 
 
 .content__app {
+  width: 100%;
+  height: 100%;
   background-image: url('../../../assets/Logo_login.svg');
+  transform: scale(0,0);
+  animation: content 0.6s ease-in-out forwards;
 
   form {
-    .conten__products--sell {
-      margin: 0.5rem 0 2rem 0;
-    }
-  }
+    margin-top: 2rem;
 
-  .content__list--products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    margin: 0.5rem auto;
-    list-style: none;
-    max-height: 50vh;
-    overflow-y: scroll;
-    gap: 0.5rem;
-
-    li {
-      background-color: var(--color--white);
-      position: relative;
-      width: 40%;
-      margin: 0.1rem;
-      border-radius: 10px;
-      padding: 0.5rem;
-
-      p {
-        margin-bottom: 0;
-      }
-
-      input {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        opacity: 0%;
-      }
+    h2{
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      letter-spacing: 5%;
+      color: var(--color--red);
+      margin: 0.5rem 0;
     }
 
-  }
-
-  .content__products--sell {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0;
-
-    .text--head {
-      width: 100%;
-      min-height: 2rem;
-      display: grid;
-      grid-template-columns: 1.5fr repeat(3, 1fr);
-      p {
-        background-color: var(--color--red);
-        color: var(--color--white);
-        text-align: center;
-        margin: 0;
-        font-size: 1.2rem;
-        line-height: 1.5rem;
-        border: 0.1rem solid var(--color--white);
-        width: 100%;
-
-        span {
-          color: var(--color--white);
+    .content__input{
+      select{
+        option{
+          color: var(--color--gray);
         }
       }
     }
 
-    .text--body {
-      width: 100%;
-      min-height: 5rem;
-      display: grid;
-      grid-template-columns: 1.5fr repeat(3, 1fr);
-      background-color: var(--color--white);
-
-      .content_text {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 100%;
-        height: 100%;
-        border: 0.1rem solid var(--color--gray--background);
-
-        p {
-          font-family: 'Quicksand', sans-serif;
-          font-size: 1.2rem;
-          font-weight: 400;
-          margin-bottom: 0;
-          text-align: center;
-          padding: 0.5rem;
-
-          span {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: var(--color--red);
-          }
-        }
-
-        input {
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          font-size: 1.5rem;
-          background-color: var(--color--white);
-          border: 0.1rem solid var(--color--gray--background);
-        }
-      }
-
+    ul{
+      -webkit-box-shadow: -2px 6px 15px -5px rgba(99, 99, 99, 1);
+      -moz-box-shadow: -2px 6px 15px -5px rgba(99, 99, 99, 1);
+      box-shadow: -2px 6px 15px -5px rgba(99, 99, 99, 1);
     }
 
-    li {
-      .content_text {
-
-        input {
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          font-size: 1.5rem;
-          background-color: var(--color--white);
-          border: 0.1rem solid var(--color--gray--background);
-        }
+    @keyframes list {
+      0%{
+        opacity:0
+      }
+      100%{
+        opacity: 1;
       }
     }
   }
+}
 
+@keyframes content {
+  0%{
+    opacity:0;
+    transform: scale(0,0);
+  }
+  100%{
+    opacity:1;
+    transform: scale(1,1);
+  }
 }
