@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import { SellProducts, UpdateSellProductsDTO, CreateSellProductsDTO, BillSellProductId } from 'src/app/models/sell_product.model';
-import { Bill, CreateBillDTO, UpdateBillDTO } from 'src/app/models/bill.models';
+import { SellProducts, CreateSellProductsDTO} from 'src/app/models/sell_product.model';
+import {CreateBillDTO} from 'src/app/models/bill.models';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
 import { Vehicles } from 'src/app/models/vehicle.models';
@@ -18,6 +18,8 @@ import { DiscountService } from 'src/app/services/discount.service';
 
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import Swal from 'sweetalert2';
+import { switchMap,map } from 'rxjs/operators';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-sell-products',
@@ -36,33 +38,19 @@ export class SellProductsComponent {
   @Input() employeesList: Employees[] = []
   @Input() listFilter: Product[] = [];
 
-
-  itemFind: string = "";
-  stateLenghtList: boolean = true;
-
-  sellProductsListId: number[] = [];
-  sellProductDTOList: CreateSellProductsDTO[] = [];
-
-  sellProductList: SellProducts[] = [];
-  productsList: Product[] = []
-
-  discount:Discounts={
-    id:0,
-    types: 'string',
-    description: 'string',
-    percentage: 0,
-  }
-
   messagges: string = "";
   statusCode: number = 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
-  filterpipe = new FilterPipe()
-  numberBill: string = '';
 
+  numberBill: string = '';
   date: Date = new Date();
   day: string | number = this.date.getDate() < 10 ? `0${this.date.getDate()}` : this.date.getDate();
   month: string | number = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
   hour: string | number = this.date.getHours() < 10 ? `0${this.date.getHours()}` : this.date.getHours();
+
+  filterpipe = new FilterPipe()
+  itemFind: string = "";
+  stateLenghtList: boolean = true;
 
   sell: CreateBillDTO = {
     customer: 0,
@@ -76,6 +64,7 @@ export class SellProductsComponent {
     total_value: 0,
   }
 
+  productsList: Product[] = []
   product: Product = {
     id: 0,
     category_id: {
@@ -88,6 +77,9 @@ export class SellProductsComponent {
     totals_stock: 0,
   }
 
+  sellProductsListId: number[] = [];
+  sellProductDTOList: CreateSellProductsDTO[] = [];
+  sellProductList: SellProducts[] = [];
   sellProductDTO: CreateSellProductsDTO = {
     product_id: 0,
     sell_date: new Date(),
@@ -114,10 +106,14 @@ export class SellProductsComponent {
     discount_value:0
   }
 
+  discount:Discounts={
+    id:0,
+    types: 'string',
+    description: 'string',
+    percentage: 0,
+  }
 
-
-  formSellProduct!: FormGroup;
-
+  formBill!: FormGroup;
   get inputCustomer() {
     return this.formBill.get('customer');
   }
@@ -130,19 +126,17 @@ export class SellProductsComponent {
   get inputPaymentMedium() {
     return this.formBill.get('payment_medium');
   }
-
-
   private formAddBill() {
     this.formBill = this.formBuilder.group({
-      customer: [0, [Validators.required]],
-      vehicle: [0, [Validators.required]],
-      employee: [0, [Validators.required]],
-      payment_medium: [0, [Validators.required]],
+      customer: ['', [Validators.required]],
+      vehicle: ['', [Validators.required]],
+      employee: ['', [Validators.required]],
+      payment_medium: ['', [Validators.required]],
     });
   }
 
-  formBill!: FormGroup;
 
+  formSellProduct!: FormGroup;
   get cuantity() {
     return this.formSellProduct.get('cuantity');
   }
@@ -152,7 +146,6 @@ export class SellProductsComponent {
   get inputDiscounts() {
     return this.formSellProduct.get('discount');
   }
-
   private formAddSellProduct() {
     this.formSellProduct = this.formBuilder.group({
       cuantity: [, [Validators.required]],
@@ -162,7 +155,7 @@ export class SellProductsComponent {
   }
 
   valueFind = new FormControl('');
-  choiceProductId = new FormControl();
+  choiceProduct = new FormControl();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -173,7 +166,6 @@ export class SellProductsComponent {
   ) {
     this.formAddBill();
     this.formAddSellProduct();
-    console.log(this.discounts)
   }
 
   getAllSellProducts() {
@@ -201,50 +193,84 @@ export class SellProductsComponent {
 
   submit(event: Event) {
     event.preventDefault();
-    this.statusDeatil='Loading';
+    this.statusDeatil = 'Loading';
 
-    this.sellProductDTOList.map(item => {
-      this.sellProductsService.createSellProducts(item)
+    const addSellProducts: CreateBillDTO = {
+      employee: this.inputEmployee?.value,
+      customer: this.inputCustomer?.value,
+      vehicle: this.inputVehicle?.value,
+      payment_medium: this.inputPaymentMedium?.value,
+      products_sell: this.sellProductsListId,
+      subtotal: this.sell.total_value - (this.sell.total_value * this.sell.tax),
+      tax: this.sell.tax,
+      tax_surcharge: this.sell.tax_surcharge,
+      total_value: this.sell.total_value
+    }
+
+    if (this.formBill.valid && this.sellProductDTOList.length > 0) {
+      this.sellProductDTOList.map(item => {
+        zip(
+          this.productService.getProduct(item.product_id),
+          this.sellProductsService.createSellProducts(item),
+        )
+        .pipe(
+          switchMap((item)=>{
+            this.sellProductsListId.push(item[1].id)
+            return this.productService.updateTotalStockProduct(item[0].id, {
+              totals_stock: item[0].totals_stock - item[1].sell_stock,
+            });
+          }
+          )
+        )
         .subscribe(data => {
-          this.sellProductsListId.push(data.id);
+          this.getAllProducts();
+        },(error) => {
+          this.statusDeatil = 'Success';
+          this.formBill.markAllAsTouched();
         })
-    })
+      })
 
-    if(this.formBill.valid && this.sellProductsListId){
-      console.log('Entro Aquí')
-      const addSellProducts: CreateBillDTO = {
-        employee: this.inputEmployee?.value,
-        customer: this.inputCustomer?.value,
-        vehicle: this.inputVehicle?.value,
-        payment_medium: this.inputPaymentMedium?.value,
-        products_sell: this.sellProductsListId,
-        subtotal: this.sell.total_value - (this.sell.total_value * this.sell.tax),
-        tax: this.sell.tax,
-        tax_surcharge: this.sell.tax_surcharge,
-        total_value: this.sell.total_value
-      }
       this.billService.createBill(addSellProducts)
-      .subscribe(data=>{
-        this.formBill.setValue({
-          customer: 0,
-          vehicle: 0,
-          employee: 0,
-          payment_medium: 0,
-        });
-
-        this.sellProductList=[];
-        this.productsList=[];
-        this.sellProductDTOList=[];
-        this.sellProductList=[];
-        this.sell.total_value=0;
-      },(error)=>{
-        this.statusDeatil='Success';
-        console.log('Reliazando una petición inadecuada')
-        this.formBill.markAllAsTouched();
+        .subscribe(data => {
+          this.formBill.setValue({
+            customer: '',
+            vehicle: '',
+            employee: '',
+            payment_medium: '',
+          });
+        }, (error) => {
+          this.statusDeatil = 'Success';
+          this.formBill.markAllAsTouched();
       });
-      this.statusDeatil='Success';
-    }else{
-      this.statusDeatil='Error';
+
+      Swal.fire({
+        icon: 'success',
+        confirmButtonText: 'regresar',
+        title: 'Productos agregados con éxitos',
+        html: `La factura: <strong>${this.numberBill}</strong> fue registada con éxito el ${this.day}-${this.month}-${this.date.getFullYear()} a las ${this.date.toLocaleTimeString()}`,
+      })
+      this.sellProductList = [];
+      this.productsList = [];
+      this.sellProductDTOList = [];
+      this.sellProductList = [];
+      this.sell.total_value = 0;
+      this.statusDeatil = 'Success';
+
+    } else {
+      Swal.fire({
+        icon: 'error',
+        confirmButtonText: 'Regresar',
+        title: '¡ Fíjate en los productos!',
+        html:
+          `Deberías agregar algunos productos:
+         <br><br>
+            <strong>1.</strong> Busque el producto en la sección correspondiente<br>
+            <strong>2.</strong> Haga click sobre este.<br>
+            <strong>3.</strong> Ingrese la cantidad de venta<br>
+            <strong>4.</strong> Presione agregar.<br>
+            <strong>5.</strong> Repita esta acción las veces que sea necesario<br>`,
+      })
+      this.statusDeatil = 'Error';
       this.formBill.markAllAsTouched();
     }
   }
@@ -257,9 +283,15 @@ export class SellProductsComponent {
       this.sellProductDTOList.splice(index, 1);
       this.productsList.splice(indexProduct, 1);
       this.sell.total_value = this.sellProductDTOList.reduce((sum, item) => sum + item.total_sell_value, 0);
+
+      Swal.fire({
+        icon: 'success',
+        confirmButtonText: 'regresar',
+        title: 'Producto eliminado con éxito',
+        html: `<strong>Eliminados:</strong> ${item.product_id.description} x${item.sell_stock}`,
+      })
     }
   }
-
 
   /*this is the funrion for add sell products in the list */
   onClickAddProductList(item: Product) {
@@ -307,7 +339,7 @@ export class SellProductsComponent {
     }
 
     this.sell.total_value = this.sellProductDTOList.reduce((sum, item) => sum + item.total_sell_value, 0);
-
+    this.choiceProduct.reset();
     this.formSellProduct.setValue({
       cuantity: '',
       date: new Date(),
@@ -337,7 +369,7 @@ export class SellProductsComponent {
         title: '¡ Fíjate en los productos!',
         text: 'Ya habías agregado este producto, cierra esta ventana y búscalo en la lista de productos agregados',
       })
-      this.choiceProductId.reset();
+      this.choiceProduct.reset();
     } else {
       this.product = item
       this.inputDate?.setValue(`${this.date.getFullYear()}-${this.month}-${this.day}`);

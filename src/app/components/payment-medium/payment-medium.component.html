@@ -1,0 +1,38 @@
+<button
+  class="button__icon"
+  (click)="onCLose()">
+</button>
+
+<form>
+  <div
+    class="content__input">
+    <label>
+      Método de pago
+    </label>
+    <input
+      type="text"
+      formControlName="medium">
+  </div>
+  <button
+    class="button">
+    Agregar
+  </button>
+</form>
+
+<ul
+  class="content__list">
+  <li
+    *ngFor="let item of paymentMedium"
+    [class.radio__activate]="paymentMediumId===item.id">
+    <p>{{item.medium}}</p>
+    <button
+      class="button__icon"
+      (click)="toggleDelete(item)"
+      [class.radio__activate--icon]="paymentMediumId===item.id">
+    </button>
+    <input
+      type="radio"
+      [value]="item.id"
+      (click)="toggleUpdate(item)">
+  </li>
+</ul>

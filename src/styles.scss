@@ -133,6 +133,29 @@ form {
     padding-bottom: 0.25rem;
     margin: 0.5rem;
 
+    .content__inputs--add{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      a{
+        height: 20px;
+        width: 22px;
+        border-radius: 50%;
+        background-image: url('./assets/cruz_green.svg');
+        background-size: 100%;
+        background-repeat: no-repeat;
+        align-self: center;
+        transform: scale(1);
+        transition: transform 0.8s ease-in-out;
+      }
+
+      a:hover{
+        transform: scale(1.2);
+        transition: transform 0.5s ease-in-out;
+      }
+    }
+
     .content__text--alert {
       max-width: 100%;
       color: var(--rojo-color-alert);
@@ -171,10 +194,10 @@ form {
       font-weight: 400;
       color: var(--color--gray);
       height: 36px;
+      width: 100%;
       padding: 3px 10px;
       border-radius: 5px;
       border: 0.1rem solid var(--color--gray);
-      width: 100%;
       cursor: pointer;
 
 
@@ -311,7 +334,7 @@ form {
   .content--body {
     width: 100%;
     height: 100%;
-    min-height: 2rem;
+    min-height: 3rem;
     display: grid;
     grid-template-columns: 1.5fr repeat(2, 1fr) 1.5fr;
     animation:row 0.6s ease-in-out forwards;
@@ -349,6 +372,7 @@ form {
       flex-direction: column;
       width: 100%;
       border-bottom: 0.1rem solid var(--color--gray--background);
+      justify-content: center;
 
       p {
         margin: 0.5rem 0 !important;
@@ -377,6 +401,7 @@ form {
     }
 
   }
+
   .content__list--body:hover{
     background:
     linear-gradient(323.66deg,
@@ -512,6 +537,9 @@ form {
       margin-bottom: 0;
       display: flex;
       flex-direction: column;
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      font-weight: 300;
     }
 
     .content__text--number{
@@ -519,20 +547,28 @@ form {
       grid-template-columns: 2fr 1fr;
 
       .text--number {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 500;
-        letter-spacing: 0.5px;
+        display: flex;
+        flex-direction: column;
         align-self: center;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        color: var(--color--red);
 
-        span{
+        p{
+          font-size: 1.3rem;
+          line-height: 1.5rem;
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          color: #000000;
+        }
+        .text--cuantity{
           font-size: 2rem;
           line-height: 2.2rem;
           text-align: center;
         }
       }
     }
-
-
 
     input[type=radio] {
       position: absolute;
@@ -547,33 +583,80 @@ form {
 }
 
 /*This is the style notFpund list*/
-.content__notfound {
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: 0.5rem;
-  box-sizing: border-box;
 
-  p {
-    font-family: 'Thalib';
-    color: var(--color--red);
-    font-size: 3rem;
-    line-height: 3.2rem;
-    text-align: center;
-    width: 100%;
-    align-self: center;
-    justify-self: center;
-    margin-top: 1rem;
+.content__elseBlock{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color--white);
+  border:1px solid var(--color--red--secundary);
+  border-radius: 40%;
+  margin: 10px 10px 20px 10px;
+
+  .content__notfound {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem;
+    box-sizing: border-box;
+
+    p {
+      font-family: 'Thalib';
+      color: var(--color--red);
+      font-size: 3rem;
+      line-height: 3.2rem;
+      text-align: center;
+      width: 100%;
+      align-self: center;
+      justify-self: center;
+      margin-top: 1rem;
+      animation: color 1s ease-in-out infinite;
+    }
+
+    @keyframes color{
+      0%{
+        color: var(--rojo-color-alert);
+      }
+      100%{
+        color: var(--color--red);
+      }
+    }
+
+    img {
+      height: 20rem;
+      width: 20rem;
+      align-content: flex-end;
+      align-self: center;
+      animation: move 1s ease-in-out infinite;
+    }
+
+    @keyframes move{
+      0%{
+        opacity:0;
+        transform: scale(0,0);
+      }
+      100%{
+        opacity:1;
+        transform: scale(1,1);
+      }
+    }
   }
 
-  img {
-    height: 20rem;
-    width: 20rem;
-    align-content: flex-end;
-    align-self: center;
+  .text--redirect{
+    text-align: center;
+    a{
+      text-decoration: none;
+      color: var(--color--red--secundary);
+      transition: all 0.6s ease-in-out;
+    }
+    a:hover{
+      font-size: 1.8rem;
+      color: var(--color--red);
+      transition: all 0.4s ease-in-out;
+    }
   }
 }
+
 
 .radio__activate {
   border: 0.15rem solid var(--color--green-success) !important;

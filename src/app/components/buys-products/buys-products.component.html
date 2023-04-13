@@ -6,13 +6,14 @@
      class="form__buy--products">
 
     <div
-     class="content__input"
-     id="contentBuysDate">
+     class="content__input">
      <label>
        Fecha
      </label>
      <input
        type="date"
+       [class.is--valid]="buysDate?.valid && buysDate?.touched"
+       [class.is--invalid]="buysDate?.invalid && buysDate?.touched"
        formControlName="buys_date">
        <p
        *ngIf=" buysDate?.touched && buysDate?.hasError('required')"
@@ -22,8 +23,7 @@
     </div>
 
     <div
-      class="content__input"
-      id="contentBuysBill">
+      class="content__input">
       <label>
         Factura
       </label>
@@ -31,6 +31,8 @@
         type="text"
         id="buysBill"
         formControlName="buys_bill"
+        [class.is--valid]="buysBill?.valid && buysBill?.touched"
+        [class.is--invalid]="buysBill?.invalid && buysBill?.touched"
         placeholder="Ingrese la factura de compra">
         <p
         *ngIf=" buysBill?.touched && buysBill?.hasError('required')"
@@ -240,33 +242,56 @@
       <h2>
         {{item.description}}
       </h2>
-      <p >
+
+      <p
+      class="text--code">
         {{item.code}}
       </p>
+
       <div
         class="content__text--number">
-        <p
+
+        <div
           class="text--number">
-          Valor venta:
-          {{item.unit_value | currency}}
-        </p>
-        <p
-        class="text--number">
-          <span>
+          Valor venta
+          <p>
+            {{item.unit_value | currency}}
+          </p>
+        </div>
+
+        <div
+          class="text--number">
+          <p class="text--cuantity">
             {{item.totals_stock}}
-          </span>
-        </p>
+          </p>
+        </div>
+
       </div>
     </li>
   </ul>
 
   <ng-template #elseBlock>
-    <div class="content__notfound">
-      <img src="../../../assets/alert.svg" alt="this is the image alert">
-      <p class="content__text--notfound">
-        No se encuentra ningún producto
+
+    <div
+      class="content__elseBlock">
+      <div
+        class="content__notfound">
+        <img
+          src="../../../assets/alert.svg" alt="this is the image alert">
+        <p
+          class="text--notfound">
+          No se encuentra ningún producto
+        </p>
+      </div>
+      <p
+        class="text--redirect">Agregue el producto
+        <a
+          [routerLink]="['/products/add_product']">
+          aquí
+        </a>
       </p>
     </div>
+
   </ng-template>
 
 </div>

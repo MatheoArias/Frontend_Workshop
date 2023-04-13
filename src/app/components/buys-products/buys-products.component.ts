@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './buys-products.component.html',
   styleUrls: ['./buys-products.component.scss'],
 })
+
 export class BuysProductsComponent implements OnInit {
 
   dateNow: Date = new Date();

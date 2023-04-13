@@ -4,6 +4,7 @@
   background-image: url('../../../assets/Logo_login.svg');
   transform: scale(0, 0);
   animation: content 0.6s ease-in-out forwards;
+  margin-bottom: 2rem;
 
   form {
     display: flex;
@@ -38,6 +39,3 @@
   }
 }
 
-.swal2-html-container{
-  text-align: left !important;
-}

@@ -1,31 +1,38 @@
 <div
   class="content__app">
-  <!-- this is the total sell form -->
   <form
     (ngSubmit)="submit($event)"
     [formGroup]="formBill">
 
     <div
       class="content__input">
+
       <label>
         Cliente
       </label>
-      <select
-        type="text"
-        formControlName="customer"
-        (change)="onChangeInputCustomer()">
-        <option
-          class="firstChoice"
-          value="0"
-          selected="true">
-          Seleccionar
-        </option>
-        <option
-          *ngFor="let item of customers"
-          value="{{item.id}}">
-          {{item.document_type.types}} {{item.names}}
-        </option>
-      </select>
+      <div
+        class="content__inputs--add">
+          <select
+          formControlName="customer"
+          [class.is--valid]="inputCustomer?.valid && inputCustomer?.touched"
+          [class.is--invalid]="inputCustomer?.invalid && inputCustomer?.touched"
+          (change)="onChangeInputCustomer()">
+          <option
+            selected="true"
+            class="firstChoice"
+            value="">
+            Seleccionar
+          </option>
+          <option
+            *ngFor="let item of customers"
+            value="{{item.id}}">
+            {{item.document_type.types}} {{item.names}}
+          </option>
+        </select>
+        <a
+        routerLinkActive="activate__link"
+        [routerLink]="['/customer']"></a>
+      </div>
       <p
       *ngIf="inputCustomer?.touched && inputCustomer?.hasError('required')"
       class="content__text--alert">
@@ -39,21 +46,28 @@
       <label>
         Vehículo
       </label>
-      <select
-        type="text"
-        formControlName="vehicle">
-        <option
-          class="firstChoice"
-          value="0"
-          selected="true">
-          Seleccione
-        </option>
-        <option
-          *ngFor="let item of vehicles"
-          value="{{item.id}}">
-          Placa: {{item.license_plate}} - Marca: {{item.trademark}} - {{item.model}}
-        </option>
-      </select>
+      <div
+       class="content__inputs--add">
+        <select
+          [class.is--valid]="inputVehicle?.valid && inputVehicle?.touched"
+          [class.is--invalid]="inputVehicle?.invalid && inputVehicle?.touched"
+          formControlName="vehicle">
+          <option
+            class="firstChoice"
+            value=""
+            selected="true">
+            Seleccione
+          </option>
+          <option
+            *ngFor="let item of vehicles"
+            value="{{item.id}}">
+            Placa: {{item.license_plate}} - Marca: {{item.trademark}} - {{item.model}}
+          </option>
+        </select>
+        <a
+        [routerLink]="['/vehicles/add_vehicle']"
+        routerLinkActive="activate__link"></a>
+      </div>
       <p
         *ngIf="inputVehicle?.touched && inputVehicle?.hasError('required')"
         class="content__text--alert">
@@ -66,21 +80,29 @@
       <label>
         Persona que presta el servicio
       </label>
-      <select
-        type="text"
-        formControlName="employee">
-        <option
-          class="firstChoice"
-          value="0"
-          selected="true">
-          Seleccione
-        </option>
-        <option
-          *ngFor="let item of employeesList"
-          value="{{item.id}}">
-          {{item.names}}
-        </option>
-      </select>
+      <div
+        class="content__inputs--add">
+        <select
+          [class.is--valid]="inputEmployee?.valid && inputEmployee?.touched"
+          [class.is--invalid]="inputEmployee?.invalid && inputEmployee?.touched"
+          formControlName="employee">
+          <option
+            class="firstChoice"
+            value=""
+            selected="true">
+            Seleccione
+          </option>
+          <option
+            *ngFor="let item of employeesList"
+            value="{{item.id}}">
+            {{item.names}}
+          </option>
+        </select>
+        <a
+        [routerLink]="['/employees/add_employees']"
+        routerLinkActive="activate__link"></a>
+      </div>
+
       <p
         *ngIf="inputEmployee?.touched && inputEmployee?.hasError('required')"
         class="content__text--alert">
@@ -93,21 +115,26 @@
       <label>
         Medio de pago
       </label>
-      <select
-        type="text"
-        formControlName="payment_medium">
-        <option
-          class="firstChoice"
-          value="0"
-          selected="true">
-          Seleccione
-        </option>
-        <option
-          *ngFor="let item of paymentMedium"
-          value="{{item.id}}">
-          {{item.medium}}
-        </option>
-      </select>
+      <div
+      class="content__inputs--add">
+        <select
+          [class.is--valid]="inputPaymentMedium?.valid && inputPaymentMedium?.touched"
+          [class.is--invalid]="inputPaymentMedium?.invalid && inputPaymentMedium?.touched"
+          formControlName="payment_medium">
+          <option
+            class="firstChoice"
+            value=""
+            selected="true">
+            Seleccione
+          </option>
+          <option
+            *ngFor="let item of paymentMedium"
+            value="{{item.id}}">
+            {{item.medium}}
+          </option>
+        </select>
+        <a></a>
+      </div>
       <p
         *ngIf="inputPaymentMedium?.touched && inputPaymentMedium?.hasError('required')"
         class="content__text--alert">
@@ -117,12 +144,11 @@
 
     <ul
       *ngIf="sellProductList.length>0"
-      class="content__products--sell">
+      class="content__products--sellBuy">
       <li
         class="content--head">
         <div
-          class="text-head
-          text__body--first">
+          class="text-head">
           <p>
             Producto
           </p>
@@ -160,8 +186,7 @@
           alt="this is the discount icon"
           class="band__discount">
         <div
-          class="text--body
-          text__body--first">
+          class="text--body">
           <p>
            {{item.product_id.description}}/
             <span>
@@ -204,22 +229,23 @@
          TOTAL: {{sell.total_value | currency}}
       </p>
       <button
-      [disabled]="formBill.invalid"
-      [class.is__invalid]="formBill.invalid"
-      class="button">
+        class="button"
+        [disabled]="!formBill.valid"
+        [class.is__invalid]="!formBill.valid">
         Registrar
       </button>
     </div>
 
   </form>
 
-<!-- this is the list products form-->
   <form
    [formGroup]="formSellProduct"
    class="form__sell--product">
+
     <h2>
       Agregue el producto a la lista
     </h2>
+
     <div
       class="content__input">
       <select
@@ -241,6 +267,7 @@
         </option>
       </select>
     </div>
+
     <div
       class="content__input">
       <input
@@ -249,13 +276,12 @@
     </div>
 
     <ul
-    class="content__products--sell">
+    class="content__products--sellBuy">
 
       <li
       class="content--head">
         <div
-        class="text-head
-          text__body--first">
+        class="text-head">
           <p>
             Producto
           </p>
@@ -268,10 +294,13 @@
           </p>
         </div>
 
-        <div class="text-head">
+        <div
+          class="text-head">
           <p>Cantidad</p>
         </div>
-        <div class="text-head">
+
+        <div
+          class="text-head">
           <p>Total</p>
         </div>
       </li>
@@ -279,8 +308,7 @@
       <li
           class="content--body">
           <div
-            class="text--body
-            text__body--first">
+            class="text--body">
             <p>
               {{product.description}}
               <span>
@@ -308,7 +336,9 @@
           </div>
 
       </li>
+
     </ul>
+
     <div class="content__button">
       <button
         (click)="onClickAddProductList(product)"
@@ -320,7 +350,6 @@
     </div>
 
   </form>
-
 
   <div
     class="content__input--find">
@@ -343,48 +372,88 @@
       *ngFor="let item of products | filter:itemFind">
       <input
       type="radio"
-      [formControl]="choiceProductId"
+      [formControl]="choiceProduct"
       value="{{item.id}}"
       (change)="onClickListProducts(item)">
       <h2>
         {{item.description}}
       </h2>
-      <p>
+      <p
+      class="text--code">
         {{item.code}}
       </p>
-      <p class="text--currency">
-        {{item.unit_value | currency}}
-      </p>
+
+      <div
+        class="content__text--number">
+        <div
+          class="text--number">
+          Valor venta
+          <p>
+            {{item.unit_value | currency}}
+          </p>
+        </div>
+        <div
+          class="text--number">
+          <p class="text--cuantity">
+            {{item.totals_stock}}
+          </p>
+        </div>
+      </div>
     </li>
   </ul>
 
   <ng-template #elseBlock>
-    <div class="content__notfound">
-      <img
 
-       src="../../../assets/alert.svg"
-       alt="this is the image alert">
+    <div
+      class="content__elseBlock">
+      <div
+        class="content__notfound">
+        <img
+          src="../../../assets/alert.svg" alt="this is the image alert">
+        <p
+          class="text--notfound">
+          No se encuentra ningún producto
+        </p>
+      </div>
       <p
-      class="content__text--notfound">
-        No se encuentra ningún producto
+        class="text--redirect">Agregue el producto
+        <a
+          [routerLink]="['/products/add_product']">
+          aquí
+        </a>
       </p>
     </div>
   </ng-template>
 
   <ng-template #elseBlockVehicle>
-    <div class="content__notfound">
-      <img
-
-       src="../../../assets/alert.svg"
-       alt="this is the image alert">
+    <div
+      class="content__elseBlock">
+      <div
+        class="content__notfound">
+        <img
+          src="../../../assets/alert.svg" alt="this is the image alert">
+        <p
+          class="text--notfound">
+          No se encuentra ningún vehículo
+        </p>
+      </div>
       <p
-      class="content__text--notfound">
-        No se encuentra ningún vehículo
+        class="text--redirect">Agregue el vehículo
+        <a
+          [routerLink]="['/products/add_product']">
+          aquí
+        </a>
       </p>
     </div>
   </ng-template>
-
 </div>
+
+<div
+  class="content__app--payment">
+    <app-payment-medium [paymentMedium]="paymentMedium">\
+    </app-payment-medium>
+</div>
+
 
 
 
