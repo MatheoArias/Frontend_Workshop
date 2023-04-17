@@ -1,5 +1,6 @@
 <div
-  class="content__app">
+  class="content__app"
+  [class.activate__modal]="modalState">
   <form
     (ngSubmit)="submit($event)"
     [formGroup]="formBill">
@@ -133,7 +134,10 @@
             {{item.medium}}
           </option>
         </select>
-        <a></a>
+        <a
+        class="button__modal"
+        (click)="toggleModal()">
+        </a>
       </div>
       <p
         *ngIf="inputPaymentMedium?.touched && inputPaymentMedium?.hasError('required')"
@@ -446,13 +450,16 @@
       </p>
     </div>
   </ng-template>
+
 </div>
 
-<div
-  class="content__app--payment">
-    <app-payment-medium [paymentMedium]="paymentMedium">\
-    </app-payment-medium>
-</div>
+<app-payment-medium
+    [paymentMediums]="paymentMedium"
+    (modalStateEvent)="reciveToggleModal($event)"
+    class="content__app--payment"
+    [class.activate__modal]="modalState"
+    [class.deactivate__modal]="modalState==false">
+</app-payment-medium>
 
 
 

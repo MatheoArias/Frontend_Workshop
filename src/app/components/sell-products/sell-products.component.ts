@@ -38,6 +38,8 @@ export class SellProductsComponent {
   @Input() employeesList: Employees[] = []
   @Input() listFilter: Product[] = [];
 
+  modalState:boolean=false
+
   messagges: string = "";
   statusCode: number = 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
@@ -166,6 +168,7 @@ export class SellProductsComponent {
   ) {
     this.formAddBill();
     this.formAddSellProduct();
+    console.log(this.modalState)
   }
 
   getAllSellProducts() {
@@ -189,6 +192,15 @@ export class SellProductsComponent {
       .subscribe(data => {
         this.vehicles = data;
       })
+  }
+
+  toggleModal(){
+    this.modalState =! this.modalState;
+  }
+
+  reciveToggleModal(event:boolean){
+    this.modalState = event;
+    console.log(this.modalState)
   }
 
   submit(event: Event) {

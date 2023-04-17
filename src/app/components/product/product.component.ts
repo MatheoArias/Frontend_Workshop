@@ -27,7 +27,6 @@ export class ProductComponent implements OnInit{
   listFilter:Product[]=[];
 
   modalState:boolean=false;
-  @Output() modalStateEvent=new EventEmitter();
 
   formProduct!: FormGroup;
   get categoryId() {

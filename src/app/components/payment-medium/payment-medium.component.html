@@ -1,38 +1,54 @@
-<button
-  class="button__icon"
-  (click)="onCLose()">
-</button>
-
-<form>
-  <div
-    class="content__input">
-    <label>
-      Método de pago
-    </label>
-    <input
-      type="text"
-      formControlName="medium">
-  </div>
+<div
+  class="subcontent__app ">
   <button
-    class="button">
-    Agregar
+    class="button__icon"
+    (click)="sendModalState()">
   </button>
-</form>
 
-<ul
-  class="content__list">
-  <li
-    *ngFor="let item of paymentMedium"
-    [class.radio__activate]="paymentMediumId===item.id">
-    <p>{{item.medium}}</p>
-    <button
-      class="button__icon"
-      (click)="toggleDelete(item)"
-      [class.radio__activate--icon]="paymentMediumId===item.id">
-    </button>
-    <input
-      type="radio"
-      [value]="item.id"
-      (click)="toggleUpdate(item)">
-  </li>
-</ul>
+  <form
+    (ngSubmit)="submit($event)"
+    [formGroup]="formPaymentMedium">
+    <div
+      class="content__input">
+      <label>
+        Método de pago
+      </label>
+      <input
+        type="text"
+        formControlName="medium">
+    </div>
+    <div
+      class="content__button">
+      <button
+        class="button">
+        Agregar
+      </button>
+
+      <button
+        class="button"
+        (click)="updatePaymentMedium($event)">
+        Modificar
+      </button>
+
+    </div>
+
+  </form>
+
+  <ul>
+    <li
+      *ngFor="let item of paymentMediums"
+      [class.radio__activate]="paymentMedium.id===item.id">
+      <p>{{item.medium}}</p>
+      <button
+        class="button__icon"
+        (click)="toggleDelete(item)"
+        [class.radio__activate--icon]="paymentMedium.id===item.id">
+      </button>
+      <input
+        type="radio"
+        [value]="item.id"
+        (click)="toggleUpdate(item)">
+    </li>
+  </ul>
+
+</div>

@@ -233,14 +233,13 @@
     </ng-template>
 
   </div>
-
-  <app-category
-    [categories]="categories"
-    class="content__app--category"
-    [class.activate__modal]="modalState"
-    (modalStateEvent)="reciveToggleModal($event)">
-  </app-category>
-
 </div>
+
+<app-category
+[categories]="categories"
+class="content__app--category"
+[class.activate__modal]="modalState"
+(modalStateEvent)="reciveToggleModal($event)">
+</app-category>
 
 
