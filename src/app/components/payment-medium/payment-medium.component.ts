@@ -153,7 +153,10 @@ export class PaymentMediumComponent {
   sendModalState(){
     this.modalState =false;
     this.modalStateEvent.emit(this.modalState);
-    this.getAllPaymentMedium();
+    this.paymentMedium={
+      id:0,
+      medium:''
+    }
   }
 
 }

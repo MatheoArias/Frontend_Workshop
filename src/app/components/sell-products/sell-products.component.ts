@@ -14,11 +14,10 @@ import { SellProductsService } from 'src/app/services/sell-products.service';
 import { Employees } from 'src/app/models/employee.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { BillService } from 'src/app/services/bill.service';
-import { DiscountService } from 'src/app/services/discount.service';
 
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import Swal from 'sweetalert2';
-import { switchMap,map } from 'rxjs/operators';
+import { switchMap} from 'rxjs/operators';
 import { zip } from 'rxjs';
 
 @Component({
@@ -29,6 +28,7 @@ import { zip } from 'rxjs';
 
 export class SellProductsComponent {
 
+  //this is the inputs values
   @Input() products: Product[] = [];
   @Input() sellProducts: SellProducts[] = [];
   @Input() customers: Customer[] = [];
@@ -38,18 +38,20 @@ export class SellProductsComponent {
   @Input() employeesList: Employees[] = []
   @Input() listFilter: Product[] = [];
 
+  ///this is the components states
   modalState:boolean=false
-
   messagges: string = "";
   statusCode: number = 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
+  //this is for create the bill number with the date
   numberBill: string = '';
   date: Date = new Date();
   day: string | number = this.date.getDate() < 10 ? `0${this.date.getDate()}` : this.date.getDate();
   month: string | number = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
   hour: string | number = this.date.getHours() < 10 ? `0${this.date.getHours()}` : this.date.getHours();
 
+  //this is import the pipe filter
   filterpipe = new FilterPipe()
   itemFind: string = "";
   stateLenghtList: boolean = true;
@@ -168,9 +170,9 @@ export class SellProductsComponent {
   ) {
     this.formAddBill();
     this.formAddSellProduct();
-    console.log(this.modalState)
   }
 
+  //this is for get all sell products
   getAllSellProducts() {
     this.sellProductsService.getAllSellProducts().subscribe(
       data => {
@@ -179,6 +181,7 @@ export class SellProductsComponent {
     )
   }
 
+  //this is for get all products
   getAllProducts() {
     this.productService.getAllProducts().subscribe(
       data => {
@@ -187,6 +190,7 @@ export class SellProductsComponent {
     )
   }
 
+  //this is the get all vehicles
   getAllVehicles() {
     this.vehicleService.getAllVehicles()
       .subscribe(data => {
@@ -194,15 +198,17 @@ export class SellProductsComponent {
       })
   }
 
+  //this is for change modal state
   toggleModal(){
     this.modalState =! this.modalState;
   }
 
+  //this is the function for recive state modal the payments medium
   reciveToggleModal(event:boolean){
     this.modalState = event;
-    console.log(this.modalState)
   }
 
+  //this function to add bill and sell's products in data base
   submit(event: Event) {
     event.preventDefault();
     this.statusDeatil = 'Loading';
@@ -251,15 +257,15 @@ export class SellProductsComponent {
             payment_medium: '',
           });
         }, (error) => {
-          this.statusDeatil = 'Success';
+          this.statusDeatil = 'Error';
           this.formBill.markAllAsTouched();
       });
 
       Swal.fire({
         icon: 'success',
         confirmButtonText: 'regresar',
-        title: 'Productos agregados con éxitos',
-        html: `La factura: <strong>${this.numberBill}</strong> fue registada con éxito el ${this.day}-${this.month}-${this.date.getFullYear()} a las ${this.date.toLocaleTimeString()}`,
+        title: 'La venta fue registrada con éxito',
+        html: `La factura: <strong>${this.numberBill}</strong> fue registrada con éxito el ${this.day}-${this.month}-${this.date.getFullYear()} a las ${this.date.toLocaleTimeString()}`,
       })
       this.sellProductList = [];
       this.productsList = [];
@@ -279,7 +285,7 @@ export class SellProductsComponent {
             <strong>1.</strong> Busque el producto en la sección correspondiente<br>
             <strong>2.</strong> Haga click sobre este.<br>
             <strong>3.</strong> Ingrese la cantidad de venta<br>
-            <strong>4.</strong> Presione agregar.<br>
+            <strong>4.</strong> Presione el botón de agregar.<br>
             <strong>5.</strong> Repita esta acción las veces que sea necesario<br>`,
       })
       this.statusDeatil = 'Error';
@@ -287,6 +293,7 @@ export class SellProductsComponent {
     }
   }
 
+  //this function is for delete any element in the sell product list
   toggleDelete(item: SellProducts) {
     const index = this.sellProductList.map(product => product).indexOf(item);
     const indexProduct = this.productsList.map(product => product).indexOf(item.product_id);
@@ -299,13 +306,13 @@ export class SellProductsComponent {
       Swal.fire({
         icon: 'success',
         confirmButtonText: 'regresar',
-        title: 'Producto eliminado con éxito',
+        title: 'Producto eliminado de; carrito con éxito',
         html: `<strong>Eliminados:</strong> ${item.product_id.description} x${item.sell_stock}`,
       })
     }
   }
 
-  /*this is the funrion for add sell products in the list */
+  //this is the function for add sell products in the list, in this case, I take the item and  I fill the object transfer data and object for views in this component
   onClickAddProductList(item: Product) {
 
     let date: Date = new Date();
@@ -371,14 +378,14 @@ export class SellProductsComponent {
     }
   }
 
-  /*this is the funcion for add product's id in the list*/
+  //this is the funcion for add product's id in the list
   onClickListProducts(item: Product) {
     let index = this.productsList.map(product => product).indexOf(item);
     if (index != -1) {
       Swal.fire({
         icon: 'error',
         confirmButtonText: 'Regresar',
-        title: '¡ Fíjate en los productos!',
+        title: '¡Fíjate en los productos!',
         text: 'Ya habías agregado este producto, cierra esta ventana y búscalo en la lista de productos agregados',
       })
       this.choiceProduct.reset();
@@ -390,7 +397,7 @@ export class SellProductsComponent {
     }
   }
 
-  /*This is the function for filter customers in vehicle's select*/
+  //This is the function for filter customers in vehicle's select
   onChangeInputCustomer() {
     this.getAllVehicles();
     this.vehicles = this.vehicles.filter(
@@ -412,4 +419,31 @@ export class SellProductsComponent {
     }
   }
 
+  //This funcion is for to avoid taht to add products with total stock under cero
+  onChangeInputCuantity(){
+    let totalSell=this.product.totals_stock-this.cuantity?.value
+    if(totalSell<=0){
+      this.formSellProduct.reset();
+      this.choiceProduct.reset();
+      this.product = {
+        id: 0,
+        category_id: {
+          id: 0,
+          category: ''
+        },
+        code: '',
+        description: '',
+        unit_value: 0,
+        totals_stock: 0,
+      }
+      Swal.fire({
+        icon: 'error',
+        confirmButtonText: 'Regresar',
+        title: '¡No puedes agregar esa cantidad!',
+        html: `• Puede que no hayas ingresado algunos productos que llegaron, <strong>ingrésalos</strong>.
+        <br><br>
+        • En caso de que no hayas olvidado nada, verifica la cantidad en la lista.`,
+      })
+    }
+  }
 }
