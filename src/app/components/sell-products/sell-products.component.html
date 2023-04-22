@@ -27,12 +27,13 @@
           <option
             *ngFor="let item of customers"
             value="{{item.id}}">
-            {{item.document_type.types}} {{item.names}}
+            {{item.document_type.types}} {{item.document_number | number}} - {{item.names | titlecase}}
           </option>
         </select>
         <a
-        routerLinkActive="activate__link"
-        [routerLink]="['/customer']"></a>
+          routerLinkActive="activate__link"
+          [routerLink]="['/customer']">
+        </a>
       </div>
       <p
       *ngIf="inputCustomer?.touched && inputCustomer?.hasError('required')"
@@ -229,7 +230,8 @@
 
     <div
       class="content__button">
-      <p class="text_total--value">
+      <p
+        class="text_total--value">
          TOTAL: {{sell.total_value | currency}}
       </p>
       <button
@@ -323,7 +325,7 @@
           <div
             class="text--body">
             <p>
-              {{product.unit_value | currency}}
+              {{product.unit_value  | currency}}
             </p>
           </div>
           <div
@@ -394,7 +396,7 @@
           class="text--number">
           Valor venta
           <p>
-            {{item.unit_value | currency}}
+            {{(item.unit_value * 0.45) + item.unit_value  | currency}}
           </p>
         </div>
         <div

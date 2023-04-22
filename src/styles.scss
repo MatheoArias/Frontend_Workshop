@@ -16,6 +16,10 @@
   font-family: 'Thalib';
   src: url('./assets/fonts/Thalib\ Textured.ttf');
 }
+@font-face{
+  font-family: 'BebasNeue';
+  src: url('./assets/fonts/BebasNeue-Regular.ttf');
+}
 
 * {
   font-family: 'Raleway', sans-serif;
@@ -86,6 +90,7 @@ input[type="date"],
   background-color: transparent;
   border: none;
   cursor: pointer;
+  z-index: 2;
 }
 
 
@@ -96,10 +101,16 @@ input[type="date"],
     align-items: center;
 
     input {
-      font-size: 1.8rem !important;
-      font-weight: 500 !important;
+      font-size: 1.6rem !important;
       letter-spacing: 0.1rem;
       text-align: center !important;
+    }
+
+    input::placeholder{
+      color: var(--color--text--nav);
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      font-weight: 400;
     }
   }
 
@@ -117,8 +128,14 @@ input[type="date"],
 .inputStock {
   input {
     text-align: center !important;
-    font-size: 1.8rem !important;
-    font-weight: 500 !important;
+    font-size: 1.6rem !important;
+  }
+
+  input::placeholder{
+    color: var(--color--text--nav);
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    font-weight: 400;
   }
 }
 
@@ -151,7 +168,7 @@ form {
       flex-direction: row;
       gap: 10px;
 
-      a{
+      a,button{
         height: 20px;
         width: 22px;
         border-radius: 50%;
@@ -161,9 +178,12 @@ form {
         align-self: center;
         transform: scale(1);
         transition: transform 0.8s ease-in-out;
+        border:none;
+        background-color: white;
       }
 
-      a:hover{
+      a:hover,
+      button:hover{
         transform: scale(1.2);
         transition: transform 0.5s ease-in-out;
       }
@@ -191,6 +211,7 @@ form {
       }
     }
 
+
     label {
       font-size: 1.3rem;
       line-height: 1.5rem;
@@ -202,8 +223,8 @@ form {
 
     input,
     select {
-      font-size: 1.2rem;
-      line-height: 1.4rem;
+      font-size: 1.3rem;
+      line-height: 1.6rem;
       font-weight: 400;
       color: var(--color--gray);
       height: 36px;

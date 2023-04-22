@@ -8,6 +8,7 @@ export interface Product {
   description: string;
   unit_value:number;
   totals_stock: number;
+  percentage:number;
 }
 
 export interface CreateProductsDTO extends Omit<Product, 'id' | 'category_id'> {

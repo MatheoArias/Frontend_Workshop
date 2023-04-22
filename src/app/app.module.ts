@@ -38,6 +38,8 @@ import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { TelephonePipe } from './pipes/telephone.pipe';
 import { PaymentMediumComponent } from './components/payment-medium/payment-medium.component';
+import { CurrencyPercentPipe } from './pipes/currency-percent.pipe';
+
 
 
 @NgModule({
@@ -67,6 +69,7 @@ import { PaymentMediumComponent } from './components/payment-medium/payment-medi
     FilterPipe,
     TelephonePipe,
     PaymentMediumComponent,
+    CurrencyPercentPipe,
   ],
   imports: [
     BrowserModule,

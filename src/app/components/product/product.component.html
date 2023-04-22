@@ -1,19 +1,5 @@
 <div class="content__app">
-  <div
-    class="content__app--products"
-    [class.activate__modal]="modalState">
-
-    <h2 class="tittle__text--category">
-      Si la categoría no exite agreguela
-      <button
-        class="button__modal"
-        (click)="toggleModal()"
-        [disabled]="modalState">
-        Aquí
-      </button>
-    </h2>
-
-    <form
+  <form
       (ngSubmit)="submit($event)"
       [formGroup]="formProduct">
 
@@ -23,22 +9,31 @@
         <label>
           Categoría
         </label>
-        <select
-          formControlName="category_id"
-          [class.is--valid]="categoryId?.valid && categoryId?.touched"
-          [class.is--invalid]="categoryId?.invalid && categoryId?.touched">
-          <option
-            class="firstChoice"
-            value=""
-            selected="true">
-            Seleccione
-          </option>
-          <option
-            *ngFor="let category of categories"
-            value={{category.id}}>
-            {{category.category | titlecase}}
-          </option>
-        </select>
+        <div
+           class="content__inputs--add">
+          <select
+            (change)="getLastCode()"
+            formControlName="category_id"
+            [class.is--valid]="categoryId?.valid"
+            [class.is--invalid]="categoryId?.invalid && categoryId?.touched">
+            <option
+              class="firstChoice"
+              value=""
+              selected="true">
+              Seleccione
+            </option>
+            <option
+              *ngFor="let category of categories"
+              value={{category.id}}>
+              {{category.category | titlecase}}
+            </option>
+          </select>
+          <button
+            class="button__modal"
+            (click)="toggleModal()"
+            [disabled]="modalState">
+          </button>
+        </div>
         <p
         *ngIf=" categoryId?.touched && categoryId?.hasError('required')"
         class="content__text--alert">
@@ -47,15 +42,15 @@
       </div>
 
       <div
-       class="content__input
+        class="content__input
         content__code">
         <label>
          Código
         </label>
         <input
-         type="text"
+          type="text"
           formControlName="code"
-          [class.is--valid]="code?.valid && code?.touched"
+          [class.is--valid]="code?.valid"
           [class.is--invalid]="code?.invalid && code?.touched"
           placeholder="Ingrese el código del producto">
         <p
@@ -76,21 +71,21 @@
       </div>
 
       <div
-        class="content__input
-        content__description">
+          class="content__input
+          content__description">
         <label>
           Descripción
         </label>
         <input
-         type="text"
-         formControlName="description"
-         [class.is--valid]="description?.valid && description?.touched"
-         [class.is--invalid]="description?.invalid && description?.touched"
-         placeholder="Ingrese la descripción del producto">
+          type="text"
+          formControlName="description"
+          [class.is--valid]="description?.valid"
+          [class.is--invalid]="description?.invalid && description?.touched"
+          placeholder="Ingrese la descripción del producto">
         <p
-        *ngIf=" description?.touched && description?.hasError('required')"
-         class="content__text--alert">
-         *Campo obligatorio.
+          *ngIf=" description?.touched && description?.hasError('required')"
+          class="content__text--alert">
+          *Campo obligatorio.
         </p>
       </div>
 
@@ -99,12 +94,13 @@
         inputCurrency
         content__uniValue">
         <label>
-          Valor de venta
+          Valor de compra
         </label>
         <div>
           <input
            type="number"
-           [class.is--valid]="unitValue?.valid && unitValue?.touched"
+           (change)="onChangeSellPrice()"
+           [class.is--valid]="unitValue?.valid"
            [class.is--invalid]="unitValue?.invalid && unitValue?.touched"
            formControlName="unit_value"
            placeholder="Ingrese el valor por unidad">
@@ -117,52 +113,85 @@
       </div>
 
       <div
+        class="content__row--last">
+        <div
         class="content__input
-        inputStock
-        content__totalsStock">
+            inputStock">
         <label>
-         Inventario
+          Porcentaje(%)
         </label>
         <input
-          type="number"
-          formControlName="totals_stock"
-          [class.is--valid]="totalStock?.valid && totalStock?.touched"
-          [class.is--invalid]="totalStock?.invalid && totalStock?.touched">
-          <p
-          *ngIf=" totalStock?.touched && totalStock?.hasError('required')"
-          class="content__text--alert">
-          *Campo obligatorio.
-          </p>
+         (change)="onChangeSellPrice()"
+         type="number"
+         formControlName="percentage"
+         [class.is--valid]="percentage?.valid"
+         [class.is--invalid]="percentage?.invalid && percentage?.touched">
+        <p
+        *ngIf=" percentage?.touched && percentage?.hasError('required')"
+         class="content__text--alert">
+         *Campo obligatorio.
+        </p>
+       </div>
+
+        <div
+          class="content__input
+          inputStock
+          content__totalsStock">
+          <label>
+          Cantidad
+          </label>
+          <input
+            type="number"
+            formControlName="totals_stock"
+            [class.is--valid]="totalStock?.valid"
+            [class.is--invalid]="totalStock?.invalid && totalStock?.touched">
+            <p
+            *ngIf=" totalStock?.touched && totalStock?.hasError('required')"
+            class="content__text--alert">
+            *Campo obligatorio.
+            </p>
+        </div>
       </div>
+
+      <p
+        class="text_total--value">
+        <span>
+          Precio de venta:
+        </span>
+         {{priceSell | currency}}
+      </p>
 
       <div
         class="content__button">
           <button
             type="submit"
             class="button"
-            [disabled]="!formProduct.valid"
-            [class.is__invalid]="!formProduct.valid">
+            [disabled]="!formProduct.valid || product.id!=0"
+            [class.is__invalid]="!formProduct.valid || product.id!=0">
             Ingresar
           </button>
 
         <button
           (click)="updateProduct()"
           class="button"
-          [disabled]="!formProduct.valid"
-          [class.is__invalid]="!formProduct.valid">
+          [disabled]="!formProduct.valid || product.id===0"
+          [class.is__invalid]="!formProduct.valid || product.id===0">
           Modificar
         </button>
       </div>
 
     </form>
 
-    <div class="content__input--find">
-      <label for="">Buscar producto</label>
+    <div
+      class="content__input--find">
+      <label>
+        Buscar producto
+      </label>
       <input
-        type="search"
-         [formControl]="valueFind"
-        (input) ="onChangeText()"
-        placeholder="Busque el producto aquí">
+          type="search"
+          [formControl]="valueFind"
+          (input) ="onChangeText()"
+          placeholder="Busque el producto aquí">
         <img src="../../../assets/lupa.svg" alt="this is the find icon">
     </div>
 
@@ -171,7 +200,7 @@
       *ngIf="listFilter.length; else elseBlock">
       <li
         *ngFor="let item of products | filter:itemFind"
-        [class.radio__activate]="productId===item.id">
+        [class.radio__activate]="product.id===item.id">
         <input
           type="radio"
           name="choiceProduct"
@@ -180,7 +209,7 @@
 
         <div class="description">
           <h2 class="contentent__description--text">
-            {{item.description | titlecase}}
+            {{item.description | uppercase}}
           </h2>
         </div>
 
@@ -199,10 +228,17 @@
         </div>
 
         <div class="value">
-          Valor
+          Valor de Compra
           <p>
-            $ {{item.unit_value | number}}
+            {{item.unit_value | currency}}
           </p>
+        </div>
+
+        <div>
+          Valor venta:
+            <p>
+              {{(item.unit_value * item.percentage)+item.unit_value | currencyPercent  | currency}}
+            </p>
         </div>
 
         <div class="inventory">
@@ -212,34 +248,43 @@
           </p>
         </div>
 
+        <div>
+          Porcentaje:
+          <p>{{item.percentage | percent: '2.1-2'}}</p>
+        </div>
+
         <button
+          [disabled]="product.id===item.id"
           class="button__icon"
           (click)="toggleDelete(item)"
-          [class.radio__activate--icon]="productId===item.id">
+          [class.radio__activate--icon]="product.id===item.id">
         </button>
       </li>
     </ul>
 
     <ng-template #elseBlock>
-      <div class="content__notfound">
-        <img
-         src="../../../assets/alert.svg"
-         alt="this is the image alert">
-        <p
-        class="content__text--notfound">
-          No se encuentra ningún producto
-        </p>
+
+      <div
+        class="content__elseBlock">
+        <div
+          class="content__notfound">
+          <img
+            src="../../../assets/alert.svg" alt="this is the image alert">
+          <p
+            class="text--notfound">
+            No se encuentra ningún producto
+          </p>
+        </div>
       </div>
     </ng-template>
-
-  </div>
 </div>
 
-<app-category
-[categories]="categories"
-class="content__app--category"
-[class.activate__modal]="modalState"
-(modalStateEvent)="reciveToggleModal($event)">
-</app-category>
+  <app-category
+    [categories]="categories"
+    (modalStateEvent)="reciveToggleModal($event)"
+    class="content__app--category"
+    [class.activate__modal]="modalState"
+    [class.deactivate__modal]="modalState==false">
+  </app-category>
 
 

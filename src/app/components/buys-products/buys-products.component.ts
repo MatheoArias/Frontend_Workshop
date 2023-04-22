@@ -45,6 +45,7 @@ export class BuysProductsComponent implements OnInit {
     description:'',
     unit_value:0,
     totals_stock: 0,
+    percentage:0,
   }
 
   //this is the section of initialaizing Buy products.
@@ -63,6 +64,7 @@ export class BuysProductsComponent implements OnInit {
       description: '',
       unit_value: 0,
       totals_stock: 0,
+      percentage:0
     },
     buys_date: new Date(),
     buys_bill: '',
@@ -171,6 +173,7 @@ export class BuysProductsComponent implements OnInit {
       this.buysProductsList=[];
       this.buysProductsListDTO=[];
       this.addProductsList=[];
+      this.total_buy_value=0;
 
     } else {
       Swal.fire({
@@ -218,6 +221,7 @@ export class BuysProductsComponent implements OnInit {
       this.product = item;
       this.buyProductsService.getAllBuyProducts()
       .subscribe(data=>{
+        //this is for find the last max value
         let buyproductSelectedList=data
           .filter(buyProduct=>buyProduct.product_id.id==item.id)
           .sort((a,b)=>b.buys_unit_value-a.buys_unit_value);
@@ -271,6 +275,7 @@ export class BuysProductsComponent implements OnInit {
           description: item.description,
           unit_value:this.buyUnitValue?.value,
           totals_stock: item.totals_stock,
+          percentage:item.percentage
         },
         buys_date: this.buysDate?.value,
         buys_bill: this.buysBill?.value,
@@ -288,6 +293,7 @@ export class BuysProductsComponent implements OnInit {
         description:'',
         unit_value:0,
         totals_stock: 0,
+        percentage:0
       }
 
       this.addProductsList.push(item);

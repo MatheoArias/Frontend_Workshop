@@ -1,10 +1,3 @@
-.content__app {
-  background-image: url("../../../assets/Logo_login.svg");
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  z-index: 0;
-
   /*This are the styles of de app-category*/
   .content__app--category {
     position: absolute;
@@ -19,77 +12,69 @@
     &.activate__modal {
       display: flex;
       width: 70%;
-      height: 70%;
+      height: 80vh;
       z-index: 2;
       animation: content 0.8s ease-in-out forwards;
     }
 
+    &.deactivate__modal {
+      opacity: 0 !important;
+      transform: scale(0, 0) !important;
+      transition: all 1s ease-in-out;
+      display: none;
+    }
+
+    button {
+      top: none !important;
+    }
   }
 
-  /*This are the styles of de app-products*/
-  .content__app--products {
+  /*This is the products style component */
+  .content__app {
     max-width: 100%;
     max-height: 100%;
     animation: content 0.8s ease-in-out forwards;
-    z-index: 1;
+    background-image: url("../../../assets/Logo_login.svg");
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
 
     &.activate__modal {
       animation: subcontent 0.6s ease-in-out forwards;
     }
 
     @keyframes subcontent {
-      0%{
+      0% {
         opacity: 100%;
       }
-      100%{
+
+      100% {
         opacity: 30%;
       }
     }
 
-    h2 {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.5rem;
-      text-align: center;
-      margin: 0.5rem 0 0 0;
-      font-weight: 400;
-
-      button {
-        font-family: 'Quicksand', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: var(--color--red--secundary);
-        background-color: var(--color--gray--background);
-        border: none;
-        cursor: pointer;
-      }
-
-      button:hover {
-        color: var(--color--red);
-        font-weight: 700;
-      }
-
-    }
-
-    form {
-      .content__uniValue {
-        grid-area: value;
-
-        div {
-          flex-direction: row;
+    /*this is the for styles*/
+    form{
+      .content__row--last{
+        display: flex;
+        div{
+          width: 50%;
         }
       }
 
-    }
-
-    .content__input--find {
-      max-width: 100%;
-
-      img {
-        right: 2px;
-        top: 25px;
+      .text_total--value{
+        margin: 15px 5px ;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--color--red);
+        span{
+          color: var(--color--gray);
+        }
       }
     }
 
+    /*This is the list order in this component*/
     ul {
 
       li {
@@ -99,14 +84,13 @@
           "category value";
         gap: 0.5rem;
 
-        div{
+        div {
           display: flex;
           flex-direction: column;
         }
 
         .description {
           grid-area: description;
-
           h2 {
             font-size: 1.8rem;
             line-height: 2rem;
@@ -114,6 +98,7 @@
             text-align: left;
           }
         }
+
         .code {
           grid-area: code;
         }
@@ -131,125 +116,18 @@
             text-align: center;
           }
         }
-
-        .inventory {
-          grid-area: inventory;
-          align-items: center;
-          font-size: 1.6rem;
-          font-weight: 500;
-
-          p {
-            text-align: center;
-            font-size: 3rem;
-            padding-top: 0.5rem;
-          }
-        }
-
       }
     }
   }
 
-  @keyframes content{
-    0%{
+  @keyframes content {
+    0% {
       opacity: 0;
-      transform: scale(0,0)
+      transform: scale(0, 0)
     }
-    100%{
+
+    100% {
       opacity: 1;
-      transform: scale(1,1)
+      transform: scale(1, 1)
     }
   }
-}
-
-
-
-@media(min-width: 767px) {
-
-  form {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-areas:
-      "code code category category"
-      "description description description description"
-      "value value value stock"
-      ". . button button";
-    margin: 1rem;
-
-    .content__productCategory {
-      grid-area: category;
-    }
-
-    .content__code {
-      grid-area: code;
-    }
-
-    .content__description {
-      grid-area: description;
-    }
-
-    .content__uniValue {
-      grid-area: value;
-
-      div {
-        flex-direction: row;
-      }
-    }
-
-    .content__totalsStock {
-      grid-area: stock;
-    }
-
-    .content__button{
-      grid-area:button;
-    }
-  }
-}
-
-@media (min-width: 1024px) {
-
-  div {
-    .content__app--products {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: "tittle find"
-        "form listItems"
-        "form listItems";
-      align-items: center;
-
-      .tittle__text--category {
-        grid-area: tittle;
-        align-self: end;
-      }
-
-      form{
-        max-width: 50vw;
-      }
-
-      .content__input--find {
-        grid-area: find;
-        justify-self: start;
-        margin-left: 5rem;
-        min-width: 80%;
-      }
-
-      .content__list {
-        grid-area: listItems;
-        max-width: 60vw;
-        max-height: 70vh;
-        align-content: flex-start;
-        justify-content: center;
-      }
-    }
-
-  }
-
-}
-
-@media (min-width: 1440px) {
-  div {
-    max-width: 80vw;
-    width: 100%;
-    margin: 0 auto;
-  }
-}
-

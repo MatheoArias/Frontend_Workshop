@@ -79,6 +79,7 @@ export class SellProductsComponent {
     description: '',
     unit_value: 0,
     totals_stock: 0,
+    percentage:0
   }
 
   sellProductsListId: number[] = [];
@@ -375,6 +376,7 @@ export class SellProductsComponent {
       description: '',
       unit_value: 0,
       totals_stock: 0,
+      percentage:0,
     }
   }
 
@@ -435,6 +437,7 @@ export class SellProductsComponent {
         description: '',
         unit_value: 0,
         totals_stock: 0,
+        percentage:0
       }
       Swal.fire({
         icon: 'error',
