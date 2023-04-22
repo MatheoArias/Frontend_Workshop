@@ -246,7 +246,7 @@ export class ProductComponent implements OnInit{
         Swal.fire({
           icon: 'success',
           confirmButtonText: 'Regresar',
-          title: 'Producto eliminado con éxitos',
+          title: 'Producto eliminado con éxito',
           html: `El producto: <strong>${item.description}</strong> fue eliminado con éxito`,
         })
       },error=>{

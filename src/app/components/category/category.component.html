@@ -33,15 +33,15 @@
       <button
         type="submit"
         class="button"
-        [disabled]="!formCategory.valid"
-        [class.is__invalid]="!formCategory.valid">
+        [disabled]="!formCategory.valid || category.id!=0"
+        [class.is__invalid]="!formCategory.valid || category.id!=0">
         Ingresar
       </button>
       <button
         class="button"
         (click)="updateCategory()"
-        [disabled]="!formCategory.valid"
-        [class.is__invalid]="!formCategory.valid">
+        [disabled]="!formCategory.valid || category.id===0"
+        [class.is__invalid]="!formCategory.valid || category.id===0">
         Modificar
       </button>
 
@@ -52,12 +52,13 @@
   <ul>
     <li
       *ngFor="let item of categories"
-      [class.radio__activate]="categoryId===item.id">
+      [class.radio__activate]="category.id===item.id">
       <p>{{item.category}}</p>
       <button
+        [disabled]="category.id===item.id"
         class="button__icon"
         (click)="toggleDelete(item)"
-        [class.radio__activate--icon]="categoryId===item.id">
+        [class.radio__activate--icon]="category.id===item.id">
       </button>
       <input
         type="radio"

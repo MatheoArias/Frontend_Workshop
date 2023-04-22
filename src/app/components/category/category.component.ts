@@ -1,7 +1,8 @@
-import { Component, OnChanges, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category, UpdateaCategoryDTO } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })
+
 export class CategoryComponent {
   formCategory!: FormGroup;
 
@@ -16,7 +18,6 @@ export class CategoryComponent {
   @Output() modalStateEvent= new EventEmitter<boolean>();
   modalState:boolean=true;
 
-  categoryId: number = 0;
   messagges:string='';
   statusCode: number=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
@@ -26,10 +27,10 @@ export class CategoryComponent {
     category:"",
   }
 
+  //this is the categories form
   get InputCategory(){
     return this.formCategory.get('category')
   }
-
   private formAddCategory() {
     this.formCategory = this.formBuilder.group({
       category: ['', [Validators.required]],
@@ -43,20 +44,22 @@ export class CategoryComponent {
     this.formAddCategory();
   }
 
+  //this function is for send modal State to products component
   sendModalState(){
     this.modalState =false;
     this.modalStateEvent.emit(this.modalState);
     this.getAllCategories();
   }
 
+  //this function get all categories
   getAllCategories() {
     this.categoryService.getAllCategories()
-    .subscribe(data =>{
-      this.categories=data
-    });
+      .subscribe(data =>{
+        this.categories=data
+      });
   }
 
-
+  //this function is for send categories data base
   submit(event: Event) {
     this.statusDeatil='Loading';
     const addCategory = this.formCategory.value;
@@ -64,7 +67,12 @@ export class CategoryComponent {
       this.categoryService.createCategory(addCategory)
         .subscribe(data=>{
           this.getAllCategories();
-          this.messagges=`La categoria ${data.category} fue agregada con éxito`;
+          Swal.fire({
+            icon: 'success',
+            confirmButtonText: 'Regresar',
+            title: 'Categoría agregada con éxito',
+            html: `La categoría: <strong>${data.category}</strong> fue agregada con éxito`,
+          })
         },error=>{
           this.statusDeatil='Error';
           this.messagges=`Ocurrió un error ${this.statusDeatil}`;
@@ -80,23 +88,31 @@ export class CategoryComponent {
     }
   }
 
-
+  //this function is for update categories in data base
   updateCategory() {
     this.statusDeatil='Loading';
     const updateCategory: UpdateaCategoryDTO = this.formCategory.value;
     if (this.formCategory.valid) {
-      this.categoryService.updateCategory(this.categoryId, updateCategory)
+      this.categoryService.updateCategory(this.category.id, updateCategory)
         .subscribe((data) => {
           this.getAllCategories();
-          this.messagges=`La Categoría ${data.category} fue modificada con éxito `;
         },error=>{
           this.statusDeatil='Error';
           this.messagges=`Ocurrió un error ${this.statusDeatil}`;
           this.formCategory.markAllAsTouched();
         });
-      this.formCategory.reset();
-      this.statusDeatil='Success';
-      this.categoryId=0;
+        this.formCategory.reset();
+        this.statusDeatil='Success';
+        Swal.fire({
+          icon: 'success',
+          confirmButtonText: 'Regresar',
+          title: 'Categoría modificada con éxito',
+          html: `La categoría: <strong>${this.category.category}</strong> fue modificada con éxito`,
+        })
+        this.category={
+          id:0,
+          category:"",
+        }
     } else {
       this.statusDeatil='Error';
       this.messagges=`Ocurrió un error ${this.statusDeatil}`;
@@ -104,15 +120,14 @@ export class CategoryComponent {
     }
   }
 
+  //this function is for send item to categories form for update
   toggleUpdate(item: Category) {
     this.statusDeatil='Loading';
-    this.categoryId=item.id;
-    console.log(this.categoryId);
+    this.category=item;
     if(item.id){
       this.categoryService.getCategory(item.id)
       .subscribe(data => {
         this.formCategory.patchValue(data);
-        this.categoryId = data.id;
       },error=>{
         this.statusDeatil='Error';
         this.messagges=`Ocurrió un error ${this.statusDeatil}`;
@@ -126,6 +141,7 @@ export class CategoryComponent {
     }
   }
 
+  //this function is for delete categories in data base
   toggleDelete(item: Category) {
     this.statusDeatil='Loading';
     if(item.id){
@@ -136,7 +152,13 @@ export class CategoryComponent {
             this.statusDeatil='Error';
             this.messagges=`Ocurrió un error ${this.statusDeatil}`;
             this.formCategory.markAllAsTouched();
-          });
+        });
+        Swal.fire({
+          icon: 'success',
+          confirmButtonText: 'Regresar',
+          title: 'Categoría eliminada con éxito',
+          html: `La categoría: <strong>${item.category}</strong> fue eliminada con éxito`,
+        })
       this.statusDeatil='Success';
     }else{
       this.statusDeatil='Error';
