@@ -39,6 +39,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { TelephonePipe } from './pipes/telephone.pipe';
 import { PaymentMediumComponent } from './components/payment-medium/payment-medium.component';
 import { CurrencyPercentPipe } from './pipes/currency-percent.pipe';
+import { UpdateBuyProductComponent } from './components/update-buy-product/update-buy-product.component';
+import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
 
 
 
@@ -70,6 +72,8 @@ import { CurrencyPercentPipe } from './pipes/currency-percent.pipe';
     TelephonePipe,
     PaymentMediumComponent,
     CurrencyPercentPipe,
+    UpdateBuyProductComponent,
+    UpdateSellProductComponent,
   ],
   imports: [
     BrowserModule,

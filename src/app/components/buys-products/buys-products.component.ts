@@ -142,15 +142,16 @@ export class BuysProductsComponent implements OnInit {
   submit(event: Event) {
     event.preventDefault();
     if (this.formBuysProduct.valid && this.addProductsList.length>0) {
-      this.buysProductsListDTO.map(item => {
+      this.buysProductsListDTO.map(product => {
         zip(
-          this.buyProductsService.createBuyProduct(item),
-          this.productService.getProduct(item.product_id)
+          this.buyProductsService.createBuyProduct(product),
+          this.productService.getProduct(product.product_id)
         )
           .pipe(
             switchMap((item) =>
               this.productService.updateTotalStockProduct(item[1].id, {
                 totals_stock: item[1].totals_stock + item[0].buys_stock,
+                unit_value: product.buys_unit_value
               })
             )
           )
@@ -214,43 +215,35 @@ export class BuysProductsComponent implements OnInit {
         confirmButtonText: 'Regresar',
         title: '¡ Fíjate en los productos!',
         html:
-         `Ya habías agregado este producto.<br>
-          Cierre esta ventana y busquelo en la lista de productos agregados`,
+         `Ya habías agregado este producto.<br><br>
+          Cierre esta ventana y búsquelo en la lista de productos agregados`,
       })
     } else {
       this.product = item;
       this.buyProductsService.getAllBuyProducts()
       .subscribe(data=>{
-        //this is for find the last max value
-        let buyproductSelectedList=data
-          .filter(buyProduct=>buyProduct.product_id.id==item.id)
-          .sort((a,b)=>b.buys_unit_value-a.buys_unit_value);
-        if(buyproductSelectedList.length>0){
-          this.lastValueProduct=buyproductSelectedList[0].buys_unit_value;
-          this.buyUnitValue?.setValue(buyproductSelectedList[0].buys_unit_value);
-        }else{
-          this.buyUnitValue?.setValue(item.unit_value);
-          this.lastValueProduct=item.unit_value;
-        }
+        this.buyUnitValue?.setValue(item.unit_value);
       })
     }
   }
 
   // this is the button delete buy products in the list
   toggleDelete(item: BuyProducts) {
-
     const index = this.buysProductsList
       .map(product => product).indexOf(item);
-
     if (index != -1) {
       this.buysProductsList.splice(index, 1);
       this.buysProductsListDTO .splice(index, 1);
       this.addProductsList.splice(index, 1);
-
       this.total_buy_value = this.buysProductsListDTO
         .reduce((sum, item) => sum + (item.buys_stock* item.buys_unit_value),0);
+        Swal.fire({
+          icon: 'success',
+          confirmButtonText: 'regresar',
+          title: 'Producto eliminado del carrito con éxito',
+          html: `<strong>Eliminado:</strong> ${item.product_id.description} x${item.buys_stock}`,
+        })
     }
-    console.log(this.addProductsList);
   }
 
   // this is the button add buy products in the list

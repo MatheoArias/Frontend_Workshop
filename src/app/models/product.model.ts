@@ -19,7 +19,7 @@ export interface UpdateProductsDTO extends CreateProductsDTO {
   id: number;
 }
 
-export interface UpdateTotalStockProductDTO extends Pick<Product, 'totals_stock'>{
+export interface UpdateTotalStockProductDTO extends Pick<Product, 'totals_stock' | 'unit_value'>{
 
 }
 

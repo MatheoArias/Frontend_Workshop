@@ -1,0 +1,102 @@
+<div
+  class="content__app">
+
+  <form [formGroup]="formSellProduct">
+    <div
+      class="content__input">
+      <h2>Producto</h2>
+      <p></p>
+    </div>
+
+    <div
+      class="content__input">
+      <h2>Fecha de venta</h2>
+      <p></p>
+    </div>
+
+    <div
+      class="content__input">
+      <label>Factura de venta</label>
+      <input type="text" formControlName="sell_bill">
+    </div>
+
+    <div
+      class="content__input">
+      <label>Cantidad</label>
+      <input type="text" formControlName="sell_stock">
+    </div>
+
+    <div
+      class="content__input">
+      <label>
+        Descuento
+      </label>
+      <select
+        type="text"
+        formControlName="discount_id">
+        <option
+          selected="true"
+          class="firstChoice"
+          value="">
+          Seleccionar
+        </option>
+        <option
+          value="0">
+          No hay Descuento
+        </option>
+        <option
+          *ngFor="let item of discounts"
+          value="{{item.id}}">
+          {{item.types}} ({{item.percentage * 100 | number}}%)
+        </option>
+      </select>
+    </div>
+  </form>
+
+  <ul
+    class="content__list--products">
+    <li
+    [class.radio__activate]="sellProduct.id==item.id"
+    *ngFor="let item of sellProducts | filter:itemFind">
+      <input
+      type="radio"
+      [formControl]="choiceProduct"
+      value="{{item.id}}"
+      (change)="onClickListProducts(item)">
+      <div>
+        <h2>
+          {{item.product_id.description}}
+        </h2>
+      </div>
+
+      <div>
+        Fecha:
+        <p>{{item.sell_date}}</p>
+      </div>
+
+      <div
+        *ngIf="item.discount_value; else elseBlock">
+        valor del descuento
+        <p>
+          {{item.discount_value | percent}}
+        </p>
+      </div>
+
+      <div>
+        Factura de venta:
+        <p>{{item.sell_bill}}</p>
+      </div>
+
+      <div>
+        Cantidad:
+        <p>{{item.sell_stock}}</p>
+      </div>
+
+    </li>
+  </ul>
+
+  <ng-template #elseBlock>
+    <p> {{0 | percent}}</p>
+  </ng-template>
+
+</div>

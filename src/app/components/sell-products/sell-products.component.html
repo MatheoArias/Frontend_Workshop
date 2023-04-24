@@ -68,7 +68,8 @@
         </select>
         <a
         [routerLink]="['/vehicles/add_vehicle']"
-        routerLinkActive="activate__link"></a>
+        routerLinkActive="activate__link">
+        </a>
       </div>
       <p
         *ngIf="inputVehicle?.touched && inputVehicle?.hasError('required')"
@@ -203,7 +204,7 @@
         <div
           class="text--body">
           <p>
-            {{item.product_id.unit_value | currency}}
+            {{(item.product_id.unit_value * item.product_id.percentage ) + item.product_id.unit_value | currencyPercent  | currency}}
           </p>
         </div>
 
@@ -283,7 +284,6 @@
 
     <ul
     class="content__products--sellBuy">
-
       <li
       class="content--head">
         <div
@@ -325,7 +325,7 @@
           <div
             class="text--body">
             <p>
-              {{product.unit_value  | currency}}
+              {{(product.unit_value * product.percentage ) + product.unit_value | currencyPercent  | currency}}
             </p>
           </div>
           <div
@@ -336,9 +336,10 @@
               formControlName="cuantity">
           </div>
           <div
+            *ngIf="cuantity?.value!=''; else elseText"
             class="text--body">
             <p>
-              {{product.unit_value * cuantity?.value |  currency}}
+                {{((product.unit_value * product.percentage) + product.unit_value  | currencyPercent ) * cuantity?.value |  currency}}
             </p>
           </div>
 
@@ -346,7 +347,8 @@
 
     </ul>
 
-    <div class="content__button">
+    <div
+      class="content__button">
       <button
         (click)="onClickAddProductList(product)"
         class="button"
@@ -394,13 +396,14 @@
         class="content__text--number">
         <div
           class="text--number">
-          Valor venta
+          Valor
           <p>
-            {{(item.unit_value * 0.45) + item.unit_value  | currency}}
+            {{(item.unit_value * item.percentage)+ item.unit_value | currencyPercent  | currency}}
           </p>
         </div>
         <div
           class="text--number">
+          Unidades:
           <p class="text--cuantity">
             {{item.totals_stock}}
           </p>
@@ -450,6 +453,15 @@
           [routerLink]="['/products/add_product']">
           aquí
         </a>
+      </p>
+    </div>
+  </ng-template>
+
+  <ng-template  #elseText>
+    <div
+      class="text--body">
+      <p>
+        {{0 | currency}}
       </p>
     </div>
   </ng-template>

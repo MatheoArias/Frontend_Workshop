@@ -19,6 +19,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { EmployeesComponent } from './pages/employees/employees.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { UpdateBuyProductComponent } from './components/update-buy-product/update-buy-product.component';
+import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
 
 
 
@@ -42,8 +44,13 @@ const routes: Routes = [
         component:SellsComponent,
         children:[
           {
-            path:'sell',
-            component:SellsComponent,
+            path:'sell_product',
+            component:SellProductsComponent,
+            canActivate:[AuthGuard]
+          },
+          {
+            path:'update_sell_product',
+            component:UpdateSellProductComponent,
             canActivate:[AuthGuard]
           }
         ]
@@ -65,6 +72,11 @@ const routes: Routes = [
           {
             path:'movements',
             component:MovementsComponent,
+            canActivate:[AuthGuard]
+          },
+          {
+            path:'update_buy_products',
+            component:UpdateBuyProductComponent,
             canActivate:[AuthGuard]
           }
         ]
@@ -103,11 +115,6 @@ const routes: Routes = [
         ]
       },
     ]
-  },
-  {
-    path:'sells',
-    component:SellsComponent,
-    canActivate:[AuthGuard]
   },
   {
     path:'login',

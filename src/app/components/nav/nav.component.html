@@ -30,19 +30,30 @@
         <li>
           <a
             routerLinkActive="activate__link"
-            [routerLink]="['/products/buys_product']"
-            (click)="OnCloseNav()">
-            Comprar producto
-          </a>
-        </li>
-        <li>
-          <a
-            routerLinkActive="activate__link"
             [routerLink]="['/products/add_product']"
             (click)="OnCloseNav()">
             Agregar producto
           </a>
         </li>
+
+        <li>
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/products/buys_product']"
+            (click)="OnCloseNav()">
+            Comprar producto
+          </a>
+        </li>
+
+        <li>
+          <a
+            routerLinkActive="activate__link"
+            [routerLink]="['/products/update_buy_products']"
+            (click)="OnCloseNav()">
+            Modificar compra de producto
+          </a>
+        </li>
+
         <li>
           <a
             routerLinkActive="activate__link"
@@ -67,9 +78,17 @@
         <li>
           <a
           routerLinkActive="activate__link"
-          [routerLink]="['/sells/sell']"
+          [routerLink]="['/sells/sell_product']"
             (click)="OnCloseNav()">
             Venta de productos
+          </a>
+        </li>
+        <li>
+          <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/update_sell_product']"
+            (click)="OnCloseNav()">
+            Modificar venta de productos
           </a>
         </li>
         <li>

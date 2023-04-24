@@ -252,12 +252,10 @@ export class ProductComponent implements OnInit{
       },error=>{
         this.statusDeatil='Error';
         this.messagges=`Ocurrió un error ${this.statusDeatil}`;
-        this.formProduct.markAllAsTouched();
       });
     }else{
       this.statusDeatil='Error';
       this.messagges=`Ocurrió un error ${this.statusDeatil}`;
-      this.formProduct.markAllAsTouched();
     }
   }
 
@@ -266,6 +264,7 @@ export class ProductComponent implements OnInit{
     if(this.valueFind.value){
       this.itemFind=this.valueFind.value;
       this.listFilter=this.filterpipe.transform(this.products,this.itemFind);
+      ///CAMBIAR ESTOOOOOOO IMPORTANTE
       this.productId=0;
     }else{
       this.itemFind="";

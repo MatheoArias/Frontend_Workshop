@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { SellProducts, CreateSellProductsDTO} from 'src/app/models/sell_product.model';
@@ -14,8 +14,13 @@ import { SellProductsService } from 'src/app/services/sell-products.service';
 import { Employees } from 'src/app/models/employee.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { BillService } from 'src/app/services/bill.service';
+import { CustomerService } from 'src/app/services/customer.service';
+import { PaymentMediumService } from 'src/app/services/payment-medium.service';
+import { DiscountService } from 'src/app/services/discount.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { CurrencyPercentPipe } from 'src/app/pipes/currency-percent.pipe';
 import Swal from 'sweetalert2';
 import { switchMap} from 'rxjs/operators';
 import { zip } from 'rxjs';
@@ -26,17 +31,17 @@ import { zip } from 'rxjs';
   styleUrls: ['./sell-products.component.scss']
 })
 
-export class SellProductsComponent {
+export class SellProductsComponent implements OnInit{
 
   //this is the inputs values
-  @Input() products: Product[] = [];
-  @Input() sellProducts: SellProducts[] = [];
-  @Input() customers: Customer[] = [];
-  @Input() vehicles: Vehicles[] = [];
-  @Input() paymentMedium: PaymentMedium[] = [];
-  @Input() discounts: Discounts[] = []
-  @Input() employeesList: Employees[] = []
-  @Input() listFilter: Product[] = [];
+  products: Product[] = [];
+  sellProducts: SellProducts[] = [];
+  customers: Customer[] = [];
+  vehicles: Vehicles[] = [];
+  paymentMedium: PaymentMedium[] = [];
+  discounts: Discounts[] = []
+  employeesList: Employees[] = []
+  listFilter: Product[] = [];
 
   ///this is the components states
   modalState:boolean=false
@@ -51,6 +56,8 @@ export class SellProductsComponent {
   month: string | number = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
   hour: string | number = this.date.getHours() < 10 ? `0${this.date.getHours()}` : this.date.getHours();
 
+  //This is import the pipe CurrencyPercent
+  CurrencyPercent = new CurrencyPercentPipe();
   //this is import the pipe filter
   filterpipe = new FilterPipe()
   itemFind: string = "";
@@ -164,13 +171,27 @@ export class SellProductsComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private sellProductsService: SellProductsService,
-    private productService: ProductService,
-    private vehicleService: VehicleService,
     private billService: BillService,
+    private productService: ProductService,
+    private sellProductsService: SellProductsService,
+    private customerService:CustomerService,
+    private vehicleService: VehicleService,
+    private paymentMediumService:PaymentMediumService,
+    private discountService:DiscountService,
+    private employeeService:EmployeeService
   ) {
     this.formAddBill();
     this.formAddSellProduct();
+  }
+
+  ngOnInit(){
+    this.getAllProducts();
+    this.getAllSellProducts();
+    this.getAllCustomers();
+    this.getAllVehicles();
+    this.getAllPaymentMedium();
+    this.getAllDiscounts();
+    this.getAllEmployees();
   }
 
   //this is for get all sell products
@@ -187,6 +208,7 @@ export class SellProductsComponent {
     this.productService.getAllProducts().subscribe(
       data => {
         this.products = data;
+        this.listFilter=data;
       }
     )
   }
@@ -197,6 +219,36 @@ export class SellProductsComponent {
       .subscribe(data => {
         this.vehicles = data;
       })
+  }
+
+  getAllCustomers(){
+    this.customerService.getAllCustomer()
+    .subscribe(
+      data=>{
+        this.customers = data;
+      }
+    )
+  }
+
+  getAllPaymentMedium(){
+    this.paymentMediumService.getAllPaymentsMedium()
+    .subscribe(data=>{
+      this.paymentMedium=data;
+    })
+  }
+
+  getAllDiscounts(){
+    this.discountService.getAllDiscounts()
+    .subscribe(data=>{
+      this.discounts=data;
+    })
+  }
+
+  getAllEmployees(){
+    this.employeeService.getAllEmployees()
+    .subscribe(data=>{
+      this.employeesList=data;
+    })
   }
 
   //this is for change modal state
@@ -227,16 +279,17 @@ export class SellProductsComponent {
     }
 
     if (this.formBill.valid && this.sellProductDTOList.length > 0) {
-      this.sellProductDTOList.map(item => {
+      this.sellProductDTOList.map(product => {
         zip(
-          this.productService.getProduct(item.product_id),
-          this.sellProductsService.createSellProducts(item),
+          this.productService.getProduct(product.product_id),
+          this.sellProductsService.createSellProducts(product),
         )
         .pipe(
           switchMap((item)=>{
             this.sellProductsListId.push(item[1].id)
             return this.productService.updateTotalStockProduct(item[0].id, {
               totals_stock: item[0].totals_stock - item[1].sell_stock,
+              unit_value:item[0].unit_value
             });
           }
           )
@@ -307,13 +360,14 @@ export class SellProductsComponent {
       Swal.fire({
         icon: 'success',
         confirmButtonText: 'regresar',
-        title: 'Producto eliminado de; carrito con éxito',
-        html: `<strong>Eliminados:</strong> ${item.product_id.description} x${item.sell_stock}`,
+        title: 'Producto eliminado del carrito con éxito',
+        html: `<strong>Eliminado:</strong> ${item.product_id.description} x${item.sell_stock}`,
       })
     }
   }
 
-  //this is the function for add sell products in the list, in this case, I take the item and  I fill the object transfer data and object for views in this component
+  //this is the function for add sell products in the list, in this case,
+  //I take the item and  I fill the object transfer data and object for views in this component
   onClickAddProductList(item: Product) {
 
     let date: Date = new Date();
@@ -322,6 +376,7 @@ export class SellProductsComponent {
     const index = this.productsList.map(product => product).indexOf(item)
     if (index == -1) {
       let discount = this.discounts.find(item => item.id == this.inputDiscounts?.value)
+      let totalUnitValueProduct=this.CurrencyPercent.transform((item.unit_value * item.percentage)+ item.unit_value)*this.cuantity?.value
       if (discount) {
         this.sellProduct.discount_id = discount;
       }else{
@@ -332,7 +387,6 @@ export class SellProductsComponent {
           percentage: 0,
         }
       }
-
       this.sellProductDTO = {
         product_id: this.product.id,
         sell_date: this.inputDate?.value,
@@ -340,7 +394,7 @@ export class SellProductsComponent {
         sell_stock: this.cuantity?.value,
         discount_id: this.sellProduct.discount_id.id>0?this.sellProduct.discount_id.id:null,
         discount_value: this.sellProduct.discount_id.percentage,
-        total_sell_value: (this.product.unit_value * this.cuantity?.value)- ((this.product.unit_value * this.cuantity?.value)*this.sellProduct.discount_id.percentage)
+        total_sell_value: totalUnitValueProduct - (totalUnitValueProduct*this.sellProduct.discount_id.percentage),
       };
 
       this.sellProduct = {
@@ -351,7 +405,7 @@ export class SellProductsComponent {
         sell_stock: this.cuantity?.value,
         discount_id: this.sellProduct.discount_id,
         discount_value: this.sellProduct.discount_id.percentage,
-        total_sell_value: (this.product.unit_value * this.cuantity?.value)- ((this.product.unit_value * this.cuantity?.value)*this.sellProduct.discount_id.percentage),
+        total_sell_value: totalUnitValueProduct - (totalUnitValueProduct*this.sellProduct.discount_id.percentage),
       };
       this.productsList.push(item);
       this.sellProductDTOList.push(this.sellProductDTO);
@@ -393,6 +447,7 @@ export class SellProductsComponent {
       this.choiceProduct.reset();
     } else {
       this.product = item
+      console.log(item)
       this.inputDate?.setValue(`${this.date.getFullYear()}-${this.month}-${this.day}`);
       this.inputDiscounts?.setValue(0);
       this.cuantity?.setValue('');
@@ -422,6 +477,7 @@ export class SellProductsComponent {
   }
 
   //This funcion is for to avoid taht to add products with total stock under cero
+  /////IMPORTNATE: ORGANIZAR ESTA PARTE PARA QUE SE VEA RELFEJADA EN EL COMPONENTE
   onChangeInputCuantity(){
     let totalSell=this.product.totals_stock-this.cuantity?.value
     if(totalSell<=0){
