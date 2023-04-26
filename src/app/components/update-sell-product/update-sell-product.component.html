@@ -1,29 +1,46 @@
 <div
   class="content__app">
 
-  <form [formGroup]="formSellProduct">
+  <form (ngSubmit)="submit($event)" [formGroup]="formSellProduct">
     <div
       class="content__input">
-      <h2>Producto</h2>
-      <p></p>
+      <h2>
+        Producto
+      </h2>
+      <p>
+        {{sellProduct.product_id.description}}
+      </p>
     </div>
 
     <div
       class="content__input">
-      <h2>Fecha de venta</h2>
-      <p></p>
+      <h2>
+        Fecha de venta
+      </h2>
+      <p>
+        {{sellProduct.sell_date | date: 'dd-MM-YYYY'}}
+      </p>
     </div>
 
     <div
       class="content__input">
-      <label>Factura de venta</label>
-      <input type="text" formControlName="sell_bill">
+      <label>
+        Factura de venta
+      </label>
+      <input
+         type="text"
+         formControlName="sell_bill">
     </div>
 
     <div
       class="content__input">
-      <label>Cantidad</label>
-      <input type="text" formControlName="sell_stock">
+      <label>
+        Cantidad
+      </label>
+      <input
+        (change)="onchangeTotalValue()"
+        type="number"
+        formControlName="sell_stock">
     </div>
 
     <div
@@ -32,7 +49,7 @@
         Descuento
       </label>
       <select
-        type="text"
+        (change)="onchangeTotalValue()"
         formControlName="discount_id">
         <option
           selected="true"
@@ -51,9 +68,36 @@
         </option>
       </select>
     </div>
+
+    <div>
+      <p>{{sellProduct.total_sell_value | currency}}</p>
+    </div>
+
+    <div
+      class="content__button">
+      <button
+      class="button">
+      Modificar
+    </button>
+    </div>
+
   </form>
 
+  <div
+    class="content__input--find">
+    <label>
+      Buscar producto
+    </label>
+    <input
+      type="search"
+      [formControl]="valueFind"
+      (input) ="onChangeText()"
+      placeholder="Busque el producto aquí">
+    <img src="../../../assets/lupa.svg" alt="this is the find icon">
+  </div>
+
   <ul
+    *ngIf="listFilter.length; else elseBlock"
     class="content__list--products">
     <li
     [class.radio__activate]="sellProduct.id==item.id"
@@ -75,10 +119,18 @@
       </div>
 
       <div
-        *ngIf="item.discount_value; else elseBlock">
-        valor del descuento
+        *ngIf="item.discount_id">
+        Tipo de Descuento:
         <p>
-          {{item.discount_value | percent}}
+          {{item.discount_id.types}}
+        </p>
+      </div>
+
+      <div
+        *ngIf="item.discount_id">
+        valor descuento
+        <p>
+          {{item.discount_id.percentage | percent}}
         </p>
       </div>
 
@@ -92,11 +144,44 @@
         <p>{{item.sell_stock}}</p>
       </div>
 
+      <div>
+        total:(Test)
+        <p>
+          <strong>
+            {{item.product_id.totals_stock}}
+          </strong>
+        </p>
+        Precio venta:(Test)
+        <p>{{(item.product_id.unit_value * item.product_id.percentage ) +item.product_id.unit_value | currencyPercent  | currency}}</p>
+      </div>
+
+
+      <button
+        [disabled]="sellProduct.id===item.id"
+        class="button__icon"
+        (click)="toggleDelete(item)"
+        [class.radio__activate--icon]="sellProduct.id===item.id">
+      </button>
+
     </li>
   </ul>
 
   <ng-template #elseBlock>
-    <p> {{0 | percent}}</p>
+    <div
+      class="content__elseBlock">
+      <div
+        class="content__notfound">
+        <img
+          src="../../../assets/alert.svg" alt="this is the image alert">
+        <p
+          class="text--notfound">
+          No se encuentra ningún producto
+        </p>
+      </div>
+    </div>
   </ng-template>
 
+  <app-discounts
+  [discounts]="discounts">
+  </app-discounts>
 </div>

@@ -6,4 +6,5 @@ export interface Discounts{
 }
 
 export interface CreateDiscountDTO extends Omit<Discounts, 'id'>{
+
 }

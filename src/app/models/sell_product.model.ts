@@ -9,7 +9,6 @@ export interface SellProducts{
   sell_stock:number;
   total_sell_value:number;
   discount_id: Discounts;
-  discount_value: number;
 }
 
 export interface CreateSellProductsDTO extends Omit<SellProducts, 'id' | 'product_id' | 'discount_id'>{

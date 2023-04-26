@@ -41,6 +41,8 @@ import { PaymentMediumComponent } from './components/payment-medium/payment-medi
 import { CurrencyPercentPipe } from './pipes/currency-percent.pipe';
 import { UpdateBuyProductComponent } from './components/update-buy-product/update-buy-product.component';
 import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
+import { DiscountsComponent } from './components/discounts/discounts.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 
 
@@ -74,6 +76,8 @@ import { UpdateSellProductComponent } from './components/update-sell-product/upd
     CurrencyPercentPipe,
     UpdateBuyProductComponent,
     UpdateSellProductComponent,
+    DiscountsComponent,
+    RegisterUserComponent,
   ],
   imports: [
     BrowserModule,

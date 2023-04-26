@@ -99,7 +99,6 @@ export class SellProductsComponent implements OnInit{
     sell_stock: 0,
     total_sell_value: 0,
     discount_id:0,
-    discount_value:0
   }
 
   sellProduct: SellProducts = {
@@ -115,7 +114,6 @@ export class SellProductsComponent implements OnInit{
       description: '',
       percentage: 0,
     },
-    discount_value:0
   }
 
   discount:Discounts={
@@ -393,7 +391,6 @@ export class SellProductsComponent implements OnInit{
         sell_bill: this.numberBill,
         sell_stock: this.cuantity?.value,
         discount_id: this.sellProduct.discount_id.id>0?this.sellProduct.discount_id.id:null,
-        discount_value: this.sellProduct.discount_id.percentage,
         total_sell_value: totalUnitValueProduct - (totalUnitValueProduct*this.sellProduct.discount_id.percentage),
       };
 
@@ -404,7 +401,6 @@ export class SellProductsComponent implements OnInit{
         sell_bill: this.numberBill,
         sell_stock: this.cuantity?.value,
         discount_id: this.sellProduct.discount_id,
-        discount_value: this.sellProduct.discount_id.percentage,
         total_sell_value: totalUnitValueProduct - (totalUnitValueProduct*this.sellProduct.discount_id.percentage),
       };
       this.productsList.push(item);

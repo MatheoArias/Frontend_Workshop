@@ -80,8 +80,8 @@ export class UpdateBuyProductComponent implements OnInit {
 
   constructor(
     private formBuilder:FormBuilder,
-    private productServices:ProductService,
-    private buyProductServices:BuyProductsService
+    private productService:ProductService,
+    private buyProductService:BuyProductsService
   ){
     this.formAddBuysProduct();
   }
@@ -92,14 +92,14 @@ export class UpdateBuyProductComponent implements OnInit {
   }
 
   getAllProducts(){
-    this.productServices.getAllProducts()
+    this.productService.getAllProducts()
       .subscribe(data=>{
         this.products=data;
       })
   }
 
   getAllBuyProducts(){
-    this.buyProductServices.getAllBuyProducts()
+    this.buyProductService.getAllBuyProducts()
       .subscribe(data=>{
         this.buyProducts=data;
         this.listFilter=data;
@@ -108,7 +108,7 @@ export class UpdateBuyProductComponent implements OnInit {
 
   onClickListProducts(item:BuyProducts){
     this.buyProduct=item
-    this.buyProductServices.getBuyProduct(item.id)
+    this.buyProductService.getBuyProduct(item.id)
       .subscribe(data=>{
         this.formBuysProduct.patchValue(data);
       })
@@ -128,12 +128,12 @@ export class UpdateBuyProductComponent implements OnInit {
         buys_unit_value: this.buysUnitValue?.value
       }
       zip(
-        this.productServices.getProduct(this.buyProductDTO.product_id),
-        this.buyProductServices.updateBuyProduct(this.buyProductDTO.id,this.buyProductDTO)
+        this.productService.getProduct(this.buyProductDTO.product_id),
+        this.buyProductService.updateBuyProduct(this.buyProductDTO.id,this.buyProductDTO)
       )
       .pipe(
         switchMap((product) =>
-          this.productServices.updateTotalStockProduct(product[0].id,
+          this.productService.updateTotalStockProduct(product[0].id,
             {
               totals_stock: (product[0].totals_stock - this.buyProduct.buys_stock) + this.buyProductDTO.buys_stock,
               unit_value: this.buyProductDTO.buys_unit_value
@@ -179,12 +179,12 @@ export class UpdateBuyProductComponent implements OnInit {
   toggleDelete(item:BuyProducts){
     this.statusDeatil='Loading'
     zip(
-      this.productServices.getProduct(item.product_id.id),
-      this.buyProductServices.deleteBuyProduct(item.id),
+      this.productService.getProduct(item.product_id.id),
+      this.buyProductService.deleteBuyProduct(item.id),
     )
     .pipe(
       switchMap((product)=>
-        this.productServices.updateTotalStockProduct(product[0].id, {
+        this.productService.updateTotalStockProduct(product[0].id, {
         totals_stock: product[0].totals_stock - this.buyProduct.buys_stock,
         unit_value: product[0].unit_value
       }))

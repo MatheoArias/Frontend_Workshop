@@ -187,7 +187,7 @@
         *ngFor="let item of sellProductList">
 
         <img
-          *ngIf="item.discount_value!=0"
+          *ngIf="item.discount_id.percentage!=0"
           src="../../../assets/star.svg"
           alt="this is the discount icon"
           class="band__discount">

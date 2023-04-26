@@ -21,6 +21,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { UpdateBuyProductComponent } from './components/update-buy-product/update-buy-product.component';
 import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 
 
@@ -115,6 +116,10 @@ const routes: Routes = [
         ]
       },
     ]
+  },
+  {
+    path:'register_user',
+    component:RegisterUserComponent
   },
   {
     path:'login',

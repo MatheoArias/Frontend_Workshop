@@ -1,0 +1,89 @@
+<div
+  class="subcontent__app">
+  <h2> Ingresa el descuento</h2>
+  <form  (ngSubmit)="submit($event)" [formGroup]="formDiscount">
+    <div
+      class="content__input">
+      <label>
+        Tipo
+      </label>
+      <input
+        formControlName="types"
+        type="text">
+    </div>
+
+    <div class="content__input">
+      <label>
+        Descripción
+      </label>
+      <textarea
+        formControlName="description"
+        cols="30"
+        rows="10">
+      </textarea>
+    </div>
+
+    <div
+      class="content__input">
+      <label>
+        Porcentaje
+      </label>
+      <input
+      formControlName="percentage"
+      type="number">
+    </div>
+
+    <div
+      class="content__button">
+      <button
+        class="button">
+        Ingresar
+      </button>
+
+      <button
+      (click)="updateDiscount($event)"
+        class="button">
+        Modificar
+      </button>
+    </div>
+
+  </form>
+
+  <ul
+    class="content__list">
+    <li
+    [class.radio__activate]="discount.id===item.id"
+    *ngFor="let item of discounts">
+
+      <input
+      type="radio"
+      name="choiceProduct"
+      (click)="toggleUpdate(item)"
+      [value]="item.id">
+
+      <div>
+        Tipo
+        <p>{{item.types}}</p>
+      </div>
+
+      <div>
+        Descripción
+        <p>{{item.description}}</p>
+      </div>
+
+      <div>
+        Porcentaje
+        <p>{{item.percentage | percent}}</p>
+      </div>
+
+
+      <button
+      [disabled]="discount.id===item.id"
+      class="button__icon"
+      (click)="toggleDelete(item)"
+      [class.radio__activate--icon]="discount.id===item.id">
+    </button>
+    </li>
+  </ul>
+
+</div>
