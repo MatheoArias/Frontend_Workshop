@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
-import { Auth } from 'src/app/models/auth.models';
-import { Users } from 'src/app/models/users.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
@@ -13,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  messagges:string='';
-  statusCode: number=0;
+  messagges='';
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
 
   formLogin!:FormGroup;
@@ -53,12 +51,13 @@ export class LoginComponent {
     event.preventDefault();
     const user= this.formLogin.value;
     if(this.formLogin.valid){
-      this.authService.login(user.emailAdress,user.password).subscribe(
+      this.authService.login(user.emailAdress,user.password)
+      .subscribe(
         data=>{
           this.tokenService.saveUser(data);
           this.router.navigate(['/products/add_product']);
           this.statusDeatil='Loading';
-        },error=>{
+        },()=>{
           this.statusDeatil='Error';
           this.messagges='El coreo electrónico o la contraseña no son correctas. Vuelve a intentarlo'
           this.formLogin.markAllAsTouched();

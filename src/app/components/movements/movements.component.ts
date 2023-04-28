@@ -1,9 +1,9 @@
-import { Component,OnInit, ViewEncapsulation} from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { SellProductsService } from 'src/app/services/sell-products.service';
 import { Movements,MovementesChart} from 'src/app/models/product.model';
-import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
-import { FormGroup,FormControl} from '@angular/forms';
+import { ScaleType } from '@swimlane/ngx-charts';
+import { FormControl} from '@angular/forms';
 @Component({
   selector: 'app-movements',
   templateUrl: './movements.component.html',
@@ -27,10 +27,10 @@ export class MovementsComponent implements OnInit {
   };
 
   // options
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
+  gradient= true;
+  showLegend= true;
+  showLabels= true;
+  isDoughnut= false;
 
   dataMoevements:MovementesChart[]=[]
   data: MovementesChart={
@@ -103,17 +103,17 @@ export class MovementsComponent implements OnInit {
 
   }
 
-  onClickIntervalTime(movements:Movements[],input:any){
+  onClickIntervalTime(movements:Movements[],input:unknown){
     if(input==='year'){
-      let listOutflow = movements.filter(
+      const listOutflow = movements.filter(
         item => new Date(item.date).getFullYear() === new Date().getFullYear()
          && item.category=='Salida');
-      let totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
+      const totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
 
-      let listIntFlow = movements.filter(
+      const listIntFlow = movements.filter(
         item => new Date(item.date).getFullYear() === new Date().getFullYear()
         && item.category=='Entrada');
-     let totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
+     const totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
 
       this.dataMoevements=[
         {
@@ -126,19 +126,19 @@ export class MovementsComponent implements OnInit {
         }
       ]
     }else{
-      let listOutflow = movements.filter(
+      const listOutflow = movements.filter(
         item =>
          new Date(item.date).getFullYear() === new Date().getFullYear() &&
          new Date(item.date).getMonth() === new Date().getMonth() &&
          item.category=='Salida' );
-      let totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
+      const totalOutflow= listOutflow.reduce((sum, item) => item.totals_stock + sum,0);
 
-      let listIntFlow = movements.filter(
+      const listIntFlow = movements.filter(
         item =>
          new Date(item.date).getFullYear() === new Date().getFullYear() &&
          new Date(item.date).getMonth()=== new Date().getMonth() &&
          item.category=='Entrada');
-      let totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
+      const totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
 
       this.dataMoevements=[
         {

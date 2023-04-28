@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Employees,EmployesType } from 'src/app/models/employee.model';
 
 @Component({
@@ -12,7 +12,5 @@ export class EmployeesComponent{
   employees:Employees[]=[]
   employeeTypes:EmployesType[]=[]
 
-  constructor(
-  ){}
 
 }

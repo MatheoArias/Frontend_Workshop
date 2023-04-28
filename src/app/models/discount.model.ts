@@ -5,6 +5,4 @@ export interface Discounts{
   percentage: number;
 }
 
-export interface CreateDiscountDTO extends Omit<Discounts, 'id'>{
-
-}
+export type CreateDiscountDTO = Omit<Discounts, 'id'>

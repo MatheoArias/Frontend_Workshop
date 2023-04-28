@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {Product} from 'src/app/models/product.model';
-import {BuyProducts,UpdateBuysProductDTO,createBuysProductDTO} from 'src/app/models/buy_product.model';
+import {BuyProducts,createBuysProductDTO} from 'src/app/models/buy_product.model';
 import { BuyProductsService } from 'src/app/services/buy-products.service';
 import { ProductService } from 'src/app/services/product.service';
 import { switchMap } from 'rxjs/operators';
@@ -18,18 +18,18 @@ import Swal from 'sweetalert2';
 export class BuysProductsComponent implements OnInit {
 
   dateNow: Date = new Date();
-  value: any | null = 0;
-  total_buy_value:number=0;
-  lastValueProduct:number=0;
+  value: unknown | null = 0;
+  total_buy_value=0;
+  lastValueProduct=0;
 
   filterpipe = new FilterPipe();
-  itemFind: string = "";
+  itemFind= "";
   valueFind = new FormControl('');
   listFilter:Product[] = [];
   choiceProduct=new FormControl('')
 
-  messagges: string = '';
-  statusCode: number = 0;
+  messagges= '';
+  statusCode= 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
   //this is the section of initialaizing products.
@@ -105,8 +105,8 @@ export class BuysProductsComponent implements OnInit {
   }
   private formAddListBuysProduct() {
     this.formlistBuyProducts = this.formBuilder.group({
-      buy_unit_value: [, [Validators.required]],
-      cuantity: [, [Validators.required]],
+      buy_unit_value: ['', [Validators.required]],
+      cuantity: ['', [Validators.required]],
     });
   }
 
@@ -156,7 +156,7 @@ export class BuysProductsComponent implements OnInit {
             )
           )
           .subscribe(
-            data=>{
+            ()=>{
               this.getAllProducts();
             }
           )
@@ -208,7 +208,7 @@ export class BuysProductsComponent implements OnInit {
 
   /*this is the funcion for add product's id in the list*/
   onClickListProducts(item: Product) {
-    let index = this.addProductsList.map(product => product).indexOf(item);
+    const index = this.addProductsList.map(product => product).indexOf(item);
     if (index != -1) {
       Swal.fire({
         icon: 'error',
@@ -221,7 +221,7 @@ export class BuysProductsComponent implements OnInit {
     } else {
       this.product = item;
       this.buyProductsService.getAllBuyProducts()
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.buyUnitValue?.setValue(item.unit_value);
       })
     }

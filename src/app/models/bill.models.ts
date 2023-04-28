@@ -2,7 +2,6 @@ import { SellProducts } from "./sell_product.model";
 import { Employees } from "./employee.model";
 import { Vehicles } from "./vehicle.models";
 import { Customer } from "./customer.model";
-import { Discounts } from "./discount.model";
 import { PaymentMedium } from "./payment_medium.models";
 
 export interface Bill{

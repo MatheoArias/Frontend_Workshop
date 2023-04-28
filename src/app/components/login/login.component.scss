@@ -1,54 +1,68 @@
-.content__app--login {
-  width: 100vw;
-  height: 100vh;
+/*this is the content componwnt login */
+.content__app{
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url("../../../assets/Logo_login.svg");
+  align-content: center;
 
+  /*This is the form, tittle and company logo content*/
   .content__login {
-    width: 85%;
-    align-self: center;
-    background-color: var(--color--white);
     display: flex;
     flex-direction: column;
+    align-self: center;
+    max-width:85%;
+    width: 85%;
+    background-color: var(--color--white);
     border-top: 0.3rem solid var(--color--red);
     border-bottom: 0.3rem solid var(--color--red);
-    padding: 0;
     border-radius: 10px;
     animation: content 0.6s ease-in-out forwards;
-    z-index: 1;
 
-    img {
-      height: 16rem;
-      width: 100%;
+    /*the image and tittle center */
+    img,
+    h1 {
+      align-self: center;
+      text-align: center;
     }
 
     h1 {
       font-family: 'Thalib';
       width: 100%;
       font-size: 2rem;
+      opacity:0;
       color: var(--color--red);
-    }
-
-    img,
-    h1 {
-      align-self: center;
-      text-align: center;
-      margin-bottom: 0 !important;
+      animation: tittle  1s ease-in-out 0.3s forwards;
     }
 
     img{
+      height: 16rem;
+      width: 100%;
+      opacity: 0;
       transform: rotate(-360deg);
-      animation: header  1s ease-in-out 0.3s forwards;
+      animation: image  1s ease-in-out 0.3s forwards;
     }
 
-    @keyframes header{
+    /*This is the initial image's animation*/
+    @keyframes image{
       0%{
+        opacity: 0;
         transform: rotate(-360deg);
       }
       100%{
+        opacity:1;
         transform: rotate(0deg);
+      }
+    }
+
+    /*This is the initial tittle's animation*/
+    @keyframes tittle{
+      0%{
+        opacity: 0;
+      }
+      100%{
+        opacity:1;
       }
     }
 
@@ -56,20 +70,12 @@
       display: flex;
       flex-direction: column;
       box-shadow: none;
-      padding: 0 !important;
 
       .content__input {
         input {
-          font-size: 1.4rem;
-          font-weight: 500;
-          animation: input 1s ease-in-out 0.3s forwards;
-          transform: translateX(-500px);
           opacity:0;
-        }
-
-        input::placeholder{
-          font-size: 1.3rem;
-          font-weight: 500;
+          transform: translateX(-500px);
+          animation: input 1s ease-in-out 0.3s forwards;
         }
 
         @keyframes input {
@@ -82,7 +88,6 @@
             opacity:1;
           }
         }
-
       }
 
       button {
@@ -91,6 +96,7 @@
     }
   }
 
+  /*This is tne initial content's animation */
   @keyframes content{
     0%{
       opacity: 0;
@@ -102,6 +108,7 @@
     }
   }
 
+  /*This is the a label for recovery password*/
   .content__text--recovery {
     max-width: 100%;
     text-align: center;
@@ -123,14 +130,19 @@
 }
 
 @media(min-width:600px) {
-  .content__login {
-    max-width: 50%;
-    margin: 0 auto;
+  .content__app{
+    .content__login {
+      max-width:60%;
+      width: 60%;
+    }
   }
 }
 
-@media(min-width:1400px) {
-  .content__login {
-    max-width: 40%;
+@media(min-width:1000px) {
+  .content__app{
+    .content__login {
+      max-width:40%;
+      width: 40%;
+    }
   }
 }

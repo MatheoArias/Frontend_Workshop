@@ -1,4 +1,3 @@
-import { __values } from 'tslib';
 import { Category } from './category.model';
 
 export interface Product {
@@ -19,9 +18,7 @@ export interface UpdateProductsDTO extends CreateProductsDTO {
   id: number;
 }
 
-export interface UpdateTotalStockProductDTO extends Pick<Product, 'totals_stock' | 'unit_value'>{
-
-}
+export type UpdateTotalStockProductDTO = Pick<Product, 'totals_stock' | 'unit_value'>
 
 export interface Movements extends Pick<Product, 'code' | 'description' | 'totals_stock'>{
   stock:number;

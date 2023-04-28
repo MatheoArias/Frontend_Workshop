@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { Customer,UpdateCustomerDTO,CreateCustomerDTO } from 'src/app/models/customer.model';
+import { Customer,UpdateCustomerDTO } from 'src/app/models/customer.model';
 import { DocumentType } from 'src/app/models/document_type.models';
 import { CustomerService } from 'src/app/services/customer.service';
 import { DocumentTypeService } from 'src/app/services/document-type.service';
@@ -14,12 +14,12 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 export class CustomerComponent {
 
-  customerId:number=0;
-  messagges:string='';
-  statusCode: number=0;
+  customerId=0;
+  messagges='';
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
   valueFind=new FormControl('');
-  itemFind:string="";
+  itemFind="";
   filterpipe= new FilterPipe()
 
 
@@ -100,10 +100,11 @@ export class CustomerComponent {
   }
 
   submit(event:Event){
+    event.preventDefault();
     const addCustomer=this.formCustomer.value;
     if(this.formCustomer.valid){
       this.customerService.createCustomer(addCustomer)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllCustomer();
       })
       this.statusDeatil='Success';
@@ -119,7 +120,7 @@ export class CustomerComponent {
     this.statusDeatil='Loading';
     if(this.formCustomer.valid){
       this.customerService.updateCustomer(updateCustomer,this.customerId)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllCustomer();
       })
       this.formCustomer.reset();
@@ -149,7 +150,7 @@ export class CustomerComponent {
     this.statusDeatil='Loading';
     if(item.id){
       this.customerService.deleteCustomer(item.id)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllCustomer();
       })
       this.statusDeatil='Success';

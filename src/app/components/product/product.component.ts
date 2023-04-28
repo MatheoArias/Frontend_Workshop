@@ -17,12 +17,12 @@ import Swal from 'sweetalert2';
 })
 
 export class ProductComponent implements OnInit{
-  modalState:boolean=false;
+  modalState=false;
   products: Product[] = [];
   categories: Category[] = [];
 
-  priceSell:number=0;
-  productId:number=0;
+  priceSell=0;
+  productId=0;
 
   product:Product={
     id: 0,
@@ -37,12 +37,12 @@ export class ProductComponent implements OnInit{
     percentage:0,
   }
 
-  messagges:string='';
-  statusCode: number=0;
+  messagges='';
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
 
   valueFind=new FormControl('');
-  itemFind:string="";
+  itemFind="";
   listFilter:Product[]=[];
 
   //these are pipes
@@ -74,9 +74,9 @@ export class ProductComponent implements OnInit{
       category_id: ['', [Validators.required]],
       code: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
       description: ['', [Validators.required,Validators.maxLength(200)]],
-      unit_value: [, [Validators.required]],
-      totals_stock: [, [Validators.required]],
-      percentage:[, [Validators.required]]
+      unit_value: ['', [Validators.required]],
+      totals_stock: ['', [Validators.required]],
+      percentage:['', [Validators.required]]
     });
   }
 
@@ -133,16 +133,16 @@ export class ProductComponent implements OnInit{
     )
     .subscribe(
       data=>{
-        let lastProduct:Product[]=data[0]
+        const lastProduct:Product[]=data[0]
           .filter(item=>item.category_id.id==this.categoryId?.value)
           .sort((a,b)=>b.id-a.id);
         if(lastProduct.length>0){
-          let lastCode=parseInt(lastProduct[0].code.split('')[6])+1
+          const lastCode=parseInt(lastProduct[0].code.split('')[6])+1
           this.code?.setValue(lastProduct[0].code.slice(0,-1) + lastCode.toLocaleString());
         }else{
-          let categories=data[1]
+          const categories=data[1]
             .filter(item=>item.id==this.categoryId?.value);
-          let category=categories[0].category.replace(/[aeiou]/gi, "").split('')
+          const category=categories[0].category.replace(/[aeiou]/gi, "").split('')
           this.code?.setValue(`${category[0].toUpperCase()}${category[1].toUpperCase()}00001`);
         }
       }
@@ -163,7 +163,7 @@ export class ProductComponent implements OnInit{
     }
     if (this.formProduct.valid) {
       this.ProductService.createProduct(addProduct)
-        .subscribe(data=>{
+        .subscribe(()=>{
         this.getAllProducts();
       });
       Swal.fire({
@@ -196,7 +196,7 @@ export class ProductComponent implements OnInit{
     }
     if (this.formProduct.valid) {
       this.ProductService.updateProduct(this.product.id,addProduct).subscribe(
-        data=>{
+        ()=>{
           this.getAllProducts();
         }
       )
@@ -227,7 +227,7 @@ export class ProductComponent implements OnInit{
         this.percentage?.setValue(data.percentage*100)
         this.priceSell=((this.percentage?.value/100)*this.unitValue?.value)+this.unitValue?.value
         this.statusDeatil='Success';
-      },(error)=>{
+      },()=>{
         this.statusDeatil='Error';
         this.messagges=`Ocurrió un error ${this.statusDeatil}`;
         this.formProduct.markAllAsTouched();
@@ -240,7 +240,7 @@ export class ProductComponent implements OnInit{
     this.statusDeatil = 'Loading';
     if(item){
       this.ProductService.deleteProduct(item.id)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllProducts();
         this.statusDeatil = 'Success';
         Swal.fire({
@@ -249,7 +249,7 @@ export class ProductComponent implements OnInit{
           title: 'Producto eliminado con éxito',
           html: `El producto: <strong>${item.description}</strong> fue eliminado con éxito`,
         })
-      },error=>{
+      },()=>{
         this.statusDeatil='Error';
         this.messagges=`Ocurrió un error ${this.statusDeatil}`;
       });

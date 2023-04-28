@@ -166,8 +166,8 @@
           <button
             type="submit"
             class="button"
-            [disabled]="!formProduct.valid || product.id!=0"
-            [class.is__invalid]="!formProduct.valid || product.id!=0">
+            [disabled]="!formProduct.valid || product.id!==0"
+            [class.is__invalid]="!formProduct.valid || product.id!==0">
             Ingresar
           </button>
 
@@ -284,7 +284,7 @@
     (modalStateEvent)="reciveToggleModal($event)"
     class="content__app--category"
     [class.activate__modal]="modalState"
-    [class.deactivate__modal]="modalState==false">
+    [class.deactivate__modal]="modalState===false">
   </app-category>
 
 

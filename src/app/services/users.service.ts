@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateUsersDto,GetAllUsers,Users,UpdateProductsDTO } from '../models/users.model';
+import { CreateUsersDto,Users,UpdateProductsDTO } from '../models/users.model';
 import {HttpClient,HttpErrorResponse,HttpStatusCode} from '@angular/common/http';
 import { environment } from 'src/enviroments/environment';
 import {retry,catchError} from 'rxjs/operators'
@@ -37,30 +37,8 @@ export class UsersService {
     );
   }
 
-  getAllUsers(dto:GetAllUsers){
+  getAllUsers(){
     return this.http.get<Users>(`{this.apiUrl}/customer_user`)
-    .pipe(
-      retry(3),
-      catchError((error:HttpErrorResponse) => {
-        if(error.status===HttpStatusCode.Conflict){
-          return throwError('Algo está fallando en el servidor');
-        }
-        if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una mala petición')
-        }
-        if(error.status===HttpStatusCode.NotFound){
-          return throwError('La página no ha sido encontada')
-        }
-        if(error.status===HttpStatusCode.Unauthorized){
-          return throwError('No estás autorizado')
-        }
-        return throwError('Algo está saliendo mal')
-      })
-    );
-  }
-
-  deleteUsers(id:number){
-    return this.http.delete<Users>(`{this.apiUrl}/add_user/{id}`)
     .pipe(
       retry(3),
       catchError((error:HttpErrorResponse) => {

@@ -16,10 +16,10 @@ export class CategoryComponent {
 
   @Input() categories: Category[] = [];
   @Output() modalStateEvent= new EventEmitter<boolean>();
-  modalState:boolean=true;
+  modalState=true;
 
-  messagges:string='';
-  statusCode: number=0;
+  messagges='';
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
   category:Category={
@@ -61,6 +61,7 @@ export class CategoryComponent {
 
   //this function is for send categories data base
   submit(event: Event) {
+    event.preventDefault()
     this.statusDeatil='Loading';
     const addCategory = this.formCategory.value;
     if (this.formCategory.valid) {
@@ -73,7 +74,7 @@ export class CategoryComponent {
             title: 'Categoría agregada con éxito',
             html: `La categoría: <strong>${data.category}</strong> fue agregada con éxito`,
           })
-        },error=>{
+        },()=>{
           this.statusDeatil='Error';
           this.messagges=`Ocurrió un error ${this.statusDeatil}`;
           this.formCategory.markAllAsTouched();
@@ -94,9 +95,9 @@ export class CategoryComponent {
     const updateCategory: UpdateaCategoryDTO = this.formCategory.value;
     if (this.formCategory.valid) {
       this.categoryService.updateCategory(this.category.id, updateCategory)
-        .subscribe((data) => {
+        .subscribe(() => {
           this.getAllCategories();
-        },error=>{
+        },()=>{
           this.statusDeatil='Error';
           this.messagges=`Ocurrió un error ${this.statusDeatil}`;
           this.formCategory.markAllAsTouched();
@@ -128,7 +129,7 @@ export class CategoryComponent {
       this.categoryService.getCategory(item.id)
       .subscribe(data => {
         this.formCategory.patchValue(data);
-      },error=>{
+      },()=>{
         this.statusDeatil='Error';
         this.messagges=`Ocurrió un error ${this.statusDeatil}`;
         this.formCategory.markAllAsTouched();
@@ -146,9 +147,9 @@ export class CategoryComponent {
     this.statusDeatil='Loading';
     if(item.id){
       this.categoryService.deleteCategory(item.id)
-        .subscribe(data => {
+        .subscribe(() => {
           this.getAllCategories();
-          },error=>{
+          },()=>{
             this.statusDeatil='Error';
             this.messagges=`Ocurrió un error ${this.statusDeatil}`;
             this.formCategory.markAllAsTouched();

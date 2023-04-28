@@ -187,7 +187,7 @@
         *ngFor="let item of sellProductList">
 
         <img
-          *ngIf="item.discount_id.percentage!=0"
+          *ngIf="item.discount_id.percentage!==0"
           src="../../../assets/star.svg"
           alt="this is the discount icon"
           class="band__discount">
@@ -336,7 +336,7 @@
               formControlName="cuantity">
           </div>
           <div
-            *ngIf="cuantity?.value!=''; else elseText"
+            *ngIf="cuantity?.value!==''; else elseText"
             class="text--body">
             <p>
                 {{((product.unit_value * product.percentage) + product.unit_value  | currencyPercent ) * cuantity?.value |  currency}}
@@ -377,7 +377,7 @@
     class="content__list--products"
     *ngIf="listFilter.length; else elseBlock">
     <li
-      [class.radio__activate]="product.id==item.id"
+      [class.radio__activate]="product.id===item.id"
       *ngFor="let item of products | filter:itemFind">
       <input
       type="radio"
@@ -473,7 +473,7 @@
     (modalStateEvent)="reciveToggleModal($event)"
     class="content__app--payment"
     [class.activate__modal]="modalState"
-    [class.deactivate__modal]="modalState==false">
+    [class.deactivate__modal]="modalState===false">
 </app-payment-medium>
 
 

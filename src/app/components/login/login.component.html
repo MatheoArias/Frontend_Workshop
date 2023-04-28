@@ -1,20 +1,25 @@
-<div class="content__app--login">
-  <div class="content__login"  >
-    <img src="../../../assets/icon_color.svg" alt="this is the comopany's icon">
+<div class="content__app">
+
+  <div
+    class="content__login">
+    <img
+      src="../../../assets/icon_color.svg"
+      alt="this is the comopany's icon">
     <h1>
       B & H <br>
       Repuestos y Accesorios
     </h1>
     <form
-     (ngSubmit)="submit($event)"
-     [formGroup]="formLogin">
-      <div class="content__input">
+      (ngSubmit)="submit($event)"
+      [formGroup]="formLogin">
+
+      <div
+        class="content__input">
         <input
           type="text"
           [class.is--valid]="emailAdress?.valid && emailAdress?.touched"
-          [class.is--invalid]="emailAdress?.invalid && emailAdress?.touched"
+          [class.is--invalid]="emailAdress?.invalid && emailAdress?.touched || statusDeatil==='Error'"
           formControlName="emailAdress"
-          id="emailAddressInput"
           placeholder="Ingrese su Correo Electrónico"
           (click)="getStatusDetail()">
 
@@ -26,7 +31,9 @@
         <p
           class="content__text--alert"
           *ngIf="emailAdress?.touched && emailAdress?.hasError('email')">
-          El correo electrónico proporcionado no es válido. Intente proporcionar uno que contenga los caracteres:@example.com.
+          El correo electrónico proporcionado no es válido.<br>
+          Intente proporcionar uno que contenga los siguientes caracteres:
+            <span>@example.com.</span>
         </p>
       </div>
 
@@ -35,9 +42,8 @@
         <input
           type="password"
           [class.is--valid]="password?.valid && password?.touched"
-          [class.is--invalid]="password?.invalid && password?.touched"
+          [class.is--invalid]="password?.invalid && password?.touched || statusDeatil==='Error'"
           formControlName="password"
-          id="passwordInput"
           placeholder="Ingrese su contraseña"
           (click)="getStatusDetail()">
 
@@ -52,20 +58,22 @@
         class="content__input">
         <p
           class="content__text--alert"
-          *ngIf="statusDeatil=='Error' && formLogin.valid">
+          *ngIf="statusDeatil==='Error' && formLogin.valid">
           {{messagges}}
         </p>
       </div>
 
       <button
         type="submit"
+        [class.is__invalid]="formLogin.invalid"
+        [disabled]="formLogin.invalid"
         class="button">Ingresar
       </button>
 
       <a
-      href="#"
-      class="content__text--recovery">
-      ¿Olvidaste tu contraseña?
+        href="#"
+        class="content__text--recovery">
+        ¿Olvidaste tu contraseña?
       </a>
 
     </form>

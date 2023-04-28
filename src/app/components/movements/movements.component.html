@@ -24,14 +24,14 @@
   <ul class="content__list">
     <li *ngFor="let item of movements"
        class="content__product--in"
-      [class.content__product--out]="item.category==movement.category">
+      [class.content__product--out]="item.category===movement.category">
 
       <div class="description">
         <h2>{{item.description}}</h2>
       </div>
 
       <div
-         *ngIf="item.category==movement.category; else elseBlock"
+         *ngIf="item.category===movement.category; else elseBlock"
          class="arrow__in content__arrow">
         <p>Entrada
           <span> ← </span>

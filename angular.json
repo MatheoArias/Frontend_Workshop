@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies":[
+            "allowedCommonJsDependencies": [
               "sweetalert2",
               "rfdc"
             ],
@@ -108,11 +108,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "ba9a782d-c903-460a-a124-9cb6083226fb"
+    "analytics": "ba9a782d-c903-460a-a124-9cb6083226fb",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

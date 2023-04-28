@@ -12,19 +12,19 @@ import { UserNav } from 'src/app/models/users.model';
 
 export class NavComponent implements OnInit {
 
-  navState:boolean=false;
+  navState=false;
   listStateInventory=false;
-  listStateSell:boolean=false
-  listStateCustomers:boolean=false;
-  listStateVehicles:boolean=false;
-  listStateEmployees:boolean=false;
+  listStateSell=false
+  listStateCustomers=false;
+  listStateVehicles=false;
+  listStateEmployees=false;
 
-  token:string=''
+  token=''
   user:UserNav={
     names:'',
     position:'',
   }
-  superUser:boolean = false;
+  superUser= false;
 
 
   constructor(
@@ -39,9 +39,9 @@ export class NavComponent implements OnInit {
 
   //This function is called for to get user and return name and position user
   getUser(){
-    let getUser: null | string =this.tokenService.getUser();
+    const getUser: null | string =this.tokenService.getUser();
     if(getUser){
-      let usernameToken=JSON.parse(getUser).user;
+      const usernameToken=JSON.parse(getUser).user;
       this.user={
         names:`${usernameToken.name} ${usernameToken.last_name}`,
         position:'Administrador'

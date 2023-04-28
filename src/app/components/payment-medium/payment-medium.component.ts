@@ -1,6 +1,6 @@
 import { Component, Input,Output,EventEmitter } from '@angular/core';
 import { PaymentMedium } from 'src/app/models/payment_medium.models';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentMediumService } from 'src/app/services/payment-medium.service';
 import Swal from 'sweetalert2';
 
@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class PaymentMediumComponent {
 
-  statusCode: number=0;
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
   @Output() modalStateEvent= new EventEmitter<boolean>();
-  modalState:boolean=true;
+  modalState=true;
 
   @Input() paymentMediums: PaymentMedium[] = []
   paymentMedium:PaymentMedium={
@@ -54,7 +54,7 @@ export class PaymentMediumComponent {
     .subscribe(data=>{
       this.formPaymentMedium.patchValue(data)
       this.paymentMedium=data
-    },(error)=>{
+    },()=>{
         this.statusDeatil='Error';
         this.formPaymentMedium.markAllAsTouched();
       }
@@ -66,14 +66,14 @@ export class PaymentMediumComponent {
     if(item.id){
       this.statusDeatil='Loading'
       this.paymentMediumService.deletePaymentMedium(item.id)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllPaymentMedium();
         Swal.fire({
           icon: 'success',
           confirmButtonText: 'Regresar',
           title: 'Medio de pago eliminado con éxito',
         })
-      },(error)=>{
+      },()=>{
         Swal.fire({
           icon: 'error',
           confirmButtonText: 'Regresar',
@@ -133,7 +133,7 @@ export class PaymentMediumComponent {
     const paymentMedium=this.formPaymentMedium.value;
     if(this.formPaymentMedium.valid){
       this.paymentMediumService.createPaymentMedium(paymentMedium)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllPaymentMedium();
       });
       Swal.fire({

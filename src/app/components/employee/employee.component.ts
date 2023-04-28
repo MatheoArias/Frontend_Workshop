@@ -1,11 +1,10 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { EmployeeTypeService } from 'src/app/services/employee-type.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Employees,EmployesType,UpdateEmployeesDTO} from 'src/app/models/employee.model';
 import { FormGroup,Validators,FormBuilder,FormControl } from '@angular/forms';
 import { DocumentType } from 'src/app/models/document_type.models';
 import { DocumentTypeService } from 'src/app/services/document-type.service';
-import { UpdateCustomerDTO } from 'src/app/models/customer.model';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
@@ -19,14 +18,14 @@ export class EmployeeComponent implements OnInit {
   employees:Employees[]=[]
   employeeTypes:EmployesType[]=[]
   documentTypes:DocumentType[]=[]
-  employeesId:number=0;
+  employeesId=0;
   listFilter:Employees[]=[];
 
-  messagges:string='';
-  statusCode: number=0;
+  messagges='';
+  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
   valueFind=new FormControl('');
-  itemFind:string="";
+  itemFind="";
   filterpipe= new FilterPipe()
   formEmployee!:FormGroup
 
@@ -91,14 +90,14 @@ export class EmployeeComponent implements OnInit {
       this.employees=data;
       this.listFilter=data;
     });
-  };
+  }
 
   getAllemployeesType(){
     this.employeeTypeService.getAllEmployeeTypes()
     .subscribe(data=>{
       this.employeeTypes=data;
     });
-  };
+  }
 
   getAllDocumentsType(){
     this.documentTypeService.getAllDocumentType()
@@ -108,11 +107,12 @@ export class EmployeeComponent implements OnInit {
   )}
 
   submit(event:Event){
+    event.preventDefault();
     this.statusDeatil = 'Loading';
     const addEmployee=this.formEmployee.value
     if(this.formEmployee.valid){
       this.employeeService.createEmployee(addEmployee)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllEmployees();
       });
       this.statusDeatil = 'Success';
@@ -128,7 +128,7 @@ export class EmployeeComponent implements OnInit {
     this.statusDeatil = 'Loading';
     if(this.formEmployee.valid){
       this.employeeService.updateEmployee(updateEmployee,this.employeesId)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllEmployees();
       })
       this.formEmployee.reset();
@@ -157,7 +157,7 @@ export class EmployeeComponent implements OnInit {
 
   toggleDelete(item:Employees){
     this.employeeService.deleteEmployee(item.id)
-    .subscribe(data=>{
+    .subscribe(()=>{
       this.getAllEmployees();
     })
   }

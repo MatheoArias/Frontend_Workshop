@@ -1,4 +1,4 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder,FormControl,FormGroup,Validators } from '@angular/forms';
 import { Vehicles,UpdateVehiclesDTO, CreateVehiclesDTO } from 'src/app/models/vehicle.models';
 import { Category } from 'src/app/models/category.model';
@@ -19,9 +19,9 @@ export class VehicleComponent implements OnInit {
   vehicles:Vehicles[]=[];
   categories:Category[]=[];
   customers:Customer[]=[];
-  vehicleId:number=0;
+  vehicleId=0;
   valueFind=new FormControl('');
-  itemFind:string="";
+  itemFind="";
   filterpipe= new FilterPipe()
   listFilter:Vehicles[]=[];
 
@@ -96,7 +96,7 @@ export class VehicleComponent implements OnInit {
     const addVehicle:CreateVehiclesDTO=this.formVehicles.value
     if(this.formVehicles.valid){
       this.vehicleService.createVehicle(addVehicle)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllVehicles();
       })
       this.formVehicles.reset();
@@ -109,7 +109,7 @@ export class VehicleComponent implements OnInit {
     const updateVehicle:UpdateVehiclesDTO=this.formVehicles.value;
     if(this.formVehicles.valid){
       this.vehicleService.updateVehicle(this.vehicleId,updateVehicle)
-      .subscribe(data=>{
+      .subscribe(()=>{
         this.getAllVehicles();
       })
       this.formVehicles.reset();
@@ -130,7 +130,7 @@ export class VehicleComponent implements OnInit {
 
   toggleDelete(item:Vehicles){
     this.vehicleService.deleteVehicle(item.id)
-    .subscribe(data=>{
+    .subscribe(()=>{
       this.getAllVehicles();
     })
   }

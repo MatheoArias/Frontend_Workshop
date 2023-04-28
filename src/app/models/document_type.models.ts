@@ -4,5 +4,4 @@ export interface DocumentType {
   name: string
 }
 
-export interface CreateDocumentTypeDTO extends Omit<DocumentType,'id'>{
-}
+export type CreateDocumentTypeDTO = Omit<DocumentType,'id'>

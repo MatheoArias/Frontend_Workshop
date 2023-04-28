@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Discounts, CreateDiscountDTO } from 'src/app/models/discount.model';
 import { DiscountService } from 'src/app/services/discount.service';
 import Swal from 'sweetalert2';
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class DiscountsComponent {
     percentage: 0,
   }
 
-  statusCode: number = 0;
+  statusCode= 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
   //this is the producst form
@@ -62,6 +61,7 @@ export class DiscountsComponent {
 
   // this function is for add discount to data base
   submit(event: Event) {
+    event.preventDefault();
     this.statusDeatil = 'Loading'
     const addDiscount: CreateDiscountDTO = {
       types: this.types?.value,
@@ -70,7 +70,7 @@ export class DiscountsComponent {
     };
     if (this.formDiscount.valid) {
       this.discountService.createDiscounts(addDiscount)
-        .subscribe(data => {
+        .subscribe(() => {
           this.getAllDicusounts();
         })
       Swal.fire({
@@ -111,7 +111,7 @@ export class DiscountsComponent {
     }
     if (this.formDiscount.valid) {
       this.discountService.updateDiscounts(this.discount.id, addDiscount)
-        .subscribe(data => {
+        .subscribe(() => {
           this.getAllDicusounts();
         })
       Swal.fire({
@@ -158,7 +158,7 @@ export class DiscountsComponent {
   //this function is for delete discount of data base
   toggleDelete(item: Discounts) {
     this.discountService.deleteDiscounts(item.id)
-      .subscribe(data => {
+      .subscribe(() => {
         this.getAllDicusounts();
       })
     Swal.fire({

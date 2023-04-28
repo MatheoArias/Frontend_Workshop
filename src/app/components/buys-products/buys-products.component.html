@@ -232,7 +232,7 @@
     class="content__list--products"
     *ngIf="listFilter.length; else elseBlock">
     <li
-      [class.radio__activate]="product.id==item.id"
+      [class.radio__activate]="product.id===item.id"
       *ngFor="let item of products | filter:itemFind">
       <input
         type="radio"

@@ -45,7 +45,7 @@ export class AuthService {
       }),
       tap(data=>this.tokenService.saveToken(data.token)
       )
-  )};
+  )}
 
   logout(id:number) {
     return this.http.post<Auth>(this.apiUrlLogout,
@@ -69,6 +69,6 @@ export class AuthService {
       }
       return throwError('Algo está saliendo mal')
     }),
-  )};
+  )}
 
 }

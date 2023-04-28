@@ -1,3 +1,47 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 :root {
   --color--red: #d82b36;
   --color--red--secundary: #F47A82;
@@ -5,7 +49,7 @@
   --color--black: #481b1b;
   --color--gray--background: #EBEBEB;
   --color--text--nav: #C9C9C9;
-  --color--gray: #636363;
+  --color--gray: #2b353b;
   --rojo-color-alert: #ff7c7c;
   --color--green-success: #5fe39f;
   --amarillo-color-information: #faec5c;
@@ -31,48 +75,35 @@
 html {
   font-size: 62.5%;
   background-color: var(--color--gray--background);
+  background-image: url("./assets/Logo_login.svg");
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
-  max-height: 100vh;
-  max-width: 100vw;
+  max-height: 100%;
+  max-width: 100%;
   height: 100%;
   width: 100%;
-  margin-bottom:50px !important;
 }
 
 main {
-  max-height: 100%;
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
-// footer{
-//   position: fixed;
-//   bottom: 0;
-//   z-index: 1;
-//   width: 100%;
-//   height: 20px;
-//   background-color:var(--color--red);
-
-// }
-
 a,
-button {
+button,
+input {
   cursor: pointer;
 }
 
-/*this is the apps' containers' styles*/
-.content__app {
-  max-width: 100%;
-}
 
 /*this is the text align  of input first child  of type="selected"*/
 /*this is the text align  of input first child  of type="date"*/
 input[type="date"],
 .firstChoice {
   text-align: center;
-  color: var(--color--text--nav);
-  font-weight: 400;
 }
 
 /*this is the button in the part top-right in the boxes content*/
@@ -191,12 +222,17 @@ form {
 
     .content__text--alert {
       max-width: 100%;
-      color: var(--rojo-color-alert);
-      font-weight: 500;
-      margin-top: 0.5rem;
-      animation: text--alert 0.3s ease-in-out forwards;
       font-size: 1.2rem;
-      line-height: 1.4rem;
+      line-height: 14px;
+      font-weight: 300;
+      color: var(--rojo-color-alert);
+      margin-top: 0.5rem;
+      animation: text--alert 0.5s ease-in-out forwards;
+      transform: translateX(20px);
+
+      span{
+        font-style: italic;
+      }
     }
 
     @keyframes text--alert {
@@ -236,7 +272,7 @@ form {
 
 
       option {
-        font-weight: 500;
+        font-weight: 400;
         font-style: normal;
         font-size: 1.2rem;
         line-height: 1.4rem;
@@ -244,11 +280,11 @@ form {
     }
 
     input[type=date]{
-      font-weight: 500;
+      font-weight: 400;
     }
 
     input::placeholder{
-      color: var(--color--text--nav);
+      color:var(--color--gray);
       font-weight: 300;
     }
   }

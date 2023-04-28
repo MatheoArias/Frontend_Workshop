@@ -3,9 +3,7 @@ export interface Category{
   category: string;
 }
 
-export interface CreateCategoryDTO extends Omit <Category,'id'>{
-
-}
+export type CreateCategoryDTO = Omit <Category,'id'>
 
 export interface UpdateaCategoryDTO extends Partial<CreateCategoryDTO>{
   id:number;

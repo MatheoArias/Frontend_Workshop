@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import { SellProducts, CreateSellProductsDTO } from 'src/app/models/sell_product.model';
+import { SellProducts } from 'src/app/models/sell_product.model';
 import { Product } from 'src/app/models/product.model';
 import { Discounts } from 'src/app/models/discount.model';
 
@@ -29,9 +29,9 @@ export class UpdateSellProductComponent implements OnInit {
   //this is import the pipe filter
   filterpipe = new FilterPipe()
   listFilter: SellProducts[] = [];
-  itemFind: string = "";
+  itemFind= "";
 
-  statusCode: number = 0;
+  statusCode = 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
   products: Product[] = [];
@@ -90,8 +90,8 @@ export class UpdateSellProductComponent implements OnInit {
   }
   private formAddSellProduct() {
     this.formSellProduct = this.formBuilder.group({
-      sell_bill: [, [Validators.required]],
-      sell_stock: [, [Validators.required]],
+      sell_bill: ['', [Validators.required]],
+      sell_stock: ['', [Validators.required]],
       discount_id: ['', [Validators.required]],
     })
   }
@@ -145,7 +145,7 @@ export class UpdateSellProductComponent implements OnInit {
     this.sellProductsService.getSellProducts(item.id)
       .subscribe(data => {
         this.formSellProduct.patchValue(data);
-        let totalUnitValueProduct = this.CurrencyPercent
+        const totalUnitValueProduct = this.CurrencyPercent
           .transform((data.product_id.unit_value * data.product_id.percentage) + data.product_id.unit_value) * item.sell_stock
         if (data.discount_id) {
           this.inputDiscount?.setValue(data.discount_id.id);
@@ -176,8 +176,8 @@ export class UpdateSellProductComponent implements OnInit {
   submit(event: Event) {
     event.preventDefault()
     this.statusDeatil = 'Loading'
-    let discount = this.discounts.find(item => item.id == this.inputDiscount?.value)
-    let totalUnitValueProduct = this.CurrencyPercent
+    const discount = this.discounts.find(item => item.id == this.inputDiscount?.value)
+    const totalUnitValueProduct = this.CurrencyPercent
       .transform((this.sellProduct.product_id.unit_value * this.sellProduct.product_id.percentage) + this.sellProduct.product_id.unit_value) * this.sellStock?.value
     if (this.formSellProduct.valid) {
       this.sellProductDTO = {
@@ -202,7 +202,7 @@ export class UpdateSellProductComponent implements OnInit {
               }
             )
           )
-        ).subscribe(data => {
+        ).subscribe(() => {
           Swal.fire({
             icon: 'success',
             confirmButtonText: 'Regresar',
@@ -262,7 +262,7 @@ export class UpdateSellProductComponent implements OnInit {
             totals_stock: product[0].totals_stock + item.sell_stock,
             unit_value: product[0].unit_value
           }))
-      ).subscribe(data => {
+      ).subscribe(() => {
         this.getAllSellProducts();
         this.statusDeatil = 'Success'
         Swal.fire({
@@ -277,10 +277,10 @@ export class UpdateSellProductComponent implements OnInit {
   }
 
   onchangeTotalValue() {
-    let discount = this.discounts
+    const discount = this.discounts
       .find(item => item.id == this.inputDiscount?.value)
 
-    let totalUnitValueProduct = this.CurrencyPercent
+    const totalUnitValueProduct = this.CurrencyPercent
       .transform((this.sellProduct.product_id.unit_value * this.sellProduct.product_id.percentage) + this.sellProduct.product_id.unit_value) * this.sellStock?.value
 
     this.sellProduct.total_sell_value = discount ? totalUnitValueProduct - (totalUnitValueProduct * discount.percentage) : totalUnitValueProduct

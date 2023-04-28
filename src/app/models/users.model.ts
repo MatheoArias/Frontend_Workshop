@@ -16,9 +16,9 @@ export interface CreateUsersDto extends Omit<Users,'id'>{
   password: string
 }
 
-export interface GetAllUsers extends Omit<Users,'password'>{}
+export type GetAllUsers = Omit<Users,'password'>
 
-export interface UpdateProductsDTO extends Partial<Users>{}
+export type UpdateProductsDTO = Partial<Users>
 
 export interface UserNav{
   names:string,

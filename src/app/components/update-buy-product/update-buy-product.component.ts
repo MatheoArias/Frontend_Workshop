@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, Form} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import { BuyProducts,UpdateBuysProductDTO} from 'src/app/models/buy_product.model';
 import { Product} from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
@@ -49,13 +49,13 @@ export class UpdateBuyProductComponent implements OnInit {
   }
 
   filterpipe = new FilterPipe();
-  itemFind: string = "";
+  itemFind = "";
   valueFind = new FormControl('');
   listFilter:BuyProducts[] = [];
   choiceProduct=new FormControl('')
 
-  messagges: string = '';
-  statusCode: number = 0;
+  messagges= '';
+  statusCode= 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
 
@@ -140,7 +140,7 @@ export class UpdateBuyProductComponent implements OnInit {
             }
           )
         )
-      ).subscribe(data=>{
+      ).subscribe(()=>{
         Swal.fire({
           icon: 'success',
           confirmButtonText: 'Regresar',
@@ -188,7 +188,7 @@ export class UpdateBuyProductComponent implements OnInit {
         totals_stock: product[0].totals_stock - this.buyProduct.buys_stock,
         unit_value: product[0].unit_value
       }))
-    ).subscribe(data=>{
+    ).subscribe(()=>{
       this.getAllBuyProducts();
       this.statusDeatil='Success'
       Swal.fire({

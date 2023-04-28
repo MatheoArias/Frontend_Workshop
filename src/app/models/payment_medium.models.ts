@@ -3,6 +3,5 @@ export interface PaymentMedium{
   medium:string;
 }
 
-export interface CreatePaymentMediumDTO extends Omit<PaymentMedium,'id'>{
-}
+export type CreatePaymentMediumDTO = Omit<PaymentMedium,'id'>
 

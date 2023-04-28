@@ -4,7 +4,6 @@ import {environment} from '../../enviroments/environment'
 import { BuyProducts,UpdateBuysProductDTO,createBuysProductDTO } from '../models/buy_product.model';
 import {retry,catchError} from 'rxjs/operators'
 import {throwError} from 'rxjs'
-import { UpdateProductsDTO} from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'

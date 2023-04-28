@@ -8,8 +8,6 @@ import { Auth } from '../models/auth.models';
 })
 export class TokenService {
 
-  constructor() { }
-
   saveToken(token:string){
     localStorage.setItem('token', token);
   }

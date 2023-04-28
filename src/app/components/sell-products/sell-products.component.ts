@@ -44,13 +44,13 @@ export class SellProductsComponent implements OnInit{
   listFilter: Product[] = [];
 
   ///this is the components states
-  modalState:boolean=false
-  messagges: string = "";
-  statusCode: number = 0;
+  modalState=false
+  messagges = "";
+  statusCode = 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
   //this is for create the bill number with the date
-  numberBill: string = '';
+  numberBill= '';
   date: Date = new Date();
   day: string | number = this.date.getDate() < 10 ? `0${this.date.getDate()}` : this.date.getDate();
   month: string | number = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
@@ -60,8 +60,8 @@ export class SellProductsComponent implements OnInit{
   CurrencyPercent = new CurrencyPercentPipe();
   //this is import the pipe filter
   filterpipe = new FilterPipe()
-  itemFind: string = "";
-  stateLenghtList: boolean = true;
+  itemFind = "";
+  stateLenghtList= true;
 
   sell: CreateBillDTO = {
     customer: 0,
@@ -158,7 +158,7 @@ export class SellProductsComponent implements OnInit{
   }
   private formAddSellProduct() {
     this.formSellProduct = this.formBuilder.group({
-      cuantity: [, [Validators.required]],
+      cuantity: ['', [Validators.required]],
       date: [new Date(), [Validators.required]],
       discount: ['', [Validators.required]],
     })
@@ -292,23 +292,23 @@ export class SellProductsComponent implements OnInit{
           }
           )
         )
-        .subscribe(data => {
+        .subscribe(() => {
           this.getAllProducts();
-        },(error) => {
+        },() => {
           this.statusDeatil = 'Success';
           this.formBill.markAllAsTouched();
         })
       })
 
       this.billService.createBill(addSellProducts)
-        .subscribe(data => {
+        .subscribe(() => {
           this.formBill.setValue({
             customer: '',
             vehicle: '',
             employee: '',
             payment_medium: '',
           });
-        }, (error) => {
+        }, () => {
           this.statusDeatil = 'Error';
           this.formBill.markAllAsTouched();
       });
@@ -368,13 +368,13 @@ export class SellProductsComponent implements OnInit{
   //I take the item and  I fill the object transfer data and object for views in this component
   onClickAddProductList(item: Product) {
 
-    let date: Date = new Date();
+    const date: Date = new Date();
     this.numberBill = `FV${date.getFullYear()}${this.month}${this.day}${this.hour}`
 
     const index = this.productsList.map(product => product).indexOf(item)
     if (index == -1) {
-      let discount = this.discounts.find(item => item.id == this.inputDiscounts?.value)
-      let totalUnitValueProduct=this.CurrencyPercent.transform((item.unit_value * item.percentage)+ item.unit_value)*this.cuantity?.value
+      const discount = this.discounts.find(item => item.id == this.inputDiscounts?.value)
+      const totalUnitValueProduct=this.CurrencyPercent.transform((item.unit_value * item.percentage)+ item.unit_value)*this.cuantity?.value
       if (discount) {
         this.sellProduct.discount_id = discount;
       }else{
@@ -432,7 +432,7 @@ export class SellProductsComponent implements OnInit{
 
   //this is the funcion for add product's id in the list
   onClickListProducts(item: Product) {
-    let index = this.productsList.map(product => product).indexOf(item);
+    const index = this.productsList.map(product => product).indexOf(item);
     if (index != -1) {
       Swal.fire({
         icon: 'error',
@@ -475,7 +475,7 @@ export class SellProductsComponent implements OnInit{
   //This funcion is for to avoid taht to add products with total stock under cero
   /////IMPORTNATE: ORGANIZAR ESTA PARTE PARA QUE SE VEA RELFEJADA EN EL COMPONENTE
   onChangeInputCuantity(){
-    let totalSell=this.product.totals_stock-this.cuantity?.value
+    const totalSell=this.product.totals_stock-this.cuantity?.value
     if(totalSell<=0){
       this.formSellProduct.reset();
       this.choiceProduct.reset();
