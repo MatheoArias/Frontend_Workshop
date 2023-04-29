@@ -1,313 +1,251 @@
 nav {
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  grid-template-areas: "logo tittle button"
-                       "logo users button"
-                       "nav nav nav";
-  max-width: 100vw;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
   background-color: var(--color--red);
-  padding: 1rem;
-  img {
-    grid-area: logo;
-    width: 4.5rem;
-    height: 4.5rem;
+  padding: 10px;
+  position: relative;
+
+  .logo {
+    width: 95px;
+    margin: auto 1px;
   }
 
-
-  div{
-    display: grid;
-    justify-content: center;
-    justify-items: start;
-    align-items: center;
-    grid-template-areas: "name ball "
-                          "profession ball"
-                          "log ball";
-    width: 100%;
-    grid-area: users;
-
-    .nav__name--text{
-      grid-area: name;
-    }
-
-    .nav__profession--text{
-      grid-area: profession;
-    }
-
-    .button_logout{
-      grid-area: log;
-      font-family: 'Quicksand';
-      background-image: none;
-      background-color: transparent;
-      margin: 0.4rem 0 0 0;
-      width: 100%;
-      height: auto;
-      text-align: left;
-      color: var(--color--white);
-      font-weight: 300 !important;
-      transition: all 0.5s ease-in-out;
-    }
-
-    .button_logout:hover{
-      font-weight: 600 !important;
-      transition: all 0.3s ease-in-out;
-    }
-
-    p{
-      font-family: 'Quicksand';
-      font-weight: 500;
-      font-size: 1.3rem;
-      line-height: 1.6rem;
-      margin: 0;
-    }
-    /*this is the photo's space*/
-    div{
-      grid-area: ball;
-      justify-self: center;
-      border-radius: 50%;
-      border: 0.1rem solid var(--color--white);
-      margin: 0;
-    }
-  }
-
-  div,
-  h1{
-    margin-bottom: 0.5rem;
-    color: var(--color--white);
-    text-align: center;
-  }
-
-  h1{
-    grid-area: tittle;
+  h1 {
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    width: 72px;
     font-family: 'Thalib';
-    font-size: 1.4rem;
-    line-height: 2.5rem;
+    font-size: 1rem;
+    line-height: 26px;
     letter-spacing: 0.12em;
-    span{
+    color: white;
+    margin-bottom: 0;
+
+    span {
+      display: none;
       font-family: 'Thalib';
     }
   }
 
-  ul {
-    grid-area: nav;
-    justify-self: start;
-    align-content: normal;
-    list-style: none;
-    width: 100%;
-    display: none;
-    li {
-      a{
-        color: var(--color--white);
-        text-decoration: none;
-        font-size: 1.3rem;
-        line-height: 1.5rem;
-        font-weight: 400;
-        cursor: pointer;
-        transition:all 0.5s ease-in-out;
+  .nav__content--user {
+    display: grid;
+    justify-content: end;
+    justify-items: start;
+    position: relative;
+    width: 245px;
+    grid-template-areas: "names icons "
+      "profession icons";
 
-        &.after--activate,
-        .text-activate{
-          font-weight: 600;
-          transform: scale(1.2);
-          transition:all 0.3s ease-in-out;
-        }
+    .button__content--logout {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background: transparent;
+      border: none;
+    }
 
-        &.after--activate::after{
-          transform: rotate(180deg);
-          background-image: url('../../../assets/arrow_down_white.svg');
-          transition:transform 0.3s ease-in-out;
-        }
-      }
+    p {
+      font-family: 'Quicksand';
+      font-weight: 300;
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin: 0 5px 0 0;
+    }
 
-      .list__text--after::after {
-        content: '';
-        margin-left: 0.2rem;
-        display: inline-block;
-        background-image: url('../../../assets/arrow_down_white.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        width: 1rem;
-        height: 0.8rem;
-        transition:transform 0.5s ease-in-out;
-      }
+    .nav__user--name {
+      align-self: end;
+      grid-area: names;
+    }
 
-      ul {
-        display: none;
+    .nav__user--position {
+      align-self: start;
+      grid-area: profession;
+    }
 
-        &.list--activate{
-          display: block;
-          z-index: 1;
-        }
+    .nav__user--icon {
+      grid-area: icons;
+      justify-self: center;
+      border-radius: 50%;
+      border: 0.1rem solid var(--color--white);
+      margin: 0;
+      width: 40px;
+      height: 40px;
+      align-self: center;
 
-        li {
-          display: flex;
-          padding: 0.5rem 0 0 0.6rem;
-          width: 100%;
-          a{
-            color: var(--color--text--nav);
-            text-decoration: none;
-            text-align: left;
-            font-size: 1.2rem;
-            width: 60%;
-            border-bottom:0.1rem dotted var(--color--text--nav);
-            transition: all 0.8s ease-in-out;
-            cursor: pointer;
-
-            &.activate__link{
-              color: var(--color--white);
-              border-bottom:0.2rem solid var(--color--white) !important;
-              width: 70%;
-              transform: scale(1.05);
-            }
-          }
-        }
-        li:hover a{
-          color: var(--color--white);
-          border-bottom:0.1rem solid var(--color--white);
-          width: 70%;
-          transition: all 0.6s ease-in-out;
-        }
+      img {
+        height: 4.4rem;
+        width: 3.9rem;
       }
     }
 
+    &.activate_list {
+      background-color: var(--color--red--secundary);
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid #ffffff;
+    }
   }
 
-  button {
-    grid-area: button;
+
+  .nav__button {
     background-color: var(--color--red);
     background-image: url('../../../assets/menu_icon.svg');
     background-size: cover;
     background-position: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    animation: button 0.5s ease-out forwards;
     align-self: center;
-    cursor: pointer;
     border: none;
+    width: 35px;
+    height: 16px;
+    animation: initial_button 0.5s ease-out forwards;
+    cursor: pointer;
 
     &.button--active {
       animation: change__button 0.3s ease-out forwards;
       background-image: url('../../../assets/close_icon_white.svg');
-      align-self: end;
     }
 
     @keyframes change__button {
-      0%{
+      0% {
         opacity: 0;
+        transform: scale(0, 0);
       }
-      100%{
-        opacity:1;
+
+      100% {
+        opacity: 1;
+        transform: scale(1, 1);
       }
     }
   }
 
-  @keyframes button{
-    0%{
+  @keyframes initial_button {
+    0% {
       opacity: 0;
+      transform: scale(0, 0);
     }
-    100%{
-      opacity:1;
-    }
-  }
 
-  &.nav--show{
-    ul{
-      display: flex;
-      flex-direction: column;
-      padding-left: 2rem;
+    100% {
+      opacity: 1;
+      transform: scale(1, 1);
     }
   }
 }
 
-@media (min-width: 1024px){
+.list__background--shawdow {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0%;
+  background-color: #000000;
+  transition: all 0.5s ease-in-out;
+
+  &.nav__show {
+    opacity: 50%;
+    transition: all 0.5s ease-in-out 0.2s;
+    z-index: 6;
+  }
+}
+
+.nav__list--user {
+  display: none;
+  position: absolute;
+  z-index: 6;
+  width: 165px;
+  right: 5px;
+  top: 85px;
+  background-color: var(--color--red);
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: -2px 6px 15px -5px rgb(99, 99, 99);
+
+  a,
+  button {
+    width: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 13px;
+    color: var(--color--text--nav);
+    margin-bottom: 10px;
+  }
+
+  div {
+    display: flex;
+    .icon--logout {
+      background-image: url('../../../assets/icon_logout.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 2.5rem;
+      height: 1.5rem;
+      margin: auto;
+      opacity: 60%;
+
+    }
+
+    .button__logout {
+      background: transparent;
+      border: none;
+      color: var(--color--text--nav);
+      align-self: flex-start;
+      width: 100%;
+      text-align: left;
+      padding-left: 5px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 13px;
+    }
+  }
+
+  a:hover,
+  div:hover button{
+    color: #ffffff;
+  }
+
+  div:hover i{
+    opacity: 100%;
+  }
+
+  &.activate_list {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+
+@media (min-width: 410px) {
   nav {
-    display: grid;
-    grid-template-areas: "logo tittle nav user";
-    background-color: #D82B36;
-    padding: 0.5rem 1.5rem;
-    img{
-      grid-area: logo;
-    }
-    h1{
-      grid-area: tittle;
-    }
-    div{
-      grid-area: user;
-    }
-    ul{
-      grid-area: nav;
-      display: flex;
-      li {
-        position: relative;
-        padding: 0.5rem;
-        width: 10rem;
-        height: 100%;
-        ul{
-          position: absolute;
-          width: 20rem;
-          border:  0.05rem solid var(--color--red--secundary);
-          border-top: 0;
-          border-radius: 0 10px 10px 0;
-          -webkit-box-shadow: -8px 7px 24px -9px rgba(0,0,0,0.7);
-          -moz-box-shadow: -8px 7px 24px -9px rgba(0,0,0,0.7);
-          box-shadow: -8px 7px 24px -9px rgba(0,0,0,0.7);
+    h1 {
+      text-align: center;
+      width: 223px;
+      margin: 5px auto;
 
-          li{
-            width: 100%;
-            height: 100%;
-            background-color: var(--color--white);
-            padding: 0.5rem;
-
-            a{
-              color: var(--color--gray);
-              font-weight: 400;
-              border-bottom: 0;
-              width: 85%;
-              transition: all 0.5s ease-in-out;
-
-              &.activate__link{
-                color: var(--color--red);
-                border-bottom: 0.1rem solid var(--color--red)!important;
-                transform: scale(1.05);
-                width: 90%;
-              }
-            }
-
-            a:hover{
-              color: var(--color--red);
-              border-bottom: 0.1rem solid var(--color--red)!important;
-              transition: all 0.3s ease-in-out;
-              animation: border_width 0.3s ease-in-out forwards;
-            }
-
-            @keyframes border_width {
-              0%{
-                width: 85%;
-              }
-              100%{
-                width: 90%;
-              }
-            }
-          }
-        }
-        li:first-child{
-          border-radius: 0 10px 0 0;
-        }
-        li:last-child{
-          border-radius: 0 0 10px 0;
-        }
+      span {
+        display: block;
       }
     }
+  }
+}
 
-    .button_logout{
-      display: block;
-    }
+@media (min-width: 1000px) {
 
-    button {
+  nav {
+    .nav__button {
       display: none;
     }
+  }
+  .list__links{
+    transform: translateX(0px);
+    position: static;
   }
 }

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  /**/
   messagges='';
   statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
@@ -46,6 +47,7 @@ export class LoginComponent {
     this.statusDeatil='Loading'
   }
 
+  //this function is for send the username and password. if the information is correct, take teh token and save in localStorage.
   submit(event:Event){
     this.statusDeatil='Loading';
     event.preventDefault();
@@ -69,6 +71,4 @@ export class LoginComponent {
       this.formLogin.markAllAsTouched();
     }
   }
-
-
 }

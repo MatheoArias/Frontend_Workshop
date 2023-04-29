@@ -43,6 +43,7 @@ import { UpdateBuyProductComponent } from './components/update-buy-product/updat
 import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
 import { DiscountsComponent } from './components/discounts/discounts.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { ListNavComponent } from './components/list-nav/list-nav.component';
 
 
 
@@ -78,6 +79,7 @@ import { RegisterUserComponent } from './components/register-user/register-user.
     UpdateSellProductComponent,
     DiscountsComponent,
     RegisterUserComponent,
+    ListNavComponent,
   ],
   imports: [
     BrowserModule,

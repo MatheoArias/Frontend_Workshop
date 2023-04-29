@@ -13,11 +13,8 @@ import { UserNav } from 'src/app/models/users.model';
 export class NavComponent implements OnInit {
 
   navState=false;
-  listStateInventory=false;
-  listStateSell=false
-  listStateCustomers=false;
-  listStateVehicles=false;
-  listStateEmployees=false;
+  logoutListState=false;
+
 
   token=''
   user:UserNav={
@@ -59,55 +56,6 @@ export class NavComponent implements OnInit {
     this.navState=!this.navState;
   }
 
-  //This functions are called when i want open the items list. Each funtion open one list items
-  onActivateInventory(){
-    this.listStateInventory=!this.listStateInventory;
-    this.listStateSell=false
-    this.listStateCustomers=false;
-    this.listStateVehicles=false;
-    this.listStateEmployees=false;
-  }
-  onActivateSell(){
-    this.listStateSell=!this.listStateSell;
-    this.listStateInventory=false
-    this.listStateCustomers=false;
-    this.listStateVehicles=false;
-    this.listStateEmployees=false;
-  }
-  onActivateCustomer(){
-    this.listStateCustomers=!this.listStateCustomers;
-    this.listStateInventory=false
-    this.listStateSell=false
-    this.listStateVehicles=false;
-    this.listStateEmployees=false;
-  }
-  onActivateVehicle(){
-    this.listStateVehicles=!this.listStateVehicles;
-    this.listStateInventory=false
-    this.listStateSell=false
-    this.listStateCustomers=false;
-    this.listStateEmployees=false;
-  }
-  onActivateEmployee(){
-    this.listStateEmployees=!this.listStateEmployees;
-    this.listStateInventory=false
-    this.listStateSell=false
-    this.listStateCustomers=false;
-    this.listStateVehicles=false;
-  }
-
-  //This function is called when i want to close the every items list
-  OnCloseNav(){
-    if(this.navState==true){
-      this.navState=!this.navState;
-    }
-    this.listStateInventory=this.listStateInventory==true?this.listStateInventory!=this.listStateInventory:false;
-    this.listStateSell=this.listStateSell==true?this.listStateSell=!this.listStateSell:false;
-    this.listStateCustomers=this.listStateCustomers==true?this.listStateCustomers=!this.listStateCustomers:false;
-    this.listStateVehicles=this.listStateVehicles==true?this.listStateVehicles=!this.listStateVehicles:false;
-    this.listStateEmployees=this.listStateEmployees==true?this.listStateEmployees=!this.listStateEmployees:false;
-  }
-
   //This function is called when i want logout administrator
   LogoutUser(){
     const user=this.tokenService.getUser();
@@ -119,5 +67,9 @@ export class NavComponent implements OnInit {
     }else{
       alert('Este usuario no ha iniciado sección')
     }
+  }
+
+  OnOpenListLogout(){
+    this.logoutListState=!this.logoutListState
   }
 }

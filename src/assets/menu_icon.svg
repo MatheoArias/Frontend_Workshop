@@ -1,27 +1,69 @@
-<svg width="28" height="25" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_530_20)">
-<mask id="mask0_530_20" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="-3" y="-2" width="33" height="30">
-<path d="M29.661 -1.27118H-2.11865V27.1187H29.661V-1.27118Z" fill="white"/>
-</mask>
-<g mask="url(#mask0_530_20)">
-<g filter="url(#filter0_d_530_20)">
-<path d="M2.26447 1.5965C1.12035 1.5965 0.192993 2.53327 0.192993 3.68898C0.192993 4.84449 1.12035 5.78153 2.26447 5.78153H25.7398C26.884 5.78153 27.8113 4.84475 27.8113 3.68898C27.8113 2.53327 26.884 1.5965 25.7398 1.5965H2.26447ZM2.26447 10.6635C1.12035 10.6635 0.192993 11.6003 0.192993 12.756C0.192993 13.9115 1.12035 14.8485 2.26447 14.8485H25.7398C26.884 14.8485 27.8113 13.9117 27.8113 12.756C27.8113 11.6003 26.884 10.6635 25.7398 10.6635H2.26447ZM2.26447 19.7305C1.12035 19.7305 0.192993 20.6672 0.192993 21.823C0.192993 22.9784 1.12035 23.9155 2.26447 23.9155H25.7398C26.884 23.9155 27.8113 22.9787 27.8113 21.823C27.8113 20.6672 26.884 19.7305 25.7398 19.7305H2.26447Z" fill="white"/>
-</g>
-</g>
-</g>
-<defs>
-<filter id="filter0_d_530_20" x="-1.80701" y="1.5965" width="31.6183" height="26.319" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="2"/>
-<feGaussianBlur stdDeviation="1"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_530_20"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_530_20" result="shape"/>
-</filter>
-<clipPath id="clip0_530_20">
-<rect width="27.9661" height="25" fill="white"/>
-</clipPath>
-</defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="134.4162mm"
+   height="60.159637mm"
+   viewBox="0 0 134.4162 60.159637"
+   version="1.1"
+   id="svg1110"
+   inkscape:export-filename="bitmap.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1112"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false" />
+  <defs
+     id="defs1107" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-26.824647,-79.901487)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.38107;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.173077;paint-order:markers stroke fill"
+       id="rect1283-6-8"
+       width="131.37135"
+       height="13.245059"
+       x="28.015182"
+       y="125.62553"
+       ry="6.62253"
+       rx="7.5874529"
+       inkscape:transform-center-x="-7.8042394"
+       inkscape:transform-center-y="-21.192106" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.38107;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.173077;paint-order:markers stroke fill"
+       id="rect1283-6-8-6"
+       width="131.37135"
+       height="13.245059"
+       x="28.678951"
+       y="103.10284"
+       ry="6.62253"
+       rx="7.5874529"
+       inkscape:transform-center-x="-7.8042392"
+       inkscape:transform-center-y="-21.192097" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.38107;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.173077;paint-order:markers stroke fill"
+       id="rect1283-6-8-6-9"
+       width="131.37135"
+       height="13.245059"
+       x="28.678957"
+       y="81.092018"
+       ry="6.62253"
+       rx="7.5874529"
+       inkscape:transform-center-x="-7.80424"
+       inkscape:transform-center-y="-21.192095" />
+  </g>
 </svg>

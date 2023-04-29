@@ -1,0 +1,257 @@
+<ul
+  [class.nav__show]="navState"
+  class="list__links">
+
+  <li
+    class="list__item--text">
+    <a
+      class="item__text"
+      [class.activate__text]="listStateInventory"
+      (click)="onActivateInventory()">
+      <i class="icon--file icon--inventory"></i>
+      Inventario
+    </a>
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateInventory">
+
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/add_product']"
+          (click)="OnCloseNav()">
+          Agregar producto
+        </a>
+        <div
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/add_product']"
+          class="line-bottom" >
+        </div>
+      </li>
+
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/buys_product']"
+          (click)="OnCloseNav()">
+          Comprar producto
+        </a>
+        <div
+          class="line-bottom"
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/buys_product']">
+        </div>
+      </li>
+
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/update_buy_products']"
+          (click)="OnCloseNav()">
+          Modificar compra de producto
+        </a>
+        <div
+          class="line-bottom"
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/update_buy_products']">
+        </div>
+      </li>
+
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/movements']"
+          (click)="OnCloseNav()">
+          Movimientos
+        </a>
+        <div
+          routerLinkActive="activate__link"
+          [routerLink]="['/products/movements']"
+          class="line-bottom" >
+        </div>
+      </li>
+    </ul>
+  </li>
+
+
+  <li
+    class="list__item--text">
+    <a
+      class="item__text"
+      [class.activate__text]="listStateSell"
+      (click)="onActivateSell()">
+      Ventas
+      <i class="icon--file icon--sells"></i>
+    </a>
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateSell">
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/sell_product']"
+          (click)="OnCloseNav()">
+          Venta de productos
+        </a>
+        <div
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/sell_product']"
+          class="line-bottom" >
+        </div>
+      </li>
+
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/update_sell_product']"
+          (click)="OnCloseNav()">
+          Modificar venta de productos
+        </a>
+        <div
+          routerLinkActive="activate__link"
+          [routerLink]="['/sells/update_sell_product']"
+          class="line-bottom" >
+        </div>
+      </li>
+
+      <li>
+        <a
+          (click)="OnCloseNav()">
+          Informe de ventas
+        </a>
+        <div
+          class="line-bottom" >
+        </div>
+      </li>
+
+    </ul>
+  </li>
+
+  <li
+    class="list__item--text">
+    <a
+      class="item__text"
+      [class.activate__text]="listStateCustomers"
+      (click)="onActivateCustomer()">
+      Clientes
+      <i class="icon--file icon--customer"></i>
+    </a>
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateCustomers">
+      <li>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/customer']"
+          (click)="OnCloseNav()">
+          Agregar cliente
+        </a>
+        <div
+          routerLinkActive="activate__link"
+          [routerLink]="['/customer']"
+          class="line-bottom" >
+        </div>
+      </li>
+
+      <li>
+        <a
+        (click)="OnCloseNav()">
+          Informe de clientes
+        </a>
+        <div
+          class="line-bottom" >
+        </div>
+      </li>
+    </ul>
+  </li>
+
+  <li
+    class="list__item--text">
+    <a
+      class="item__text"
+      [class.activate__text]="listStateVehicles"
+      (click)="onActivateVehicle()">
+      Vehículos
+      <i class="icon--file icon--vehicles"></i>
+    </a>
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateVehicles">
+      <li>
+        <a
+        [routerLink]="['/vehicles/add_vehicle']"
+        routerLinkActive="activate__link"
+        (click)="OnCloseNav()">
+          Agregar vehículo
+        </a>
+        <div
+          [routerLink]="['/vehicles/add_vehicle']"
+          routerLinkActive="activate__link"
+          class="line-bottom" >
+        </div>
+      </li>
+
+      <li>
+        <a
+        (click)="OnCloseNav()"
+        >Informe de vehículos
+        </a>
+        <div
+        [routerLink]="['/vehicles/add_vehicle']"
+        routerLinkActive="activate__link"
+        class="line-bottom" >
+        </div>
+      </li>
+    </ul>
+  </li>
+
+  <li
+  class="list__item--text">
+    <a
+      class="item__text"
+      [class.activate__text]="listStateEmployees"
+      (click)="onActivateEmployee()">
+      Empleados
+      <i class="icon--file icon--employees"></i>
+    </a>
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateEmployees">
+      <li>
+        <a
+          [routerLink]="['/employees/add_employees']"
+          routerLinkActive="activate__link"
+          (click)="OnCloseNav()">
+          Agregar empleado
+        </a>
+        <div
+          [routerLink]="['/employees/add_employees']"
+          routerLinkActive="activate__link"
+          class="line-bottom" >
+        </div>
+      </li>
+      <li>
+        <a
+          (click)="OnCloseNav()"
+          >Informes de empleados
+        </a>
+        <div
+          class="line-bottom" >
+        </div>
+      </li>
+    </ul>
+  </li>
+
+  <li
+    class="list__item--text">
+    <a
+      class="item__text"
+      routerLinkActive="activate"
+      [routerLink]="['/users']">
+      Usuarios
+      <i class="icon--file icon--user"></i>
+    </a>
+  </li>
+
+</ul>
+

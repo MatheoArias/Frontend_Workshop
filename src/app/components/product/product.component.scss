@@ -7,13 +7,13 @@
     bottom: 0;
     margin: auto;
     display: none;
-    z-index: 1;
+    z-index: 3;
 
     &.activate__modal {
       display: flex;
       width: 70%;
       height: 80vh;
-      z-index: 2;
+      z-index: 4;
       animation: content 0.8s ease-in-out forwards;
     }
 
@@ -34,11 +34,10 @@
     max-width: 100%;
     max-height: 100%;
     animation: content 0.8s ease-in-out forwards;
-    background-image: url("../../../assets/Logo_login.svg");
     position: relative;
     display: flex;
     flex-direction: column;
-    z-index: 0;
+    z-index: 3;
 
     &.activate__modal {
       animation: subcontent 0.6s ease-in-out forwards;

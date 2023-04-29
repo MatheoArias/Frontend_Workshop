@@ -1,0 +1,170 @@
+.list__links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 5;
+  width: 70%;
+  height: 100%;
+  padding: 20px 5px 5px 10px;
+  background-color: var(--color--red);
+  list-style: none;
+  transform: translateX(-1000px);
+  transition: transform 0.5s ease-in-out;
+
+  .list__item--text {
+    margin: 5px 0;
+
+    .item__text {
+      display: flex;
+      align-items: center;
+      color: var(--color--white);
+      text-decoration: none;
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      font-weight: 300;
+      width: 100%;
+      height: 35px;
+      padding-left: 55px;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+      position: relative;
+
+      &.activate__text {
+        background-color: var(--color--red--secundary);
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 1.3rem;
+      }
+
+      .icon--file {
+        height: 25px;
+        width: 25px;
+        position: absolute;
+      }
+
+      .icon--inventory {
+        background-image: url('../../../assets/icon_inventory.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        left: 16px;
+      }
+
+      .icon--sells {
+        background-image: url('../../../assets/icon_sells.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 80%;
+        left: 13px;
+      }
+
+      .icon--customer {
+        background-image: url('../../../assets/icon_customer.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 80%;
+        left: 14px;
+      }
+
+      .icon--vehicles {
+        background-image: url('../../../assets/icon_vehicles.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 30px;
+        width: 35px;
+        opacity: 80%;
+        left: 8px;
+        top: 8px;
+      }
+
+      .icon--employees {
+        background-image: url('../../../assets/icon_employees.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 80%;
+        left: 19px;
+      }
+
+      .icon--user {
+        background-image: url('../../../assets/user.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 35px;
+        width: 35px;
+        opacity: 80%;
+        left: 12px;
+      }
+    }
+
+    .list__subitem {
+      display: none;
+      padding-left: 35px;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem 0 0 0.6rem;
+        width: 100%;
+
+        a {
+          color: var(--color--text--nav);
+          text-decoration: none;
+          text-align: left;
+          font-size: 1.15rem;
+          width: 80%;
+          transition: all 1s ease-in-out;
+          cursor: pointer;
+
+          &.activate__link {
+            color: var(--color--white);
+            font-size: 1.17rem;
+          }
+        }
+
+        div {
+          width: 0%;
+          transition: all 1s ease-in-out;
+          border-bottom: 1px dotted var(--color--text--nav);
+          visibility: collapse;
+
+          &.activate__link {
+            visibility: visible;
+            border-bottom: 1px solid var(--color--text--nav);
+            width: 95%;
+          }
+        }
+      }
+
+      li:hover div {
+        border-bottom: 1px solid var(--color--white);
+        width: 95%;
+        visibility: visible;
+        transition: all 0.8s ease-in-out;
+      }
+
+      li:hover a {
+        color: var(--color--white);
+        font-size: 1.17rem;
+        transition: all 0.8s ease-in-out;
+      }
+
+      &.list--activate {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .list__item--text:hover .item__text {
+    background-color: var(--color--red--secundary);
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &.nav__show {
+    transform: translateX(0);
+    transition: all 0.5s ease-in-out;
+    z-index: 6;
+  }
+}
