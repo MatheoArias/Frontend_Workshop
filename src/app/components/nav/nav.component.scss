@@ -31,12 +31,15 @@ nav {
 
   .nav__content--user {
     display: grid;
-    justify-content: end;
+    justify-content: center;
     justify-items: start;
     position: relative;
-    width: 245px;
+    width: 230px;
     grid-template-areas: "names icons "
       "profession icons";
+    transition: all 0.5s ease-in-out;
+    padding: 2px;
+    margin-left:2px;
 
     .button__content--logout {
       position: absolute;
@@ -87,10 +90,17 @@ nav {
 
     &.activate_list {
       background-color: var(--color--red--secundary);
-      padding: 5px;
       border-radius: 10px;
       border: 1px solid #ffffff;
     }
+  }
+
+  .nav__content--user:hover{
+    background-color: var(--color--red--secundary);
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    padding: 2px;
+    transition: all 0.3s ease-in-out;
   }
 
 
@@ -138,18 +148,19 @@ nav {
 }
 
 .list__background--shawdow {
-  position: absolute;
   z-index: 0;
   width: 100%;
   height: 100%;
   opacity: 0%;
   background-color: #000000;
   transition: all 0.5s ease-in-out;
+  position: absolute;
 
   &.nav__show {
     opacity: 50%;
     transition: all 0.5s ease-in-out 0.2s;
     z-index: 6;
+
   }
 }
 
@@ -157,7 +168,7 @@ nav {
   display: none;
   position: absolute;
   z-index: 6;
-  width: 165px;
+  width: 180px;
   right: 5px;
   top: 85px;
   background-color: var(--color--red);
@@ -172,9 +183,9 @@ nav {
 
   a{
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 300;
-    line-height: 13px;
+    line-height: 14px;
     color: var(--color--text--nav);
     margin-bottom: 10px;
   }
@@ -200,10 +211,11 @@ nav {
       width: 100%;
       text-align: left;
       padding-left: 5px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 300;
-      line-height: 13px;
+      line-height: 14px;
     }
+
   }
 
   a:hover,
@@ -218,6 +230,11 @@ nav {
   &.activate_list {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+
+    a{
+      text-align: right;
+    }
   }
 
 }
@@ -244,8 +261,10 @@ nav {
       display: none;
     }
   }
-  .list__links{
-    transform: translateX(0px);
-    position: static;
+
+  app-list-nav,
+  .list__background--shawdow{
+    display: none;
   }
+
 }

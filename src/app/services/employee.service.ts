@@ -25,7 +25,7 @@ export class EmployeeService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -47,7 +47,7 @@ export class EmployeeService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -69,7 +69,7 @@ export class EmployeeService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -91,7 +91,7 @@ export class EmployeeService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')
@@ -113,7 +113,7 @@ export class EmployeeService {
           return throwError('Algo está fallando en el servidor');
         }
         if(error.status===HttpStatusCode.BadRequest){
-          return throwError('Está realizando una petición inadecuada')
+          return throwError('Está realizando una mala petición')
         }
         if(error.status===HttpStatusCode.NotFound){
           return throwError('La página no ha sido encontada')

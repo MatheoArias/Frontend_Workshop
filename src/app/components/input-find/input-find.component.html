@@ -1,0 +1,14 @@
+  <div
+      class="content__input--find">
+      <label>
+        Buscar producto
+      </label>
+      <input
+          type="search"
+          [formControl]="valueFind"
+          (input) ="onChangeText()"
+          placeholder="Busque aquí">
+        <img
+          src="../../../assets/lupa.svg"
+          alt="this is the find loupa icon">
+  </div>

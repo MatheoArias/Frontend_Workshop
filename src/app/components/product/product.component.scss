@@ -31,102 +31,100 @@
 
   /*This is the products style component */
   .content__app {
-    max-width: 100%;
-    max-height: 100%;
-    animation: content 0.8s ease-in-out forwards;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    z-index: 3;
-
-    &.activate__modal {
-      animation: subcontent 0.6s ease-in-out forwards;
-    }
-
-    @keyframes subcontent {
-      0% {
-        opacity: 100%;
-      }
-
-      100% {
-        opacity: 30%;
-      }
-    }
 
     /*this is the for styles*/
-    form{
-      .content__row--last{
+    form {
+      .content__row--last {
         display: flex;
-        div{
+
+        div {
           width: 50%;
         }
       }
 
-      .text_total--value{
-        margin: 15px 5px ;
+      .text_total--value {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         font-size: 1.6rem;
+        line-height: 18px;
         font-weight: 500;
         color: var(--color--red);
-        span{
+        text-align: right;
+        margin-right: 20px;
+
+        span {
           color: var(--color--gray);
+          font-size: 1.8rem;
+          line-height:20px;
+          font-weight: 400;
+
         }
       }
     }
 
-    /*This is the list order in this component*/
-    ul {
+  }
 
-      li {
+  @media (min-width: 1000px) {
+
+    .content__app {
+      display: grid;
+      max-height: 100%;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      grid-template-columns: 50% 50%;
+      grid-template-areas: "form find"
+                            "form list-products";
+
+      form {
+        grid-area: form;
+        height: 400px;
         display: grid;
-        grid-template-areas: "description description"
-          "code inventory"
-          "category value";
-        gap: 0.5rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 80px);
+        grid-template-areas: "category category code"
+                              "description description description"
+                              "value value value"
+                              "lastRow lastRow lastRow"
+                              "textValue textValue button";
 
-        div {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .description {
-          grid-area: description;
-          h2 {
-            font-size: 1.8rem;
-            line-height: 2rem;
-            font-weight: 600;
-            text-align: left;
-          }
-        }
-
-        .code {
-          grid-area: code;
-        }
-
-        .category {
+        .content__category {
           grid-area: category;
         }
 
-        .value {
-          grid-area: value;
-          align-items: center;
+        .content__code {
+          grid-area: code;
+        }
 
-          p {
-            font-weight: 500;
-            text-align: center;
-          }
+        .content__description {
+          grid-area: description;
+        }
+
+        .content__value {
+          grid-area: value;
+        }
+
+        .content__row--last {
+          grid-area: lastRow;
+        }
+
+        .text_total--value{
+          grid-area:textValue ;
+        }
+
+        .content__button{
+          grid-area: button;
         }
       }
-    }
-  }
 
-  @keyframes content {
-    0% {
-      opacity: 0;
-      transform: scale(0, 0)
+      .content_list {
+        grid-area: list-products;
+      }
+
+      .content__input--find {
+        grid-area: find;
+      }
     }
 
-    100% {
-      opacity: 1;
-      transform: scale(1, 1)
-    }
   }

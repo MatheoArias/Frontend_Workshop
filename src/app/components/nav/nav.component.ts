@@ -34,6 +34,10 @@ export class NavComponent implements OnInit {
     this.getUser();
   }
 
+  reciveToggleModal(event:boolean){
+    this.navState=event
+  }
+
   //This function is called for to get user and return name and position user
   getUser(){
     const getUser: null | string =this.tokenService.getUser();

@@ -1,11 +1,12 @@
 <div class="content__app">
-  <form
+
+    <form
       (ngSubmit)="submit($event)"
       [formGroup]="formProduct">
 
       <div
         class="content__input
-         content__productCategory">
+         content__category">
         <label>
           Categoría
         </label>
@@ -14,8 +15,8 @@
           <select
             (change)="getLastCode()"
             formControlName="category_id"
-            [class.is--valid]="categoryId?.valid"
-            [class.is--invalid]="categoryId?.invalid && categoryId?.touched">
+            [class.is--valid]="category?.valid"
+            [class.is--invalid]="category?.invalid && category?.touched">
             <option
               class="firstChoice"
               value=""
@@ -35,7 +36,7 @@
           </button>
         </div>
         <p
-        *ngIf=" categoryId?.touched && categoryId?.hasError('required')"
+        *ngIf=" category?.touched && category?.hasError('required')"
         class="content__text--alert">
         *Campo obligatorio.
         </p>
@@ -92,7 +93,7 @@
       <div
         class="content__input
         inputCurrency
-        content__uniValue">
+        content__value">
         <label>
           Valor de compra
         </label>
@@ -166,37 +167,31 @@
           <button
             type="submit"
             class="button"
-            [disabled]="!formProduct.valid || product.id!==0"
-            [class.is__invalid]="!formProduct.valid || product.id!==0">
+            [disabled]="!formProduct.valid"
+            [class.is__invalid]="!formProduct.valid">
             Ingresar
           </button>
 
         <button
           (click)="updateProduct()"
           class="button"
-          [disabled]="!formProduct.valid || product.id===0"
-          [class.is__invalid]="!formProduct.valid || product.id===0">
+          [disabled]="!formProduct.valid"
+          [class.is__invalid]="!formProduct.valid">
           Modificar
         </button>
       </div>
 
     </form>
 
-    <div
-      class="content__input--find">
-      <label>
-        Buscar producto
-      </label>
-      <input
-          type="search"
-          [formControl]="valueFind"
-          (input) ="onChangeText()"
-          placeholder="Busque el producto aquí">
-        <img src="../../../assets/lupa.svg" alt="this is the find icon">
-    </div>
+    <app-input-find
+      (valueFindEvent)="reciveValueFind($event)">
+    </app-input-find>
 
-    <ul
-      class="content__list"
+    <div
+      class="content_list">
+
+      <ul
+      class="content__list--products"
       *ngIf="listFilter.length; else elseBlock">
       <li
         *ngFor="let item of products | filter:itemFind"
@@ -228,14 +223,14 @@
         </div>
 
         <div class="value">
-          Valor de Compra
+          Valor compra
           <p>
             {{item.unit_value | currency}}
           </p>
         </div>
 
         <div>
-          Valor venta:
+          Valor venta
             <p>
               {{(item.unit_value * item.percentage)+item.unit_value | currencyPercent  | currency}}
             </p>
@@ -249,7 +244,7 @@
         </div>
 
         <div>
-          Porcentaje:
+          Porcentaje
           <p>{{item.percentage | percent: '2.1-2'}}</p>
         </div>
 
@@ -260,31 +255,32 @@
           [class.radio__activate--icon]="product.id===item.id">
         </button>
       </li>
-    </ul>
+      </ul>
 
-    <ng-template #elseBlock>
-
-      <div
-        class="content__elseBlock">
+      <ng-template #elseBlock>
         <div
-          class="content__notfound">
-          <img
-            src="../../../assets/alert.svg" alt="this is the image alert">
-          <p
-            class="text--notfound">
-            No se encuentra ningún producto
-          </p>
+          class="content__elseBlock">
+          <div
+            class="content__notfound">
+            <img
+              src="../../../assets/alert.svg" alt="this is the image alert">
+            <p
+              class="text--notfound">
+              No se encuentra ningún producto
+            </p>
+          </div>
         </div>
-      </div>
-    </ng-template>
+
+      </ng-template>
+
+  </div>
+
 </div>
 
-  <app-category
+<app-category
     [categories]="categories"
     (modalStateEvent)="reciveToggleModal($event)"
     class="content__app--category"
     [class.activate__modal]="modalState"
     [class.deactivate__modal]="modalState===false">
-  </app-category>
-
-
+</app-category>

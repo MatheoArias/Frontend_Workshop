@@ -11,21 +11,18 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  /**/
+
   messagges='';
   statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
 
   formLogin!:FormGroup;
-
   get emailAdress(){
     return  this.formLogin.get('emailAdress');
   }
-
   get password(){
     return this.formLogin.get('password');
   }
-
   private formUsersLogin(){
     this.formLogin=this.formBuilder.group({
       emailAdress: ['', [Validators.required,Validators.email]],
@@ -61,13 +58,13 @@ export class LoginComponent {
           this.statusDeatil='Loading';
         },()=>{
           this.statusDeatil='Error';
-          this.messagges='El coreo electrónico o la contraseña no son correctas. Vuelve a intentarlo'
+          this.messagges='El correo electrónico o la contraseña no son correctas. Vuelve a intentarlo'
           this.formLogin.markAllAsTouched();
         }
       )
     }else{
       this.statusDeatil='Error';
-      this.messagges='El coreo electrónico o la contraseña no son válidos'
+      this.messagges='El correo electrónico o la contraseña no son válidos'
       this.formLogin.markAllAsTouched();
     }
   }

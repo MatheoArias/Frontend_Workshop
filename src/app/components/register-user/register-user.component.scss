@@ -1,0 +1,76 @@
+.content__app {
+
+  img {
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    animation: tittle 1s ease-in-out 0.3s forwards;
+  }
+
+  h2 {
+    font-family: 'Thalib';
+    width: 100%;
+    font-size: 1.8rem;
+    line-height: 20px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--color--red);
+    animation: tittle 1s ease-in-out 0.3s forwards;
+  }
+
+  .content__input {
+
+    .content__input--key {
+
+      position: relative;
+
+      .icon_key {
+        background-image: url('../../../assets/icon_key.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        height: 36px;
+        width: 31px;
+        border: none;
+        background-color: transparent;
+        right: 12px;
+        bottom: 0px;
+        top: 18px;
+        margin: auto;
+        cursor: pointer;
+
+        input{
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  form {
+
+    .content_input {
+      input {
+        position: relative;
+      }
+    }
+
+    button {
+      width: 100%;
+    }
+
+  }
+
+  /*This is the initial tittle's animation*/
+  @keyframes tittle {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}

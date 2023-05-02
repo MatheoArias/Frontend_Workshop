@@ -15,7 +15,7 @@ export class CategoryComponent {
   formCategory!: FormGroup;
 
   @Input() categories: Category[] = [];
-  @Output() modalStateEvent= new EventEmitter<boolean>();
+  @Output() modalStateEvent = new EventEmitter<boolean>();
   modalState=true;
 
   messagges='';

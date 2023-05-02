@@ -102,7 +102,13 @@ const routes: Routes = [
       },
       {
         path:'users',
-        component:UsersComponent
+        component:UsersComponent,
+        children:[
+          {
+            path:'register',
+            component:RegisterUserComponent,
+          },
+        ]
       },
       {
         path:'employees',
@@ -118,12 +124,12 @@ const routes: Routes = [
     ]
   },
   {
-    path:'register_user',
-    component:RegisterUserComponent
-  },
-  {
     path:'login',
     component:LoginComponent
+  },
+  {
+    path:'register',
+    component:RegisterUserComponent,
   },
   {
     path:'**',

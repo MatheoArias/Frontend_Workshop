@@ -44,6 +44,7 @@ import { UpdateSellProductComponent } from './components/update-sell-product/upd
 import { DiscountsComponent } from './components/discounts/discounts.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { ListNavComponent } from './components/list-nav/list-nav.component';
+import { InputFindComponent } from './components/input-find/input-find.component';
 
 
 
@@ -80,6 +81,7 @@ import { ListNavComponent } from './components/list-nav/list-nav.component';
     DiscountsComponent,
     RegisterUserComponent,
     ListNavComponent,
+    InputFindComponent,
   ],
   imports: [
     BrowserModule,

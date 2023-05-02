@@ -22,10 +22,10 @@ export class BuysProductsComponent implements OnInit {
   total_buy_value=0;
   lastValueProduct=0;
 
-  filterpipe = new FilterPipe();
   itemFind= "";
-  valueFind = new FormControl('');
   listFilter:Product[] = [];
+  filterpipe = new FilterPipe();
+
   choiceProduct=new FormControl('')
 
   messagges= '';
@@ -197,12 +197,24 @@ export class BuysProductsComponent implements OnInit {
 
 
   //this is the function fot make the search in product's list
-  onChangeText() {
-    if (this.valueFind.value) {
-      this.itemFind = this.valueFind.value;
-      this.listFilter = this.filterpipe.transform(this.products, this.itemFind);
-    } else {
-      this.itemFind = "";
+  reciveValueFind(item: string){
+    this.product={
+      id: 0,
+      category_id: {
+        id:0,
+        category: ''
+      },
+      code: '',
+      description: '',
+      unit_value:0,
+      totals_stock: 0,
+      percentage:0,
+    }
+    if(item){
+      this.itemFind=item
+      this.listFilter=this.filterpipe.transform(this.products,item);
+    }else{
+      this.itemFind="";
     }
   }
 

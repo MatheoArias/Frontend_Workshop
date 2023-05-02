@@ -20,7 +20,7 @@
        <p
        *ngIf="inputNames?.touched && inputNames?.hasError('required')"
        class="content__text--alert">
-       *Campo obligatorio.
+       Campo obligatorio.
        </p>
     </div>
 
@@ -50,7 +50,7 @@
       <p
       *ngIf="inputDocumentType?.touched && inputDocumentType?.hasError('required')"
       class="content__text--alert">
-      *Campo obligatorio.
+      Campo obligatorio.
       </p>
     </div>
 
@@ -70,7 +70,7 @@
       <p
         *ngIf="inputDocumentNumber?.touched && inputDocumentNumber?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
@@ -90,7 +90,7 @@
       <p
         *ngIf="residenceAddress?.touched && residenceAddress?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
@@ -111,7 +111,7 @@
       <p
         *ngIf="celphone?.touched && celphone?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
@@ -132,7 +132,7 @@
         <p
         *ngIf="telephone?.touched && telephone?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
@@ -152,7 +152,7 @@
       <p
         *ngIf="emailAddress?.touched && emailAddress?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
       <p
       *ngIf="emailAddress?.touched && emailAddress?.hasError('email')"
@@ -161,7 +161,8 @@
       </p>
     </div>
 
-    <div class="content__button">
+    <div
+      class="content__button">
       <button
         class="button"
         [disabled]="!formCustomer.valid"
@@ -180,24 +181,18 @@
 
   </form>
 
-  <div
-    class="content__input--find">
-    <label for="">Buscar producto</label>
-    <input
-      type="search"
-       [formControl]="valueFind"
-      (input) ="onChangeText()"
-      placeholder="Busca el cliente aquí">
-      <img
-        src="../../../assets/lupa.svg"
-        alt="this is the find icon">
-  </div>
+  <app-input-find
+    (valueFindEvent)="reciveValueFind($event)">
+  </app-input-find>
 
-  <ul
-    class="content__list"
+  <div
+    class="content_list">
+
+    <ul
+    class="content__list--products"
     *ngIf="listFilter.length; else elseBlock">
     <li
-      [class.radio__activate]="customerId===item.id"
+      [class.radio__activate]="customer.id===item.id"
       *ngFor="let item of customers | filter:itemFind">
       <input
         type="radio"
@@ -248,21 +243,26 @@
       <button
        class="button__icon"
        (click)="toggleDelete(item)"
-       [class.radio__activate--icon]="customerId===item.id">
+       [class.radio__activate--icon]="customer.id===item.id">
       </button>
     </li>
-  </ul>
+    </ul>
 
-  <ng-template #elseBlock>
-    <div class="content__notfound">
-      <img
-       src="../../../assets/alert.svg"
-       alt="this is the image alert">
-      <p
-      class="content__text--notfound">
-        No se encuentra ningún producto
-      </p>
-    </div>
-  </ng-template>
+    <ng-template #elseBlock>
+      <div
+        class="content__elseBlock">
+        <div
+          class="content__notfound">
+          <img
+            src="../../../assets/alert.svg" alt="this is the image alert">
+          <p
+            class="text--notfound">
+            No se encuentra ningún Cliente
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
 
 </div>

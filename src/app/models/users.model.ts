@@ -1,7 +1,6 @@
 export interface Users {
   id: number,
   last_login: Date,
-  username: string,
   email: string,
   name: string,
   last_name: string,

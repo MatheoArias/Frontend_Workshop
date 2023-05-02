@@ -219,79 +219,79 @@
 
   </form>
 
+  <app-input-find
+  (valueFindEvent)="reciveValueFind($event)">
+  </app-input-find>
+
   <div
-    class="content__input--find">
-    <label>
-      Buscar producto
-    </label>
-    <input type="search" [formControl]="valueFind" (input)="onChangeText()" placeholder="Busque el producto aquí">
-    <img src="../../../assets/lupa.svg" alt="this is the find icon">
-  </div>
+  class="content_list">
 
-  <ul
-    class="content__list--products"
-    *ngIf="listFilter.length; else elseBlock">
-    <li
-      [class.radio__activate]="product.id===item.id"
-      *ngFor="let item of products | filter:itemFind">
-      <input
-        type="radio"
-        value="{{item.id}}"
-        (change)="onClickListProducts(item)"
-        [formControl]="choiceProduct">
-      <h2>
-        {{item.description}}
-      </h2>
+    <ul
+      class="content__list--products"
+      *ngIf="listFilter.length; else elseBlock">
+      <li
+        [class.radio__activate]="product.id===item.id"
+        *ngFor="let item of products | filter:itemFind">
+        <input
+          type="radio"
+          value="{{item.id}}"
+          (change)="onClickListProducts(item)"
+          [formControl]="choiceProduct">
+        <h2>
+          {{item.description}}
+        </h2>
 
-      <p
-      class="text--code">
-        {{item.code}}
-      </p>
-
-      <div
-        class="content__text--number">
-
-        <div
-          class="text--number">
-            Valor
-          <p>
-            {{item.unit_value | currency}}
-          </p>
-        </div>
-
-        <div
-          class="text--number">
-          <p class="text--cuantity">
-            {{item.totals_stock}}
-          </p>
-        </div>
-
-      </div>
-    </li>
-  </ul>
-
-  <ng-template #elseBlock>
-
-    <div
-      class="content__elseBlock">
-      <div
-        class="content__notfound">
-        <img
-          src="../../../assets/alert.svg" alt="this is the image alert">
         <p
-          class="text--notfound">
-          No se encuentra ningún producto
+        class="text--code">
+          {{item.code}}
+        </p>
+
+        <div
+          class="content__text--number">
+
+          <div
+            class="text--number">
+              Valor
+            <p>
+              {{item.unit_value | currency}}
+            </p>
+          </div>
+
+          <div
+            class="text--number">
+            <p class="text--cuantity">
+              {{item.totals_stock}}
+            </p>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+
+    <ng-template #elseBlock>
+
+      <div
+        class="content__elseBlock">
+        <div
+          class="content__notfound">
+          <img
+            src="../../../assets/alert.svg" alt="this is the image alert">
+          <p
+            class="text--notfound">
+            No se encuentra ningún producto
+          </p>
+        </div>
+        <p
+          class="text--redirect">Agregue el producto
+          <a
+            [routerLink]="['/products/add_product']">
+            aquí
+          </a>
         </p>
       </div>
-      <p
-        class="text--redirect">Agregue el producto
-        <a
-          [routerLink]="['/products/add_product']">
-          aquí
-        </a>
-      </p>
-    </div>
 
-  </ng-template>
+    </ng-template>
+
+  </div>
 
 </div>

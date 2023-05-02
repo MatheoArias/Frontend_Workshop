@@ -1,17 +1,33 @@
 <div
   class="content__app">
 
-  <form>
-    <img src="../../../assets/icon_color.svg" alt="this is the company's logo">
-    <h1>Registro de usuario nuevo</h1>
+  <form
+    (ngSubmit)="submit($event)" [formGroup]="formUser">
+
+    <img
+      src="../../../assets/icon_color.svg"
+      alt="this is the company's logo">
+
+    <h2>
+      Registro de usuario nuevo
+    </h2>
+
     <div
       class="content__input">
       <label>
         Nombres
       </label>
       <input
+        [class.is--valid]="name?.valid"
+        [class.is--invalid]="name?.invalid && name?.touched"
         formControlName="name"
-        type="text">
+        type="text"
+        placeholder="Nombre del usuario">
+        <p
+          *ngIf=" name?.touched && name?.hasError('required')"
+          class="content__text--alert">
+          *Campo obligatorio.
+        </p>
     </div>
 
     <div
@@ -20,18 +36,16 @@
         Apellidos
       </label>
       <input
+        [class.is--valid]="lastName?.valid"
+        [class.is--invalid]="lastName?.invalid && lastName?.touched"
         formControlName="last_name"
-        type="text">
-    </div>
-
-    <div
-      class="content__input">
-      <label>
-        Nombre de usuario
-      </label>
-      <input
-        formControlName="username"
-        type="text">
+        type="text"
+        placeholder="Apellidos del usuario">
+        <p
+          *ngIf=" lastName?.touched && lastName?.hasError('required')"
+          class="content__text--alert">
+          *Campo obligatorio.
+        </p>
     </div>
 
     <div
@@ -40,37 +54,105 @@
         Correo Electrónico
       </label>
       <input
+        [class.is--valid]="email?.valid"
+        [class.is--invalid]="email?.invalid && email?.touched"
         formControlName="email"
-        type="email">
+        type="email"
+        placeholder="Correo electrónico del usuario">
+      <p
+        *ngIf=" email?.touched && email?.hasError('required')"
+        class="content__text--alert">
+        *Campo obligatorio.
+      </p>
+      <p
+        class="content__text--alert"
+        *ngIf="email?.touched && email?.hasError('email')">
+        El correo electrónico proporcionado no es válido.<br>
+        Intente proporcionar uno que contenga los siguientes caracteres:
+        <span>@example.com.</span>
+      </p>
     </div>
 
     <div
-      class="content__input">
+      class="content__password
+      content__input">
       <label>
         Contraseña
       </label>
-      <input
-        formControlName="password"
-        type="password">
-    </div>
-
-    <div
+      <div
       class="content__input">
-      <label>
-        Confirmar contraseña
-      </label>
-      <input
-        formControlName="password_confirm"
-        type="password">
+        <div
+          class="content__input--key">
+          <input
+            placeholder="Contraseña del usuario"
+            [class.is--valid]="password?.valid"
+            [class.is--invalid]="password?.invalid && password?.touched"
+            formControlName="password"
+            [type]="inputType">
+          <div
+            class="icon_key">
+            <input
+              (click)="onChangePassword()"
+              type="checkbox">
+          </div>
+        </div>
+        <p
+          *ngIf=" password?.touched && password?.hasError('required')"
+          class="content__text--alert">
+          Campo obligatorio.
+        </p>
+        <p
+          *ngIf=" password?.touched && password?.hasError('invalid_password_number') && password?.value!==''"
+          class="content__text--alert">
+          • Debe contener por lo menos un número.
+        </p>
+        <p
+          *ngIf=" password?.touched && password?.hasError('minlength')"
+          class="content__text--alert">
+          • Debe contener mas de ocho caracteres
+        </p>
+        <p
+          *ngIf=" password?.touched && password?.hasError('invalid_password_expression') && password?.value!==''"
+          class="content__text--alert">
+          • Debe contener por lo menos un caracter como: !,*,/,-,+,@,#...
+        </p>
+      </div>
+
+      <div
+        class="content__input">
+        <input
+          placeholder="Confirmar contraseña del usuario"
+          [class.is--valid]="passwordConfirm?.valid"
+          [class.is--invalid]="passwordConfirm?.touched && formUser.hasError('match_password')"
+          formControlName="password_confirm"
+          type="password">
+        <p
+          *ngIf=" passwordConfirm?.touched && passwordConfirm?.hasError('required')"
+          class="content__text--alert">
+          •Campo obligatorio.
+        </p>
+        <div
+          *ngIf=" passwordConfirm?.touched && formUser.errors">
+          <p
+            *ngIf="formUser.hasError('match_password')"
+            class="content__text--alert">
+          • Las contraseñas no coinciden, verifica e intentalo de nuevo
+          </p>
+        </div>
+
+      </div>
     </div>
 
     <div
       class="content__button">
       <button
+        [disabled]="!formUser.valid"
+        [class.is__invalid]="!formUser.valid"
         class="button">
         Registrar usuario
       </button>
     </div>
+
   </form>
 
 </div>

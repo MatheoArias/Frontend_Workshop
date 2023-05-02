@@ -1,4 +1,4 @@
-import { Component,Input} from '@angular/core';
+import { Component,Input,Output,EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-list-nav',
@@ -9,13 +9,20 @@ export class ListNavComponent {
 
 
   @Input() navState=false;
+  @Output() navStateEmit= new EventEmitter<boolean>();
 
   listStateInventory = false;
   listStateSell = false
   listStateCustomers = false;
   listStateVehicles = false;
   listStateEmployees = false;
+  listStateUsers=false;
 
+  //this function is for send modal State to products component
+  OnCloseNav(){
+    this.navState =false;
+    this.navStateEmit.emit(this.navState);
+  }
 
   //This functions are called when i want open the items list. Each funtion open one list items
   onActivateInventory() {
@@ -24,6 +31,7 @@ export class ListNavComponent {
     this.listStateCustomers = false;
     this.listStateVehicles = false;
     this.listStateEmployees = false;
+    this.listStateUsers=false;
   }
 
   onActivateSell() {
@@ -32,6 +40,7 @@ export class ListNavComponent {
     this.listStateCustomers = false;
     this.listStateVehicles = false;
     this.listStateEmployees = false;
+    this.listStateUsers=false;
   }
 
   onActivateCustomer() {
@@ -40,6 +49,7 @@ export class ListNavComponent {
     this.listStateSell = false
     this.listStateVehicles = false;
     this.listStateEmployees = false;
+    this.listStateUsers=false;
   }
 
   onActivateVehicle() {
@@ -48,6 +58,7 @@ export class ListNavComponent {
     this.listStateSell = false
     this.listStateCustomers = false;
     this.listStateEmployees = false;
+    this.listStateUsers=false;
   }
 
   onActivateEmployee() {
@@ -56,10 +67,15 @@ export class ListNavComponent {
     this.listStateSell = false
     this.listStateCustomers = false;
     this.listStateVehicles = false;
+    this.listStateUsers=false;
   }
 
-  OnCloseNav() {
-    this.navState = !this.navState;
+  onActivateUser(){
+    this.listStateUsers=!this.listStateUsers;
+    this.listStateEmployees = false;
+    this.listStateInventory = false
+    this.listStateSell = false
+    this.listStateCustomers = false;
+    this.listStateVehicles = false;
   }
-
 }

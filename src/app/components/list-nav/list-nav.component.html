@@ -247,10 +247,28 @@
     <a
       class="item__text"
       routerLinkActive="activate"
-      [routerLink]="['/users']">
+      (click)="onActivateUser()">
       Usuarios
       <i class="icon--file icon--user"></i>
     </a>
+
+    <ul
+      class="list__subitem"
+      [class.list--activate]="listStateUsers">
+      <li>
+        <a
+          [routerLink]="['/users/register']"
+          routerLinkActive="activate__link"
+          (click)="OnCloseNav()">
+          Agregar administrador
+        </a>
+        <div
+          [routerLink]="['/users/register']"
+          routerLinkActive="activate__link"
+          class="line-bottom" >
+        </div>
+      </li>
+    </ul>
   </li>
 
 </ul>

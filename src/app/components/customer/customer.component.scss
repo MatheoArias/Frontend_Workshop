@@ -1,139 +1,45 @@
-.content__app {
-  background-image: url(../../../assets/Logo_login.svg);
-  animation: content 0.6s ease-in-out;
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: static;
+// @media(min-width:767px) {
+//   form {
+//     grid-area: form;
+//     display: grid;
+//     grid-template-areas: "names names"
+//       "documenType documentNumber"
+//       "residenceAddress residenceAddress"
+//       "telephone celphone"
+//       "emailAddress emailAddress"
+//       "cotentButton cotentButton";
 
-  .content__input--find {
-    input {
-      position: relative;
-    }
+//     .names {
+//       grid-area: names;
+//     }
 
-    img {
-      position: absolute;
-      right: 2px;
-      top: 23px;
-    }
-  }
+//     .document--type {
+//       grid-area: documenType;
+//     }
 
-  .content__list {
-    max-height: 80vh;
+//     .document--number {
+//       grid-area: documentNumber;
+//     }
 
-    li {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+//     .residence--address {
+//       grid-area: residenceAddress;
+//     }
 
-      .telephone,
-      .celphone {
-        p {
-          margin-left: 0.5rem;
-        }
-      }
+//     .celphone {
+//       grid-area: celphone;
+//     }
 
-      .email--address,
-      .celphone{
-        font-weight: 600 !important;
-        p {
-          font-weight: 600 !important;
-        }
-      }
+//     .telephone {
+//       grid-area: telephone;
+//     }
 
-      .document {
-        grid-area: document;
-      }
+//     .email--address {
+//       grid-area: emailAddress;
+//     }
 
-      .residence--address {
-        grid-area: address;
-      }
+//     .content__button {
+//       grid-area: cotentButton;
+//     }
+//   }
+// }
 
-      .email--address {
-        grid-area: email;
-      }
-    }
-  }
-
-}
-
-@keyframes content {
-  0% {
-    opacity: 0;
-    transform: scale(0, 0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
-}
-
-@media(min-width:767px) {
-  form {
-    grid-area: form;
-    display: grid;
-    grid-template-areas: "names names"
-      "documenType documentNumber"
-      "residenceAddress residenceAddress"
-      "telephone celphone"
-      "emailAddress emailAddress"
-      "cotentButton cotentButton";
-
-    .names {
-      grid-area: names;
-    }
-
-    .document--type {
-      grid-area: documenType;
-    }
-
-    .document--number {
-      grid-area: documentNumber;
-    }
-
-    .residence--address {
-      grid-area: residenceAddress;
-    }
-
-    .celphone {
-      grid-area: celphone;
-    }
-
-    .telephone {
-      grid-area: telephone;
-    }
-
-    .email--address {
-      grid-area: emailAddress;
-    }
-
-    .content__button {
-      grid-area: cotentButton;
-    }
-  }
-}
-
-@media(min-width:1024px) {
-  .content__app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: ". find"
-      "form listItems";
-  }
-
-  .content__input--find {
-    grid-area: find;
-    max-width: 100%;
-  }
-
-  .content__list {
-    grid-area: listItems;
-  }
-
-  .content__notfound {
-    grid-area: listItems;
-  }
-
-}

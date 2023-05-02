@@ -2,7 +2,7 @@ import { Component,OnInit} from '@angular/core';
 import { Product} from 'src/app/models/product.model';
 import { CreateProductsDTO,UpdateProductsDTO } from 'src/app/models/product.model';
 import { Category } from 'src/app/models/category.model';
-import { FormGroup,FormBuilder, Validators, FormControl} from '@angular/forms';
+import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
@@ -17,13 +17,13 @@ import Swal from 'sweetalert2';
 })
 
 export class ProductComponent implements OnInit{
+
   modalState=false;
   products: Product[] = [];
   categories: Category[] = [];
 
+  //This is the total price sell in theform bottom
   priceSell=0;
-  productId=0;
-
   product:Product={
     id: 0,
     category_id: {
@@ -37,11 +37,7 @@ export class ProductComponent implements OnInit{
     percentage:0,
   }
 
-  messagges='';
-  statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
-
-  valueFind=new FormControl('');
   itemFind="";
   listFilter:Product[]=[];
 
@@ -51,7 +47,7 @@ export class ProductComponent implements OnInit{
 
   //this is the producst form
   formProduct!: FormGroup;
-  get categoryId() {
+  get category() {
     return this.formProduct.get('category_id');
   }
   get code() {
@@ -126,6 +122,7 @@ export class ProductComponent implements OnInit{
   }
 
   //This is for generate product's code automatically
+  //this function get the last code for category and add one unit to last digit of code
   getLastCode(){
     zip(
       this.ProductService.getAllProducts(),
@@ -134,14 +131,14 @@ export class ProductComponent implements OnInit{
     .subscribe(
       data=>{
         const lastProduct:Product[]=data[0]
-          .filter(item=>item.category_id.id==this.categoryId?.value)
+          .filter(item=>item.category_id.id==this.category?.value)
           .sort((a,b)=>b.id-a.id);
         if(lastProduct.length>0){
           const lastCode=parseInt(lastProduct[0].code.split('')[6])+1
           this.code?.setValue(lastProduct[0].code.slice(0,-1) + lastCode.toLocaleString());
         }else{
           const categories=data[1]
-            .filter(item=>item.id==this.categoryId?.value);
+            .filter(item=>item.id==this.category?.value);
           const category=categories[0].category.replace(/[aeiou]/gi, "").split('')
           this.code?.setValue(`${category[0].toUpperCase()}${category[1].toUpperCase()}00001`);
         }
@@ -150,11 +147,18 @@ export class ProductComponent implements OnInit{
   }
 
   //This function is for add products in data base
+  //category_id: 1 - number -this is the category id
+  //code: MT001 - string,
+  //description: Farola - String,
+  //unit_value: 15000 - number,
+  //totals_stock: 15 - number,
+  //percentage: 45 /100 *** This number come of  input component
+
   submit(event: Event) {
     event.preventDefault();
     this.statusDeatil='Loading';
     const addProduct:CreateProductsDTO={
-        category_id: this.categoryId?.value,
+        category_id: this.category?.value,
         code: this.code?.value,
         description: this.description?.value,
         unit_value:this.unitValue?.value,
@@ -165,6 +169,14 @@ export class ProductComponent implements OnInit{
       this.ProductService.createProduct(addProduct)
         .subscribe(()=>{
         this.getAllProducts();
+      },()=>{
+        Swal.fire({
+          icon: 'error',
+          confirmButtonText: 'Regresar',
+          title: 'Error',
+          html: `ha ocurrido un error en el momento de agregar el producto`,
+        })
+        this.statusDeatil='Error';
       });
       Swal.fire({
         icon: 'success',
@@ -173,21 +185,33 @@ export class ProductComponent implements OnInit{
         html: `El producto: <strong>${addProduct.description}</strong> fue agregado con éxito`,
       })
       this.statusDeatil='Success';
-      this.priceSell=0;
       this.formProduct.reset();
+      this.priceSell=0;
     } else {
+      Swal.fire({
+        icon: 'error',
+        confirmButtonText: 'Regresar',
+        title: 'Error',
+        html: `Ocurrio un error al llenar el formulario`,
+      })
       this.statusDeatil='Error';
-      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
       this.formProduct.markAllAsTouched();
     }
   }
 
-  //this function is for update products in data base
+  //this function is for update products in data
+  //id: 1 -number  -this is the products id
+  //category_id: 1 - number -this is the category id
+  //code: MT001 - string,
+  //description: Farola - String,
+  //unit_value: 15000 - number,
+  //totals_stock: 15 - number,
+  //percentage: 45 /100 *** This number come of  input component
   updateProduct(){
     this.statusDeatil='Loading';
     const addProduct:UpdateProductsDTO={
         id:this.product.id,
-        category_id: this.categoryId?.value,
+        category_id: this.category?.value,
         code: this.code?.value,
         description: this.description?.value,
         unit_value:this.unitValue?.value,
@@ -195,11 +219,18 @@ export class ProductComponent implements OnInit{
         percentage:this.percentage?.value/100
     }
     if (this.formProduct.valid) {
-      this.ProductService.updateProduct(this.product.id,addProduct).subscribe(
-        ()=>{
+      this.ProductService.updateProduct(this.product.id,addProduct)
+      .subscribe(()=>{
           this.getAllProducts();
-        }
-      )
+        },()=>{
+          Swal.fire({
+            icon: 'error',
+            confirmButtonText: 'Regresar',
+            title: 'Error',
+            html: `ha ocurrido un error en el momento de modificar el producto`,
+          })
+          this.statusDeatil='Error';
+        })
       Swal.fire({
         icon: 'success',
         confirmButtonText: 'Regresar',
@@ -208,10 +239,28 @@ export class ProductComponent implements OnInit{
       })
       this.statusDeatil='Success';
       this.formProduct.reset();
-      this.productId=0;
+
+      this.product={
+        id: 0,
+        category_id: {
+          id:0,
+          category: ''
+        },
+        code: '',
+        description: '',
+        unit_value:0,
+        totals_stock: 0,
+        percentage:0,
+      }
+
     } else {
+      Swal.fire({
+        icon: 'error',
+        confirmButtonText: 'Regresar',
+        title: 'Error',
+        html: `Ocurrio un error al llenar el formulario`,
+      })
       this.statusDeatil='Error';
-      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
       this.formProduct.markAllAsTouched();
     }
   }
@@ -223,14 +272,18 @@ export class ProductComponent implements OnInit{
     this.ProductService.getProduct(item.id).subscribe(
       data=>{
         this.formProduct.patchValue(data);
-        this.categoryId?.setValue(data.category_id.id);
+        this.category?.setValue(data.category_id);
         this.percentage?.setValue(data.percentage*100)
         this.priceSell=((this.percentage?.value/100)*this.unitValue?.value)+this.unitValue?.value
         this.statusDeatil='Success';
       },()=>{
+        Swal.fire({
+          icon: 'error',
+          confirmButtonText: 'Regresar',
+          title: 'Error',
+          html: `ha ocurrido un error en el momento de seleccionar el producto`,
+        })
         this.statusDeatil='Error';
-        this.messagges=`Ocurrió un error ${this.statusDeatil}`;
-        this.formProduct.markAllAsTouched();
       }
     )
   }
@@ -250,22 +303,42 @@ export class ProductComponent implements OnInit{
           html: `El producto: <strong>${item.description}</strong> fue eliminado con éxito`,
         })
       },()=>{
+        Swal.fire({
+          icon: 'error',
+          confirmButtonText: 'Regresar',
+          title: 'Error',
+          html: `ha ocurrido un error en el momento de eliminar el producto`,
+        })
         this.statusDeatil='Error';
-        this.messagges=`Ocurrió un error ${this.statusDeatil}`;
       });
     }else{
+      Swal.fire({
+        icon: 'error',
+        confirmButtonText: 'Regresar',
+        title: 'Error',
+        html: `Ocurrio un error al llenar el formulario`,
+      })
       this.statusDeatil='Error';
-      this.messagges=`Ocurrió un error ${this.statusDeatil}`;
     }
   }
 
-  //this function is for find products in the list call from api
-  onChangeText(){
-    if(this.valueFind.value){
-      this.itemFind=this.valueFind.value;
-      this.listFilter=this.filterpipe.transform(this.products,this.itemFind);
-      ///CAMBIAR ESTOOOOOOO IMPORTANTE
-      this.productId=0;
+
+  reciveValueFind(item: string){
+    this.product={
+      id: 0,
+      category_id: {
+        id:0,
+        category: ''
+      },
+      code: '',
+      description: '',
+      unit_value:0,
+      totals_stock: 0,
+      percentage:0,
+    }
+    if(item){
+      this.itemFind=item
+      this.listFilter=this.filterpipe.transform(this.products,item);
     }else{
       this.itemFind="";
     }

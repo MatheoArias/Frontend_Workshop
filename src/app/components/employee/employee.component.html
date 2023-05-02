@@ -1,9 +1,12 @@
-<div class="content__app">
+<div
+  class="content__app ">
+
   <form
     (ngSubmit)="submit($event)"
     [formGroup]="formEmployee">
 
-    <div class="content__input">
+    <div
+       class="content__input">
       <label>
         Nombres y Apellidos
       </label>
@@ -15,21 +18,22 @@
         [class.is--invalid]="names?.invalid && names?.touched">
       <p
         *ngIf="names?.touched && names?.hasError('required')"
-        class="content__text--alert">
-        *Campo obligatorio.
+       class="content__text--alert">
+        Campo obligatorio.
       </p>
     </div>
 
 
-    <div class="content__input">
+    <div
+      class="content__input">
       <label>
-       Tipo de documento
+        Tipo de documento
       </label>
       <select
         type="number"
-         formControlName="document_type"
-         [class.is--valid]="documentType?.valid && documentType?.touched"
-         [class.is--invalid]="documentType?.invalid && documentType?.touched">
+        formControlName="document_type"
+        [class.is--valid]="inputDocumentType?.valid && inputDocumentType?.touched"
+        [class.is--invalid]="inputDocumentType?.invalid && inputDocumentType?.touched">
         <option
           value=""
           class="firstChoice"
@@ -43,13 +47,14 @@
         </option>
       </select>
       <p
-        *ngIf="documentType?.touched && documentType?.hasError('required')"
+        *ngIf="inputDocumentType?.touched && inputDocumentType?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__input">
+    <div
+      class="content__input">
       <label>
         Número de documento
       </label>
@@ -59,14 +64,15 @@
         placeholder="Ingrese el número de documento"
         [class.is--valid]="documentNumber?.valid && documentNumber?.touched"
         [class.is--invalid]="documentNumber?.invalid && documentNumber?.touched">
-        <p
-          *ngIf="documentNumber?.touched && documentNumber?.hasError('required')"
-          class="content__text--alert">
-        *Campo obligatorio.
-        </p>
+      <p
+        *ngIf="documentNumber?.touched && documentNumber?.hasError('required')"
+        class="content__text--alert">
+        Campo obligatorio.
+      </p>
     </div>
 
-    <div class="content__input">
+    <div
+      class="content__input">
       <label>
         Ocupación
       </label>
@@ -90,11 +96,12 @@
       <p
         *ngIf="employeesType?.touched && employeesType?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__input">
+    <div
+      class="content__input">
       <label>
         Número de teléfono fijo
       </label>
@@ -107,11 +114,12 @@
       <p
         *ngIf="telephoneNumber?.touched && telephoneNumber?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__input">
+    <div
+       class="content__input">
       <label>
         Número de celular
       </label>
@@ -122,13 +130,13 @@
         [class.is--valid]="telephoneCel?.valid && telephoneCel?.touched"
         [class.is--invalid]="telephoneCel?.invalid && telephoneCel?.touched">
       <p
-        *ngIf="telephoneCel?.touched && telephoneCel?.hasError('required')"
-        class="content__text--alert">
-        *Campo obligatorio.
+        *ngIf="telephoneCel?.touched && telephoneCel?.hasError('required')" class="content__text--alert">
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__input">
+    <div
+      class="content__input">
       <label>
         Dirección de residencia
       </label>
@@ -141,29 +149,46 @@
       <p
         *ngIf="residenceAddress?.touched && residenceAddress?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__input">
+    <div
+       class="content__input">
       <label>
         Correo Electrónico
       </label>
       <input
-      type="text"
-      id="InputEmailAddress"
-      formControlName="email_address"
-      placeholder="Ingrese el correo electrónico"
-      [class.is--valid]="emailAddress?.valid && emailAddress?.touched"
-      [class.is--invalid]="emailAddress?.invalid && emailAddress?.touched">
+        type="text"
+        formControlName="email_address"
+        placeholder="Ingrese el correo electrónico"
+        [class.is--valid]="emailAddress?.valid && emailAddress?.touched"
+        [class.is--invalid]="emailAddress?.invalid && emailAddress?.touched">
       <p
         *ngIf="emailAddress?.touched && emailAddress?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
       </p>
     </div>
 
-    <div class="content__button">
+    <div
+      class="content__input">
+      <label>Porcentaje</label>
+      <input
+        type="number"
+        formControlName="percentage"
+        placeholder="Ingrese el porcentaje del empleado"
+        [class.is--valid]="percentage?.valid && percentage?.touched"
+        [class.is--invalid]="percentage?.invalid && percentage?.touched">
+      <p
+        *ngIf="percentage?.touched && percentage?.hasError('required')"
+        class="content__text--alert">
+        Campo obligatorio.
+      </p>
+    </div>
+
+    <div
+      class="content__button">
       <button
         class="button"
         [disabled]="!formEmployee.valid"
@@ -182,86 +207,100 @@
 
   </form>
 
+  <app-input-find
+  (valueFindEvent)="reciveValueFind($event)">
+
+  </app-input-find>
+
   <div
-  class="content__input--find">
-  <label for="">Buscar producto</label>
-  <input
-    type="search"
-     [formControl]="valueFind"
-    (input) ="onChangeText()"
-    placeholder="Busca el cliente aquí">
-    <img
-      src="../../../assets/lupa.svg"
-      alt="this is the find icon">
+    class="content_list">
+
+    <ul
+      *ngIf="listFilter.length; else elseBlock"
+      class="content__list--products">
+
+      <li
+        [class.radio__activate]="employee.id===item.id"
+        *ngFor="let item of employees | filter:itemFind">
+        <input
+           type="radio"
+           name="choiceEmployee"
+           value="{{item.id}}"
+           (click)="toggleUpdate(item)">
+
+        <div>
+          <h2>
+            {{item.names | titlecase}}
+          </h2>
+        </div>
+
+        <div>
+          <p>
+            {{item.employees_type.jobs_names | titlecase}} ({{item.employees_type.jobs_names_cod | uppercase}})
+          </p>
+        </div>
+
+        <div>
+          <p>
+            {{item.document_type.types | uppercase}} - {{item.document_number | number}}
+          </p>
+        </div>
+
+        <div>
+          Fijo:
+          <p>
+            {{item.telephone_number | telephone}}
+          </p>
+        </div>
+
+        <div>
+          Celular:
+          <p>
+            {{item.telephone_cel | telephone}}
+          </p>
+        </div>
+
+        <div>
+          <p>
+            {{item.residence_address | titlecase}}
+          </p>
+        </div>
+
+        <div>
+          <p>
+            {{item.email_address | lowercase}}
+          </p>
+        </div>
+
+        <div>
+          <p>
+            {{item.percentage | percent}}
+          </p>
+        </div>
+
+        <button
+          class="button__icon"
+          (click)=" toggleDelete(item)"
+          [class.radio__activate--icon]="employee.id===item.id">
+        </button>
+
+      </li>
+    </ul>
+
+    <ng-template #elseBlock>
+
+      <div class="content__elseBlock">
+        <div class="content__notfound">
+          <img src="../../../assets/alert.svg" alt="this is the image alert">
+          <p class="text--notfound">
+            No se encuentra ningún empleado
+          </p>
+        </div>
+      </div>
+
+    </ng-template>
+
   </div>
-
-  <ul
-    *ngIf="listFilter.length; else elseBlock"
-    class="content__list">
-    <li
-      [class.radio__activate]="employeesId===item.id"
-      *ngFor="let item of employees | filter:itemFind">
-      <input
-        type="radio"
-        name="choiceEmployee"
-        value="{{item.id}}"
-        (click)="toggleUpdate(item)">
-      <div>
-        <h2>
-          {{item.names | titlecase}}
-        </h2>
-      </div>
-      <div>
-        <p>
-          {{item.employees_type.jobs_names | titlecase}} ({{item.employees_type.jobs_names_cod | uppercase}})
-        </p>
-      </div>
-      <div>
-        <p>
-          {{item.document_type.types | uppercase}} - {{item.document_number | number}}
-        </p>
-      </div>
-      <div>
-        Fijo:
-        <p>
-          {{item.telephone_number | telephone}}
-        </p>
-      </div>
-      <div>
-        Celular:
-        <p>
-          {{item.telephone_cel | telephone}}
-        </p>
-      </div>
-      <div>
-        <p>
-          {{item.residence_address | titlecase}}
-        </p>
-      </div>
-      <div>
-        <p>
-          {{item.email_address | lowercase}}
-        </p>
-      </div>
-      <button
-      class="button__icon"
-      (click)=" toggleDelete(item)"
-      [class.radio__activate--icon]="employeesId===item.id">
-    </button>
-    </li>
-  </ul>
-
-  <ng-template #elseBlock>
-    <div class="content__notfound">
-      <img
-       src="../../../assets/alert.svg"
-       alt="this is the image alert">
-      <p
-      class="content__text--notfound">
-        No se encuentra ningún empleado
-      </p>
-    </div>
-  </ng-template>
 
 </div>
 
