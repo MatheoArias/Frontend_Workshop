@@ -1,18 +1,18 @@
 import { Category } from './category.model';
 
 
-  // product={
-  //   id: 0,
-  //   category_id: {
-  //     id:0,
-  //     category: ''
-  //   },
-  //   code: '',
-  //   description: '',
-  //   unit_value:0,
-  //   totals_stock: 0,
-  //   percentage:0,
-  // }
+// product={
+//   id: 0,
+//   category_id: {
+//     id:0,
+//     category: ''
+//   },
+//   code: '',
+//   description: '',
+//   unit_value:0,
+//   totals_stock: 0,
+//   percentage:0,
+// }
 export interface Product {
   id: number;
   category_id: Category;

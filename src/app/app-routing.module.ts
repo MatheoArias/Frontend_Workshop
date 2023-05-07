@@ -22,6 +22,8 @@ import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { UpdateBuyProductComponent } from './components/update-buy-product/update-buy-product.component';
 import { UpdateSellProductComponent } from './components/update-sell-product/update-sell-product.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetConfirmPasswordComponent } from './components/reset-confirm-password/reset-confirm-password.component';
 
 
 
@@ -130,6 +132,14 @@ const routes: Routes = [
   {
     path:'register',
     component:RegisterUserComponent,
+  },
+  {
+    path:'password_reset',
+    component:ResetPasswordComponent,
+  },
+  {
+    path:'password_confirm_reset',
+    component:ResetConfirmPasswordComponent,
   },
   {
     path:'**',

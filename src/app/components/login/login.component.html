@@ -3,9 +3,9 @@
   <div
     class="content__login">
 
-    <img
-      src="../../../assets/icon_color.svg"
-      alt="this is the comopany's icon">
+    <div
+      class="icon__company">
+    </div>
 
     <h1>
       B & H <br>
@@ -42,28 +42,38 @@
 
       <div
         class="content__input">
-        <input
-          type="password"
-          [class.is--valid]="password?.valid && password?.touched"
-          [class.is--invalid]="password?.invalid && password?.touched || statusDeatil==='Error'"
-          formControlName="password"
-          placeholder="Ingrese su contraseña"
-          (click)="getStatusDetail()">
+
+        <div
+          class="content__input--key">
+          <input
+            type="password"
+            [class.is--valid]="password?.valid && password?.touched"
+            [class.is--invalid]="password?.invalid && password?.touched || statusDeatil==='Error'"
+            formControlName="password"
+            [type]="inputType"
+            placeholder="Ingrese su contraseña"
+            (click)="getStatusDetail()">
+          <div
+            class="icon__key"
+            [class.activate]="changePassword">
+            <input
+              (click)="onChangePassword()"
+              type="checkbox">
+          </div>
+        </div>
 
         <p
           class="content__text--alert"
           *ngIf=" password?.touched && password?.hasError('required')">
           El campo de contraseña no debería estar vacío.
         </p>
-      </div>
 
-      <div
-        class="content__input">
         <p
           class="content__text--alert"
           *ngIf="statusDeatil==='Error' && formLogin.valid">
           {{messagges}}
         </p>
+
       </div>
 
       <button
@@ -74,7 +84,7 @@
       </button>
 
       <a
-        href="#"
+        [routerLink]="['/password_reset']"
         class="content__text--recovery">
         ¿Olvidaste tu contraseña?
       </a>

@@ -45,6 +45,8 @@ import { DiscountsComponent } from './components/discounts/discounts.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { ListNavComponent } from './components/list-nav/list-nav.component';
 import { InputFindComponent } from './components/input-find/input-find.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetConfirmPasswordComponent } from './components/reset-confirm-password/reset-confirm-password.component';
 
 
 
@@ -82,6 +84,8 @@ import { InputFindComponent } from './components/input-find/input-find.component
     RegisterUserComponent,
     ListNavComponent,
     InputFindComponent,
+    ResetPasswordComponent,
+    ResetConfirmPasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
 
+export class LoginComponent {
 
   messagges='';
   statusCode=0;
@@ -42,6 +42,14 @@ export class LoginComponent {
 
   getStatusDetail(){
     this.statusDeatil='Loading'
+  }
+
+  changePassword=false;
+  inputType='password'
+
+  onChangePassword(){
+    this.changePassword=!this.changePassword;
+    this.inputType=this.changePassword==true?'text':'password'
   }
 
   //this function is for send the username and password. if the information is correct, take teh token and save in localStorage.

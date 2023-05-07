@@ -30,12 +30,6 @@ export class RegisterUserComponent {
   passwordEqual=false;
   inputType='password'
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private usersService:UsersService,
-  ){
-    this.formAddUsers();
-  }
 
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init';
   formUser!: FormGroup;
@@ -71,11 +65,29 @@ export class RegisterUserComponent {
     });
   }
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private usersService:UsersService,
+  ){
+    this.formAddUsers();
+  }
+
   onChangePassword(){
     this.changePassword=!this.changePassword;
     this.inputType=this.changePassword==true?'text':'password'
   }
 
+  //This function is for add new user in data base
+  // last_login: new Date(),
+  // email: teoarco@gmail.com,
+  // password: EsteEsUnaConsena,
+  // name: Mateo,
+  // last_name: Arias Correa,
+  // is_active: true,
+  // is_staff: true,
+  // is_superuse: true,
+  // groups: [],
+  // user_permissions: []
   submit(event:Event){
     event.preventDefault()
     this.statusDeatil='Loading'

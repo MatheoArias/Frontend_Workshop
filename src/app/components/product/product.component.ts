@@ -153,7 +153,6 @@ export class ProductComponent implements OnInit{
   //unit_value: 15000 - number,
   //totals_stock: 15 - number,
   //percentage: 45 /100 *** This number come of  input component
-
   submit(event: Event) {
     event.preventDefault();
     this.statusDeatil='Loading';
