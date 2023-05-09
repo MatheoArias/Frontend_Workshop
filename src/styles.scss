@@ -85,6 +85,8 @@ body {
 main {
   height: 100%;
   width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 app-products,
@@ -92,13 +94,14 @@ app-customers,
 app-vehicles,
 app-sells,
 app-employees{
-  grid-area: router;
-  display: flex;
-  flex-direction: column;
-  flex-direction: column;
-  justify-content: center;
+  grid-column: 2/15;
+  grid-row: 2/3;
   max-height: 100%;
-  height: 90%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 a,
@@ -617,7 +620,8 @@ form {
     justify-content: center;
     gap: 0.5rem;
     width: 90%;
-    height: 100vh;
+    height: 400px;
+    max-height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
     margin: 0 auto;
@@ -627,25 +631,21 @@ form {
       background-color: var(--color--white);
       width: 45%;
       margin: 1px;
-      border-radius: 0px 10px 10px 0px;
+      border-radius: 5px;
       padding:  26px 13px 13px 13px;
       display: flex;
       flex-direction: column;
-      border: 1px dashed var(--color--red);
       box-shadow: -6px 5px 5px 0px rgba(0,0,0,0.17);
 
       h2 {
-        font-family: 'Quicksand', sans-serif;
+        font-family: 'Raleway';
         color: var(--color--red);
         margin: 0;
         font-size: 1.5rem;
-        line-height: 1.7rem;
-        font-weight: 500;
+        line-height: 17px;
+        font-weight: 400;
         text-align: left;
         width: 100%;
-        grid-column: 1/3;
-        grid-row: 1/2;
-        text-transform: uppercase;
       }
 
       p {
@@ -653,8 +653,8 @@ form {
         display: flex;
         flex-direction: column;
         font-size: 1.2rem;
-        line-height: 1.4rem;
-        font-weight: 300;
+        line-height: 14px;
+        font-weight: 400;
       }
 
       .content__text--number {
@@ -675,7 +675,7 @@ form {
             line-height: 1.5rem;
             font-weight: 400;
             letter-spacing: 0.5px;
-            color: #000000;
+            color: var(--color--gray);
           }
 
           .text--cuantity {
@@ -719,11 +719,11 @@ form {
         justify-self: center;
         font-family: 'Thalib';
         color: var(--color--red);
-        font-size: 2.5rem;
-        line-height: 50px;
+        font-size: 2rem;
         width: 100%;
-        margin: 5px;
+        margin: 2.5px;
         text-transform: capitalize;
+        line-height: 30px;
       }
 
       img {
@@ -751,13 +751,13 @@ form {
     .text--redirect {
       font-size: 1.3rem;
       line-height: 15px;
-      font-weight: 400;
+      font-weight: 500;
       text-align: center;
       margin: 5px !important;
 
       a {
         font-size: 1.4rem;
-        font-weight: 400;
+        font-weight: 500;
         line-break: 16px;
         color: var(--color--red--secundary);
         text-decoration: none;
@@ -917,7 +917,9 @@ ngx-charts-advanced-pie-chart {
 }
 
 @media(min-width:1000px) {
-
+  .list__background--shawdow{
+    display: none;
+  }
   .content_list {
     .content__list--products {
       max-height: 350px;

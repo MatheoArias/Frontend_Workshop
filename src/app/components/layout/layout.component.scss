@@ -2,26 +2,25 @@
 @media (min-width: 1000px) {
   .content__app--root {
     display: grid;
-    max-width: 100%;
-    width: 100%;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: 87px;
     height: 100%;
-    max-height:100%;
-    grid-template-rows: 81px repeat(2,100%);
-    grid-template-areas:
-        "barnav barnav barnav"
-        "list-nav router router";
 
     app-nav{
-      grid-area: barnav;
+      grid-column: 1/15;
+      grid-row: 1/2;
+      height: 100%;
     }
 
     app-list-nav{
-      grid-area: list-nav;
+      grid-column: 1/2;
+      grid-row: 2/3;
     }
 
     router-outlet {
-      grid-area: router;
-      max-height: 100%;
+      grid-column: 2/15;
+      grid-row: 2/3;
+      width: 100%;
       height: 100%;
     }
 

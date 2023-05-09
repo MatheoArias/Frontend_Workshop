@@ -18,7 +18,7 @@
        <p
        *ngIf=" buysDate?.touched && buysDate?.hasError('required')"
        class="content__text--alert">
-       *Campo obligatorio.
+        Campo obligatorio.
        </p>
     </div>
 
@@ -37,7 +37,7 @@
         <p
         *ngIf=" buysBill?.touched && buysBill?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
         </p>
     </div>
 
@@ -133,8 +133,8 @@
       class="content__button">
       <button
         class="button"
-        [disabled]="formBuysProduct.invalid"
-        [class.is__invalid]="formBuysProduct.invalid">
+        [disabled]="formBuysProduct.invalid || buysProductsListDTO.length<=0"
+        [class.is__invalid]="formBuysProduct.invalid || buysProductsListDTO.length<=0">
         Ingresar
       </button>
     </div>
@@ -142,6 +142,7 @@
   </form>
 
   <form
+    class="form__List--buyproducts"
     [formGroup]="formlistBuyProducts">
 
     <ul
@@ -211,43 +212,44 @@
       <button
         class="button"
         (click)="onClickAddProductList(product)"
-        [disabled]="formBuysProduct.invalid"
-        [class.is__invalid]="formBuysProduct.invalid">
+        [disabled]="formBuysProduct.invalid || formlistBuyProducts.invalid"
+        [class.is__invalid]="formBuysProduct.invalid || formlistBuyProducts.invalid">
         Agregar
       </button>
     </div>
 
   </form>
 
-  <app-input-find
-  (valueFindEvent)="reciveValueFind($event)">
-  </app-input-find>
-
   <div
-  class="content_list">
+    class="content__column--right">
 
-    <ul
-      class="content__list--products"
-      *ngIf="listFilter.length; else elseBlock">
-      <li
-        [class.radio__activate]="product.id===item.id"
-        *ngFor="let item of products | filter:itemFind">
-        <input
-          type="radio"
-          value="{{item.id}}"
-          (change)="onClickListProducts(item)"
-          [formControl]="choiceProduct">
-        <h2>
-          {{item.description}}
-        </h2>
+    <app-input-find
+      class="app__input--find"
+      (valueFindEvent)="reciveValueFind($event)">
+    </app-input-find>
 
-        <p
-        class="text--code">
-          {{item.code}}
-        </p>
+    <div
+    class="content_list">
 
-        <div
-          class="content__text--number">
+      <ul
+        class="content__list--products"
+        *ngIf="listFilter.length; else elseBlock">
+        <li
+          [class.radio__activate]="product.id===item.id"
+          *ngFor="let item of products | filter:itemFind">
+          <input
+            type="radio"
+            value="{{item.id}}"
+            (change)="onClickListProducts(item)"
+            [formControl]="choiceProduct">
+          <h2>
+            {{item.description}}
+          </h2>
+
+          <p
+          class="text--code">
+            {{item.code}}
+          </p>
 
           <div
             class="text--number">
@@ -258,40 +260,44 @@
           </div>
 
           <div
-            class="text--number">
+            class="text--inventory">
+            Inventario
             <p class="text--cuantity">
               {{item.totals_stock}}
             </p>
           </div>
+        </li>
+      </ul>
 
-        </div>
-      </li>
-    </ul>
+      <ng-template #elseBlock>
 
-    <ng-template #elseBlock>
-
-      <div
-        class="content__elseBlock">
         <div
-          class="content__notfound">
-          <img
-            src="../../../assets/alert.svg" alt="this is the image alert">
+          class="content__elseBlock">
+          <div
+            class="content__notfound">
+            <img
+              src="../../../assets/alert.svg" alt="this is the image alert">
+            <p
+              class="text--notfound">
+              No se encuentra ningún producto
+            </p>
+          </div>
           <p
-            class="text--notfound">
-            No se encuentra ningún producto
+            class="text--redirect">Agregue el producto
+            <a
+              [routerLink]="['/products/add_product']">
+              aquí
+            </a>
           </p>
         </div>
-        <p
-          class="text--redirect">Agregue el producto
-          <a
-            [routerLink]="['/products/add_product']">
-            aquí
-          </a>
-        </p>
-      </div>
 
-    </ng-template>
+      </ng-template>
+
+    </div>
 
   </div>
+
+
+
 
 </div>

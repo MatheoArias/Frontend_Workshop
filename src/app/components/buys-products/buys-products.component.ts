@@ -236,6 +236,7 @@ export class BuysProductsComponent implements OnInit {
       .subscribe(()=>{
         this.buyUnitValue?.setValue(item.unit_value);
       })
+      this.cuantity?.setValue(1)
     }
   }
 
