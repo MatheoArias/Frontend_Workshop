@@ -32,11 +32,12 @@ export class MovementsComponent implements OnInit {
   showLabels= true;
   isDoughnut= false;
 
-  dataMoevements:MovementesChart[]=[]
+  dataMovements:MovementesChart[]=[]
   data: MovementesChart={
     name:'',
     value: 0
   };
+
   colorScheme = {
     domain: ['#F47A82', '#5fe39f'],
     name: 'colorScheme',
@@ -115,7 +116,7 @@ export class MovementsComponent implements OnInit {
         && item.category=='Entrada');
      const totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
 
-      this.dataMoevements=[
+      this.dataMovements=[
         {
           name: "Entradas",
           value: totalIntflow
@@ -140,7 +141,7 @@ export class MovementsComponent implements OnInit {
          item.category=='Entrada');
       const totalIntflow = listIntFlow.reduce((sum, item) => item.totals_stock + sum,0)
 
-      this.dataMoevements=[
+      this.dataMovements=[
         {
           name: "Entradas",
           value: totalIntflow

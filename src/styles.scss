@@ -96,12 +96,13 @@ app-sells,
 app-employees{
   grid-column: 2/15;
   grid-row: 2/3;
-  max-height: 100%;
-  height: 100%;
+  max-height: 96%;
+  height: 95%;
   width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-top: 5px;
 }
 
 a,
@@ -643,7 +644,7 @@ form {
         margin: 0;
         font-size: 1.5rem;
         line-height: 17px;
-        font-weight: 400;
+        font-weight: 500;
         text-align: left;
         width: 100%;
       }
@@ -839,15 +840,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 ngx-charts-advanced-pie-chart {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  max-width: 90vw;
-  height: 100px;
-
-  .advanced-pie-legend-wrapper,
-  .advanced-pie {
-    height: 100px !important;
-    max-width: 100% !important;
+  div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -922,9 +918,7 @@ ngx-charts-advanced-pie-chart {
   }
   .content_list {
     .content__list--products {
-      max-height: 350px;
       overflow-y: scroll;
-
     }
   }
 }

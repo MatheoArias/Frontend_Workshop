@@ -1,31 +1,85 @@
 <div
   class="content__app">
 
-  <form (ngSubmit)="submit($event)" [formGroup]="formBuysProduct">
+  <form
+    class="form__products"
+    (ngSubmit)="submit($event)"
+    [formGroup]="formBuysProduct">
 
-    <div class="content__input">
-      <h2>Producto</h2>
-      <p>{{buyProduct.product_id.description}}</p>
+    <div
+      class="content__text--tittle">
+      <h2>
+          Producto
+      </h2>
+      <p *ngIf="buyProduct.id; else elseTextProduct">
+        {{buyProduct.product_id.description}}
+      </p>
+      <ng-template #elseTextProduct>
+        <p>
+          Seleccione una venta de producto
+        </p>
+      </ng-template>
     </div>
 
-    <div class="content__input">
-      <h2>Fecha de Compra</h2>
-      <p>{{buyProduct.buys_date | date: 'dd-MM-yyyy'}}</p>
+    <div
+      class="content__text--tittle">
+      <h2>
+        Fecha de Compra
+      </h2>
+      <p>
+        {{buyProduct.buys_date | date: 'dd-MM-yyyy'}}
+      </p>
     </div>
 
-    <div class="content__input">
-      <label>Número de factura</label>
-      <input type="text" formControlName="buys_bill">
+    <div
+      class="content__input">
+      <label>
+        Número de factura
+      </label>
+      <input
+        type="text"
+        formControlName="buys_bill"
+        [class.is--valid]="buysBill?.valid"
+        [class.is--invalid]="buysBill?.invalid && buysBill?.touched">
+        <p
+        *ngIf=" buysBill?.touched && buysBill?.hasError('required')"
+        class="content__text--alert">
+        Campo obligatorio.
+      </p>
     </div>
 
-    <div class="content__input">
-      <label>Cantidad</label>
-      <input type="number" formControlName="buys_stock">
+    <div
+      class="content__input">
+      <label>
+        Cantidad
+      </label>
+      <input
+       type="number"
+       formControlName="buys_stock"
+       [class.is--valid]="buysStock?.valid"
+       [class.is--invalid]="buysStock?.invalid && buysStock?.touched">
+       <p
+        *ngIf=" buysStock?.touched && buysStock?.hasError('required')"
+        class="content__text--alert">
+        Campo obligatorio.
+       </p>
     </div>
 
-    <div class="content__input">
-      <label>Valor</label>
-      <input type="number" formControlName="buys_unit_value">
+    <div
+      class="content__input">
+      <label>
+        Valor
+      </label>
+      <input
+        type="number"
+        formControlName="buys_unit_value"
+        [class.is--valid]="buysUnitValue?.valid"
+        [class.is--invalid]="buysUnitValue?.invalid && buysUnitValue?.touched">
+      <p
+        *ngIf=" buysUnitValue?.touched && buysUnitValue?.hasError('required')"
+        class="content__text--alert">
+        Campo obligatorio.
+      </p>
     </div>
 
     <div
@@ -35,54 +89,54 @@
         Modificar
       </button>
     </div>
+
   </form>
 
-  <div
-    class="content__input--find">
-    <label>
-      Buscar producto
-    </label>
-    <input
-      type="search"
-      [formControl]="valueFind"
-      (input) ="onChangeText()"
-      placeholder="Busque el producto aquí">
-    <img src="../../../assets/lupa.svg" alt="this is the find icon">
-  </div>
+  <app-input-find
+    class="app__input--find"
+    (valueFindEvent)="reciveValueFind($event)">
+  </app-input-find>
 
-  <ul
-    class="content__list--products"
-    *ngIf="listFilter.length; else elseBlock">
-    <li
-      [class.radio__activate]="buyProduct.id===item.id"
-      *ngFor="let item of buyProducts | filter:itemFind">
-      <input
-      type="radio"
-      value="{{item.id}}"
-      (change)="onClickListProducts(item)"
-      [formControl]="choiceProduct">
+  <div
+    class="content_list">
+
+    <ul
+      class="content__list--products"
+      *ngIf="listFilter.length; else elseBlock">
+      <li
+        [class.radio__activate]="buyProduct.id===item.id"
+        *ngFor="let item of buyProducts | filter:itemFind">
+        <input
+          type="radio"
+          value="{{item.id}}"
+          (change)="onClickListProducts(item)"
+          [formControl]="choiceProduct">
         <h2>
           {{item.product_id.description}}
         </h2>
-        <div>
-          Fecha:
-          <p>
-            {{item.buys_date}}
-          </p>
-        </div>
-        <div>
-          Factura:
+        <p
+          class="buys--date">
+          {{item.buys_date}}
+        </p>
+
+        <div
+          class="bill--number">
+          Número de Factura:
           <p>
             {{item.buys_bill}}
           </p>
         </div>
-        <div>
+
+        <div
+          class="cuantity">
           Cantidad
           <p>
             {{item.buys_stock | number}}
           </p>
         </div>
-        <div>
+
+        <div
+          class="value">
           Valor
           <p>
             {{item.buys_unit_value | currency}}
@@ -94,23 +148,24 @@
           (click)="toggleDelete(item)"
           [class.radio__activate--icon]="buyProduct.id===item.id">
         </button>
-    </li>
-  </ul>
+      </li>
+    </ul>
 
-  <ng-template #elseBlock>
-
-    <div
-      class="content__elseBlock">
+    <ng-template #elseBlock>
       <div
-        class="content__notfound">
-        <img
-          src="../../../assets/alert.svg" alt="this is the image alert">
-        <p
-          class="text--notfound">
-          No se encuentra ningún producto
-        </p>
+        class="content__elseBlock">
+        <div
+          class="content__notfound">
+          <img
+            src="../../../assets/alert.svg" alt="this is the image alert">
+          <p
+            class="text--notfound">
+            No se encuentra ningúna Compra
+          </p>
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
+
+  </div>
 
 </div>

@@ -1,6 +1,7 @@
 <div class="content__app">
 
     <form
+      class="form__Products"
       (ngSubmit)="submit($event)"
       [formGroup]="formProduct">
 
@@ -38,7 +39,7 @@
         <p
         *ngIf=" category?.touched && category?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
         </p>
       </div>
 
@@ -57,17 +58,17 @@
         <p
           *ngIf=" code?.touched && code?.hasError('required')"
           class="content__text--alert">
-          *Campo obligatorio.
+          Campo obligatorio.
         </p>
         <p
           *ngIf=" code?.touched && code?.hasError('minlength')"
           class="content__text--alert">
-          *Debería agregar más de 3 caracteres.
+          Debería agregar más de 3 caracteres.
         </p>
         <p
           *ngIf=" code?.touched && code?.hasError('maxlength')"
           class="content__text--alert">
-          *Debería agregar menos de 7 caracteres.
+          Debería agregar menos de 7 caracteres.
         </p>
       </div>
 
@@ -86,7 +87,7 @@
         <p
           *ngIf=" description?.touched && description?.hasError('required')"
           class="content__text--alert">
-          *Campo obligatorio.
+          Campo obligatorio.
         </p>
       </div>
 
@@ -109,7 +110,7 @@
         <p
         *ngIf=" unitValue?.touched && unitValue?.hasError('required')"
         class="content__text--alert">
-        *Campo obligatorio.
+        Campo obligatorio.
         </p>
       </div>
 
@@ -130,7 +131,7 @@
         <p
         *ngIf=" percentage?.touched && percentage?.hasError('required')"
          class="content__text--alert">
-         *Campo obligatorio.
+         Campo obligatorio.
         </p>
        </div>
 
@@ -149,7 +150,7 @@
             <p
             *ngIf=" totalStock?.touched && totalStock?.hasError('required')"
             class="content__text--alert">
-            *Campo obligatorio.
+            Campo obligatorio.
             </p>
         </div>
       </div>
@@ -184,6 +185,7 @@
     </form>
 
     <app-input-find
+      class="app__input--find"
       (valueFindEvent)="reciveValueFind($event)">
     </app-input-find>
 
@@ -202,34 +204,26 @@
           (click)="toggleUpdate(item)"
           [value]="item.code">
 
-        <div class="description">
-          <h2 class="contentent__description--text">
-            {{item.description | uppercase}}
-          </h2>
-        </div>
 
-        <div class="code">
-          Código
-          <p>
-            {{item.code}}
-          </p>
-        </div>
+        <h2>
+          {{item.description | titlecase}}
+        </h2>
 
-        <div class="category">
-          Categoría
-          <p>
-            {{item.category_id.category | titlecase}}
-          </p>
-        </div>
+        <p
+          class="category">
+          {{item.code | uppercase}} - {{item.category_id.category | titlecase}}
+        </p>
 
-        <div class="value">
+        <div
+          class="value--buy">
           Valor compra
           <p>
             {{item.unit_value | currency}}
           </p>
         </div>
 
-        <div>
+        <div
+          class="value--sell">
           Valor venta
             <p>
               {{(item.unit_value * item.percentage)+item.unit_value | currencyPercent  | currency}}
@@ -243,9 +237,12 @@
           </p>
         </div>
 
-        <div>
+        <div
+          class="percentage">
           Porcentaje
-          <p>{{item.percentage | percent: '2.1-2'}}</p>
+          <p>
+            {{item.percentage | percent: '2.1-2'}}
+          </p>
         </div>
 
         <button
@@ -273,7 +270,7 @@
 
       </ng-template>
 
-  </div>
+    </div>
 
 </div>
 

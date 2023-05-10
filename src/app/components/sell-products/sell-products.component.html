@@ -1,7 +1,9 @@
 <div
   class="content__app"
   [class.activate__modal]="modalState">
+
   <form
+    class="form__sell--product"
     (ngSubmit)="submit($event)"
     [formGroup]="formBill">
 
@@ -78,6 +80,13 @@
       </p>
     </div>
 
+    <ng-template #elseBlockVehicle>
+      <p
+        class="text__elseblock--vehicle">
+        No se encuentra ningun vehiculo
+      </p>
+    </ng-template>
+
     <div
       class="content__input">
       <label>
@@ -105,7 +114,6 @@
         [routerLink]="['/employees/add_employees']"
         routerLinkActive="activate__link"></a>
       </div>
-
       <p
         *ngIf="inputEmployee?.touched && inputEmployee?.hasError('required')"
         class="content__text--alert">
@@ -247,7 +255,7 @@
 
   <form
    [formGroup]="formSellProduct"
-   class="form__sell--product">
+   class="form__sell--listproduct">
 
     <h2>
       Agregue el producto a la lista
@@ -255,26 +263,32 @@
 
     <div
       class="content__input">
-      <select
-        type="text"
-        formControlName="discount">
-        <option
-          selected="true"
-          value=""
-          class="firstChoice">
-          Seleccione
-        </option>
-        <option value="0">
-          No hay Descuento
-        </option>
-        <option
-          *ngFor="let item of discounts"
-          value="{{item.id}}">
-          {{item.types}} ({{item.percentage * 100 | number}}%)
-        </option>
-      </select>
+      <div
+        class="content__inputs--add">
+        <select
+          type="text"
+          formControlName="discount">
+          <option
+            selected="true"
+            value=""
+            class="firstChoice">
+            Seleccione
+          </option>
+          <option value="0">
+            No hay Descuento
+          </option>
+          <option
+            *ngFor="let item of discounts"
+            value="{{item.id}}">
+            {{item.types}} ({{item.percentage * 100 | number}}%)
+          </option>
+        </select>
+        <a
+          routerLinkActive="activate__link"
+          [routerLink]="['/customer']">
+        </a>
+      </div>
     </div>
-
     <div
       class="content__input">
       <input
@@ -360,102 +374,74 @@
 
   </form>
 
+  <app-input-find
+    class="app__input--find"
+    (valueFindEvent)="reciveValueFind($event)">
+  </app-input-find>
+
   <div
-    class="content__input--find">
-    <label>
-      Buscar producto
-    </label>
-    <input
-      type="search"
-       [formControl]="valueFind"
-      (input) ="onChangeText()"
-      placeholder="Busque el producto aquí">
-      <img src="../../../assets/lupa.svg" alt="this is the find icon">
+    class="content_list">
+    <ul
+      class="content__list--products"
+      *ngIf="listFilter.length; else elseBlock">
+      <li
+        [class.radio__activate]="product.id===item.id"
+        *ngFor="let item of products | filter:itemFind">
+        <input
+        type="radio"
+        [formControl]="choiceProduct"
+        value="{{item.id}}"
+        (change)="onClickListProducts(item)">
+        <h2>
+          {{item.description}}
+        </h2>
+        <p
+        class="text--code">
+          {{item.code}}
+        </p>
+
+        <div
+          class="content__text--number">
+          <div
+            class="text--number">
+            Valor
+            <p>
+              {{(item.unit_value * item.percentage)+ item.unit_value | currencyPercent  | currency}}
+            </p>
+          </div>
+          <div
+            class="text--number">
+            Unidades:
+            <p class="text--cuantity">
+              {{item.totals_stock}}
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <ng-template #elseBlock>
+      <div
+        class="content__elseBlock">
+        <div
+          class="content__notfound">
+          <img
+            src="../../../assets/alert.svg" alt="this is the image alert">
+          <p
+            class="text--notfound">
+            No se encuentra ningún producto
+          </p>
+        </div>
+        <p
+          class="text--redirect">Agregue el producto
+          <a
+            [routerLink]="['/products/add_product']">
+            aquí
+          </a>
+        </p>
+      </div>
+    </ng-template>
   </div>
-
-  <ul
-    class="content__list--products"
-    *ngIf="listFilter.length; else elseBlock">
-    <li
-      [class.radio__activate]="product.id===item.id"
-      *ngFor="let item of products | filter:itemFind">
-      <input
-      type="radio"
-      [formControl]="choiceProduct"
-      value="{{item.id}}"
-      (change)="onClickListProducts(item)">
-      <h2>
-        {{item.description}}
-      </h2>
-      <p
-      class="text--code">
-        {{item.code}}
-      </p>
-
-      <div
-        class="content__text--number">
-        <div
-          class="text--number">
-          Valor
-          <p>
-            {{(item.unit_value * item.percentage)+ item.unit_value | currencyPercent  | currency}}
-          </p>
-        </div>
-        <div
-          class="text--number">
-          Unidades:
-          <p class="text--cuantity">
-            {{item.totals_stock}}
-          </p>
-        </div>
-      </div>
-    </li>
-  </ul>
-
-  <ng-template #elseBlock>
-
-    <div
-      class="content__elseBlock">
-      <div
-        class="content__notfound">
-        <img
-          src="../../../assets/alert.svg" alt="this is the image alert">
-        <p
-          class="text--notfound">
-          No se encuentra ningún producto
-        </p>
-      </div>
-      <p
-        class="text--redirect">Agregue el producto
-        <a
-          [routerLink]="['/products/add_product']">
-          aquí
-        </a>
-      </p>
-    </div>
-  </ng-template>
-
-  <ng-template #elseBlockVehicle>
-    <div
-      class="content__elseBlock">
-      <div
-        class="content__notfound">
-        <img
-          src="../../../assets/alert.svg" alt="this is the image alert">
-        <p
-          class="text--notfound">
-          No se encuentra ningún vehículo
-        </p>
-      </div>
-      <p
-        class="text--redirect">Agregue el vehículo
-        <a
-          [routerLink]="['/products/add_product']">
-          aquí
-        </a>
-      </p>
-    </div>
-  </ng-template>
 
   <ng-template  #elseText>
     <div

@@ -31,7 +31,7 @@
 
   /*This is the products style component */
   .content__app {
-
+    padding-top: 5px;
     /*this is the for styles*/
     form {
       .content__row--last {
@@ -63,68 +63,128 @@
       }
     }
 
-  }
+    .content_list{
+      .content__list--products{
+        li{
+          display: grid;
+          grid-template-columns: repeat(4,1fr);
+          padding: 15px;
+          justify-items: center;
 
-  @media (min-width: 1000px) {
+          div{
+            text-transform: capitalize;
+            color: var(--color--red);
+            p{
+              color: var(--color--gray);
+              font-size: 1.3rem;
+              line-height: 15px;
+            }
+          }
+          h2{
+            grid-column :1/5;
+            grid-row: 1/2;
+            width: 100%;
+            height: 100%;
+          }
 
-    .content__app {
-      display: grid;
-      max-height: 100%;
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      grid-template-columns: 50% 50%;
-      grid-template-areas: "form find"
-                            "form list-products";
+          .category{
+            width: 100%;
+            height: 100%;
+            grid-column: 1/5;
+            grid-row: 2/3;
+          }
 
-      form {
-        grid-area: form;
-        height: 400px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(5, 80px);
-        grid-template-areas: "category category code"
-                              "description description description"
-                              "value value value"
-                              "lastRow lastRow lastRow"
-                              "textValue textValue button";
+          .value--buy{
+            width: 100%;
+            height: 100%;
+            grid-column: 1/5;
+            grid-row: 3/4;
+            margin-top: 5px;
+          }
 
-        .content__category {
-          grid-area: category;
+          .value--sell{
+            width: 100%;
+            height: 100%;
+            grid-column: 1/5;
+            grid-row: 4/5;
+            margin: 5px;
+          }
+
+          .inventory{
+            width: 100%;
+            height: 100%;
+            grid-column: 1/3;
+            grid-row: 5/6;
+            text-align: center;
+            p{
+              font-size: 1.8rem;
+              line-height: 20px;
+              align-items: center;
+            }
+          }
+
+          .percentage{
+            width: 100%;
+            height: 100%;
+            grid-column: 3/5;
+            grid-row: 5/6;
+            justify-content: center;
+            p{
+              font-size: 1.8rem;
+              line-height: 20px;
+              align-items: center;
+            }
+          }
+
         }
 
-        .content__code {
-          grid-area: code;
-        }
-
-        .content__description {
-          grid-area: description;
-        }
-
-        .content__value {
-          grid-area: value;
-        }
-
-        .content__row--last {
-          grid-area: lastRow;
-        }
-
-        .text_total--value{
-          grid-area:textValue ;
-        }
-
-        .content__button{
-          grid-area: button;
-        }
-      }
-
-      .content_list {
-        grid-area: list-products;
-      }
-
-      .content__input--find {
-        grid-area: find;
       }
     }
 
+  }
+
+  @media(min-width:768px){
+    .content__app {
+      max-height: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      margin-bottom: 0;
+
+      .form__Products{
+        grid-column: 1/2;
+        grid-row: 1/3;
+      }
+
+      .app__input--find{
+        grid-column: 2/3;
+        grid-row: 1/2;
+      }
+
+      .content_list{
+        grid-column: 2/3;
+        grid-row: 2/3;
+        height: 385px !important;
+        .content__list--products{
+          height: 385px !important;
+          li{
+            width: 45%;
+          }
+        }
+      }
+    }
+  }
+
+  @media(max-width:425px){
+    .content__app {
+      .content_list{
+        .content__list--products{
+          li{
+            width: 85%;
+          }
+
+        }
+      }
+
+    }
   }

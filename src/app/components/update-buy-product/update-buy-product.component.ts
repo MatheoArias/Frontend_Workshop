@@ -49,15 +49,12 @@ export class UpdateBuyProductComponent implements OnInit {
   }
 
   filterpipe = new FilterPipe();
-  itemFind = "";
-  valueFind = new FormControl('');
+  modalState=false;
   listFilter:BuyProducts[] = [];
+  itemFind = "";
+
   choiceProduct=new FormControl('')
-
-  messagges= '';
-  statusCode= 0;
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
-
 
   //This is the sell product form
   get buysBill() {
@@ -104,6 +101,28 @@ export class UpdateBuyProductComponent implements OnInit {
         this.buyProducts=data;
         this.listFilter=data;
       })
+  }
+
+
+  reciveValueFind(item: string){
+    this.product={
+      id: 0,
+      category_id: {
+        id:0,
+        category: ''
+      },
+      code: '',
+      description: '',
+      unit_value:0,
+      totals_stock: 0,
+      percentage:0,
+    }
+    if(item){
+      this.itemFind=item
+      this.listFilter=this.filterpipe.transform(this.products,item);
+    }else{
+      this.itemFind="";
+    }
   }
 
   onClickListProducts(item:BuyProducts){
@@ -201,36 +220,4 @@ export class UpdateBuyProductComponent implements OnInit {
       this.formBuysProduct.reset();
     })
   }
-
-  //this function is for find products in the list call from api
-    onChangeText(){
-      if(this.valueFind.value){
-        this.itemFind=this.valueFind.value;
-        this.listFilter=this.filterpipe.transform(this.products,this.itemFind);
-        this.product={
-          id: 0,
-          category_id: {
-              id: 0,
-              category: ''
-          },
-          code: '',
-          description: '',
-          unit_value: 0,
-          percentage: 0,
-          totals_stock: 0
-        }
-        this.buyProduct={
-          id: 0,
-          product_id: this.product,
-          buys_date: new Date(),
-          buys_bill: "",
-          buys_stock: 0,
-          buys_unit_value:0
-        }
-        this.choiceProduct.reset();
-        this.formBuysProduct.reset();
-      }else{
-        this.itemFind="";
-      }
-    }
 }

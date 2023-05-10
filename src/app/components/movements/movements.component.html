@@ -1,34 +1,59 @@
-<div class="content__movements">
-
-  <div class="section__input">
-    <div [class.activate]="stateButton==='year'" (change)="onChangeInput()">
-      <label for="inputYear">Año</label>
-      <input type="radio" name='time' [formControl]="intervalTime" value="year" id="inputYear"
-        (change)="onGetYearMovements()">
-    </div>
-    <div [class.activate]="stateButton==='month'" (change)="onChangeInput()">
-      <label for="inputMonth">Mes</label>
-      <input type="radio" name='time' [formControl]="intervalTime" value="month" id="inputMonth"
-        (change)="onGetYearMovements()">
-    </div>
-  </div>
+<div
+  class="content__app">
 
   <div class="section__chart">
     <ngx-charts-advanced-pie-chart
       [scheme]="colorScheme"
-       [results]="dataMoevements"
+       [results]="dataMovements"
        [gradient]="gradient">
     </ngx-charts-advanced-pie-chart>
   </div>
 
-  <ul class="content__list">
-    <li *ngFor="let item of movements"
-       class="content__product--in"
-      [class.content__product--out]="item.category===movement.category">
+  <div
+  class="section__input">
+  <div
+    [class.activate]="stateButton==='year'"
+    (change)="onChangeInput()">
+    <label
+      for="inputYear">Año</label>
+    <input
+      type="radio"
+      name='time'
+      [formControl]="intervalTime"
+      value="year" id="inputYear"
+      (change)="onGetYearMovements()">
+  </div>
+  <div
+    [class.activate]="stateButton==='month'"
+    (change)="onChangeInput()">
+    <label
+      for="inputMonth">
+      Mes
+    </label>
+    <input
+      type="radio"
+      name='time'
+      [formControl]="intervalTime"
+      value="month"
+      id="inputMonth"
+      (change)="onGetYearMovements()">
+  </div>
+  </div>
 
-      <div class="description">
-        <h2>{{item.description}}</h2>
-      </div>
+  <ul
+    class="content__list">
+    <li
+      *ngFor="let item of movements"
+      class="content__product--in">
+
+      <h2
+        [class.activate]="item.category!=='Entrada'">
+        {{item.description}}
+      </h2>
+      <p
+        class="code">
+        {{item.code}}
+      </p>
 
       <div
          *ngIf="item.category===movement.category; else elseBlock"
@@ -36,7 +61,6 @@
         <p>Entrada
           <span> ← </span>
         </p>
-
       </div>
 
       <ng-template #elseBlock>
@@ -49,31 +73,34 @@
       </ng-template>
 
 
-      <div class="date">
-        Fecha <strong>:</strong>
-        <p> {{item.date | date}}</p>
+      <div
+        [class.activate]="item.category!=='Entrada'"
+        class="date">
+        Fecha
+        <p>
+          {{item.date |  date: 'dd-MM-yyyy'}}
+        </p>
       </div>
 
-      <div class="bill">
-        Factura <strong>:</strong>
-        <p> {{item.bill}}</p>
+      <div
+        [class.activate]="item.category!=='Entrada'"
+        class="bill">
+        Factura
+        <p>
+          {{item.bill}}
+        </p>
       </div>
 
-      <div class="code">
-        Código <strong>:</strong>
-        <p> {{item.code}}</p>
-      </div>
-
-      <div class="stock--total">
-        Inventario
-        <p> {{item.totals_stock | number}}</p>
-      </div>
-
-      <div class="stock">
+      <div
+        [class.activate]="item.category!=='Entrada'"
+        class="cuantity">
         Cantidad
-        <p> {{item.stock | number}}</p>
+        <p>
+          {{item.stock | number}}
+        </p>
       </div>
 
     </li>
   </ul>
+
 </div>

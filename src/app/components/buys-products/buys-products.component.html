@@ -220,15 +220,12 @@
 
   </form>
 
+  <app-input-find
+    class="app__input--find"
+    (valueFindEvent)="reciveValueFind($event)">
+  </app-input-find>
+
   <div
-    class="content__column--right">
-
-    <app-input-find
-      class="app__input--find"
-      (valueFindEvent)="reciveValueFind($event)">
-    </app-input-find>
-
-    <div
     class="content_list">
 
       <ul
@@ -293,11 +290,6 @@
 
       </ng-template>
 
-    </div>
-
   </div>
-
-
-
 
 </div>
