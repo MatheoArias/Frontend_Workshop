@@ -1,190 +1,166 @@
-  /*This are the styles of de app-category*/
-  .content__app--category {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    display: none;
-    z-index: 3;
+/*This is the products style component */
+.content__app {
+  padding-top: 5px;
 
-    &.activate__modal {
+  /*this is the for styles*/
+  form {
+    .content__row--last {
       display: flex;
-      width: 70%;
-      height: 80vh;
-      z-index: 4;
-      animation: content 0.8s ease-in-out forwards;
+
+      div {
+        width: 50%;
+      }
     }
 
-    &.deactivate__modal {
-      opacity: 0 !important;
-      transform: scale(0, 0) !important;
-      transition: all 1s ease-in-out;
-      display: none;
-    }
+    .text_total--value {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 1.6rem;
+      line-height: 18px;
+      font-weight: 500;
+      color: var(--color--red);
+      text-align: right;
+      margin-right: 20px;
 
-    button {
-      top: none !important;
+      span {
+        color: var(--color--gray);
+        font-size: 1.8rem;
+        line-height: 20px;
+        font-weight: 400;
+
+      }
     }
   }
 
-  /*This is the products style component */
-  .content__app {
-    padding-top: 5px;
-    /*this is the for styles*/
-    form {
-      .content__row--last {
-        display: flex;
+  .content_list {
+    .content__list--products {
+      li {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 15px;
+        justify-items: center;
 
         div {
-          width: 50%;
+          text-transform: capitalize;
+          color: var(--color--red);
+
+          p {
+            color: var(--color--gray);
+            font-size: 1.3rem;
+            line-height: 15px;
+          }
         }
+
+        h2 {
+          grid-column: 1/5;
+          grid-row: 1/2;
+          width: 100%;
+          height: 100%;
+        }
+
+        .category {
+          width: 100%;
+          height: 100%;
+          grid-column: 1/5;
+          grid-row: 2/3;
+        }
+
+        .value--buy {
+          width: 100%;
+          height: 100%;
+          grid-column: 1/5;
+          grid-row: 3/4;
+          margin-top: 5px;
+        }
+
+        .value--sell {
+          width: 100%;
+          height: 100%;
+          grid-column: 1/5;
+          grid-row: 4/5;
+          margin: 5px;
+        }
+
+        .inventory {
+          width: 100%;
+          height: 100%;
+          grid-column: 1/3;
+          grid-row: 5/6;
+          text-align: center;
+
+          p {
+            font-size: 1.8rem;
+            line-height: 20px;
+            align-items: center;
+          }
+        }
+
+        .percentage {
+          width: 100%;
+          height: 100%;
+          grid-column: 3/5;
+          grid-row: 5/6;
+          justify-content: center;
+
+          p {
+            font-size: 1.8rem;
+            line-height: 20px;
+            align-items: center;
+          }
+        }
+
       }
 
-      .text_total--value {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        font-size: 1.6rem;
-        line-height: 18px;
-        font-weight: 500;
-        color: var(--color--red);
-        text-align: right;
-        margin-right: 20px;
-
-        span {
-          color: var(--color--gray);
-          font-size: 1.8rem;
-          line-height:20px;
-          font-weight: 400;
-
-        }
-      }
     }
-
-    .content_list{
-      .content__list--products{
-        li{
-          display: grid;
-          grid-template-columns: repeat(4,1fr);
-          padding: 15px;
-          justify-items: center;
-
-          div{
-            text-transform: capitalize;
-            color: var(--color--red);
-            p{
-              color: var(--color--gray);
-              font-size: 1.3rem;
-              line-height: 15px;
-            }
-          }
-          h2{
-            grid-column :1/5;
-            grid-row: 1/2;
-            width: 100%;
-            height: 100%;
-          }
-
-          .category{
-            width: 100%;
-            height: 100%;
-            grid-column: 1/5;
-            grid-row: 2/3;
-          }
-
-          .value--buy{
-            width: 100%;
-            height: 100%;
-            grid-column: 1/5;
-            grid-row: 3/4;
-            margin-top: 5px;
-          }
-
-          .value--sell{
-            width: 100%;
-            height: 100%;
-            grid-column: 1/5;
-            grid-row: 4/5;
-            margin: 5px;
-          }
-
-          .inventory{
-            width: 100%;
-            height: 100%;
-            grid-column: 1/3;
-            grid-row: 5/6;
-            text-align: center;
-            p{
-              font-size: 1.8rem;
-              line-height: 20px;
-              align-items: center;
-            }
-          }
-
-          .percentage{
-            width: 100%;
-            height: 100%;
-            grid-column: 3/5;
-            grid-row: 5/6;
-            justify-content: center;
-            p{
-              font-size: 1.8rem;
-              line-height: 20px;
-              align-items: center;
-            }
-          }
-
-        }
-
-      }
-    }
-
   }
 
-  @media(min-width:768px){
-    .content__app {
-      max-height: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      margin-bottom: 0;
+}
 
-      .form__Products{
-        grid-column: 1/2;
-        grid-row: 1/3;
-      }
+@media(min-width:768px) {
+  .content__app {
+    max-height: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 0;
 
-      .app__input--find{
-        grid-column: 2/3;
-        grid-row: 1/2;
-      }
+    .form__Products {
+      grid-column: 1/2;
+      grid-row: 1/3;
+    }
 
-      .content_list{
-        grid-column: 2/3;
-        grid-row: 2/3;
+    .app__input--find {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+
+    .content_list {
+      grid-column: 2/3;
+      grid-row: 2/3;
+      height: 385px !important;
+
+      .content__list--products {
         height: 385px !important;
-        .content__list--products{
-          height: 385px !important;
-          li{
-            width: 45%;
-          }
+
+        li {
+          width: 45%;
         }
       }
     }
   }
+}
 
-  @media(max-width:425px){
-    .content__app {
-      .content_list{
-        .content__list--products{
-          li{
-            width: 85%;
-          }
-
+@media(max-width:425px) {
+  .content__app {
+    .content_list {
+      .content__list--products {
+        li {
+          width: 85%;
         }
-      }
 
+      }
     }
+
   }
+}

@@ -49,7 +49,7 @@
   }
 }
 
-.content__app--payment{
+.content__app--subcontent{
   position: absolute;
   top: 0;
   left: 0;
@@ -66,12 +66,5 @@
     height: 80vh;
     z-index: 4;
     animation: content 0.8s ease-in-out forwards;
-  }
-
-  &.deactivate__modal {
-    opacity: 0 !important;
-    transform: scale(0, 0) !important;
-    transition: all 1s ease-in-out;
-    display: none;
   }
 }

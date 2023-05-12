@@ -1,6 +1,5 @@
 <div
-  class="content__app"
-  [class.activate__modal]="modalState">
+  class="content__app">
 
   <form
     class="form__sell--product"
@@ -285,7 +284,7 @@
         </select>
         <a
           routerLinkActive="activate__link"
-          [routerLink]="['/customer']">
+          (click)="toggleModalDiscount()">
         </a>
       </div>
     </div>
@@ -456,11 +455,16 @@
 
 <app-payment-medium
     [paymentMediums]="paymentMedium"
-    (modalStateEvent)="reciveToggleModal($event)"
-    class="content__app--payment"
-    [class.activate__modal]="modalState"
-    [class.deactivate__modal]="modalState===false">
+    (modalStatePaymentMediumEvent)="reciveToggleModalPaymentMedium($event)"
+    class="subcontent__app--content"
+    [class.activate__modal]="modalState">
 </app-payment-medium>
+
+<app-discounts
+  class="subcontent__app--content"
+  (modalStateDiscountEvent)="reciveToggleModalDiscount($event)"
+  [class.activate__modal]="modalStateDiscount">
+</app-discounts>
 
 
 

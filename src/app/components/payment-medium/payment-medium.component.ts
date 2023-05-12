@@ -14,7 +14,7 @@ export class PaymentMediumComponent {
   statusCode=0;
   statusDeatil:'Loading' | 'Success' | 'Error'| 'Init' = 'Init'
 
-  @Output() modalStateEvent= new EventEmitter<boolean>();
+  @Output() modalStatePaymentMediumEvent= new EventEmitter<boolean>();
   modalState=true;
 
   @Input() paymentMediums: PaymentMedium[] = []
@@ -152,11 +152,10 @@ export class PaymentMediumComponent {
   //this function send the modal's state
   sendModalState(){
     this.modalState =false;
-    this.modalStateEvent.emit(this.modalState);
+    this.modalStatePaymentMediumEvent.emit(this.modalState);
     this.paymentMedium={
       id:0,
       medium:''
     }
   }
-
 }

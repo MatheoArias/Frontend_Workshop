@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Discounts, CreateDiscountDTO } from 'src/app/models/discount.model';
 import { DiscountService } from 'src/app/services/discount.service';
@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
 })
 
 export class DiscountsComponent {
+
+  @Output() modalStateDiscountEvent= new EventEmitter<boolean>();
+  modalStateDiscount=true
 
   @Input() discounts: Discounts[] = [];
   discount: Discounts = {
@@ -57,6 +60,18 @@ export class DiscountsComponent {
       .subscribe(data => {
         this.discounts = data;
       })
+  }
+
+  //this function is for send modal State to products component
+  sendModalStateDiscount(){
+    this.modalStateDiscount = false;
+    this.modalStateDiscountEvent.emit(this.modalStateDiscount);
+    this.discount= {
+      id: 0,
+      types: '',
+      description: '',
+      percentage: 0,
+    }
   }
 
   // this function is for add discount to data base

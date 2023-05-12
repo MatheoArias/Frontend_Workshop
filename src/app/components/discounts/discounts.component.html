@@ -1,7 +1,14 @@
 <div
   class="subcontent__app">
-  <h2> Ingresa el descuento</h2>
-  <form  (ngSubmit)="submit($event)" [formGroup]="formDiscount">
+
+  <button
+    class="button__icon"
+    (click)="sendModalStateDiscount()">
+  </button>
+
+  <form
+    (ngSubmit)="submit($event)"
+    [formGroup]="formDiscount">
     <div
       class="content__input">
       <label>

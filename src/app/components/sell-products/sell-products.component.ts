@@ -45,8 +45,8 @@ export class SellProductsComponent implements OnInit{
 
   ///this is the components states
   modalState=false
-  messagges = "";
-  statusCode = 0;
+  modalStateDiscount=false
+
   statusDeatil: 'Loading' | 'Success' | 'Error' | 'Init' = 'Init';
 
   //this is for create the bill number with the date
@@ -56,10 +56,12 @@ export class SellProductsComponent implements OnInit{
   month: string | number = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
   hour: string | number = this.date.getHours() < 10 ? `0${this.date.getHours()}` : this.date.getHours();
 
-  //This is import the pipe CurrencyPercent
+  //this import the pipe filter
+  //This import the pipe CurrencyPercent
   CurrencyPercent = new CurrencyPercentPipe();
-  //this is import the pipe filter
   filterpipe = new FilterPipe()
+
+
   itemFind = "";
   stateLenghtList= true;
 
@@ -254,10 +256,20 @@ export class SellProductsComponent implements OnInit{
     this.modalState =! this.modalState;
   }
 
+  toggleModalDiscount(){
+    this.modalStateDiscount =! this.modalStateDiscount;
+  }
+
   //this is the function for recive state modal the payments medium
-  reciveToggleModal(event:boolean){
+  reciveToggleModalPaymentMedium(event:boolean){
     this.modalState = event;
   }
+
+  //this is the function for recive state modal the discount
+  reciveToggleModalDiscount(event:boolean){
+    this.modalStateDiscount = event;
+  }
+
 
   //this function to add bill and sell's products in data base
   submit(event: Event) {

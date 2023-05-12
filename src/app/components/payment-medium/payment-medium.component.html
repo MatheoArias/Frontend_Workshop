@@ -20,16 +20,19 @@
     <div
       class="content__button">
       <button
-        class="button">
+        class="button"
+        [disabled]="!formPaymentMedium.valid"
+        [class.is__invalid]="!formPaymentMedium.valid">
         Agregar
       </button>
 
       <button
         class="button"
+        [disabled]="!formPaymentMedium.valid"
+        [class.is__invalid]="!formPaymentMedium.valid"
         (click)="updatePaymentMedium($event)">
         Modificar
       </button>
-
     </div>
 
   </form>

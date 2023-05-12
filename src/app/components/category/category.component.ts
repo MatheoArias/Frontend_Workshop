@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 
 export class CategoryComponent {
+
   formCategory!: FormGroup;
 
   @Input() categories: Category[] = [];
